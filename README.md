@@ -1,10 +1,10 @@
 # recipeasy
 
-Team members
-Kevin Derksen - 123kevyd
-Edmund Wong - wonge1
-Xian Mardiros - 
-Vinh Tran - vinhtrann
+Team members <br/>
+Kevin Derksen - 123kevyd <br/>
+Edmund Wong - wonge1 <br/>
+Xian Mardiros -  <br/>
+Vinh Tran - vinhtrann <br/>
 
 Core Features
 - Recipe Selector
