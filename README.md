@@ -5,6 +5,7 @@ Kevin Derksen - 123kevyd <br/>
 Edmund Wong - wonge1 <br/>
 Xian Mardiros -  <br/>
 Vinh Tran - vinhtrann <br/>
+Sebastian Araneda - sebaraneda <br/>
 
 Core Features
 - Recipe Selector
