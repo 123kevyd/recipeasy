@@ -6,8 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "npx sequelize-cli db:migrate",
-    "down": "npx sequelize-cli db:migate:undo ",
+    "migrate": "cd backend && npx sequelize-cli db:migrate",
+    "down": "cd backend && npx sequelize-cli db:migrate:undo",
     "seed": "cd backend && npx sequelize-cli seed:generate --name demo-user"
   },
   "dependencies": {
