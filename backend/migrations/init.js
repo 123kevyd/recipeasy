@@ -21,23 +21,19 @@ module.exports = {
       }
     });
 
-    await queryInterface.createTable('video', {
+    await queryInterface.createTable('ratings', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+      review: {
         type: Sequelize.STRING
       },
-      created_at: {
+      stars: {
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.INTEGER
       }
     });
   },
