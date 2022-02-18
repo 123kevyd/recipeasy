@@ -36,4 +36,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+//exporting info
+db.equipment = require("./equipment.js")(sequelize, Sequelize)
+
 module.exports = db;

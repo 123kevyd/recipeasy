@@ -1,5 +1,6 @@
-export default function handler(req, res)
-{
-	// call some sequelizer code, or some backend logic from here
-	// res.status(200).json([ingredients])
+const equipment = require ("../../backend/controllers/equipment.controller.js");
+export default function handler(req, res) {
+	const result = equipment.get();
+	console.log(result[0]);
+	res.status(200).json({ id: 1, name: result[0].dataValues.name})
 }
