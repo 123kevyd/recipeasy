@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 import { useRouter } from 'next/router'
-import Cookbook from '../../components/cookbook'
+import Cookbook from '../../components/kitchen'
 import Recipes from '../../components/recipes'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -41,7 +41,7 @@ function App() {
 				</Tabs>
 			</Box>
 			<TabPanel value={value} index={0}>
-				<Cookbook />
+				<Kitchen />
 			</TabPanel>
 			<TabPanel value={value} index={0}>
 				<Recipes />
