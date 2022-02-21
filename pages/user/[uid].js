@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 import { useRouter } from 'next/router'
-import Cookbook from '../../components/kitchen'
+import Kitchen from '../../components/kitchen'
 import Recipes from '../../components/recipes'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -35,7 +35,7 @@ function App() {
 		<Box sx={{ width: '100%' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 				<Tabs value={value} onChange={handleChange} centered>
-					<Tab label="Cookbook" />
+					<Tab label="Kitchen" />
 					<Tab label="Recipes" />
 					<Tab label="Meal Planner" disabled />
 				</Tabs>
