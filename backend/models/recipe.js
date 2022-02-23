@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   recipe.init({
-    id: DataTypes.INTEGER,
     name: DataTypes.STRING,
     instructions: DataTypes.STRING,
     equipment: DataTypes.ARRAY,
