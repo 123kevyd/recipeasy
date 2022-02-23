@@ -15,10 +15,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       equipment: {
-        type: Sequelize.ARRAY
+        type: Sequelize.STRING
       },
       ingredients: {
-        type: Sequelize.ARRAY
+        type: Sequelize.STRING
       },
       servings: {
         type: Sequelize.STRING
@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ratings: {
-        type: Sequelize.ARRAY
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
