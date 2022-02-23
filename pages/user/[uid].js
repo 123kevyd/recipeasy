@@ -7,7 +7,27 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 
-function TabPanel(props) {
+export async function getServerSideProps(context) 
+{
+	uid = context.uid
+	return 
+	{
+		props = {
+			inredients: [],
+			myIngredients: [],
+			recipes: [],
+			myRecipes: [],
+			equipment: [],
+			myEquipment: [],
+			restrictions: [],
+			myRestrictions: []
+		}
+	
+}
+
+
+function TabPanel(props)
+{
 	// https://codesandbox.io/s/x5uvxj?file=/demo.js
 	const {value, index, children } = props
 
@@ -22,10 +42,14 @@ function TabPanel(props) {
 	)
 }
 
-function App() {
-	const router = useRouter()
-	const user_id = router.query.uid
-	const [value, setValue] = React.useState(0)
+function App(props) {
+	const [tab, setTab] = React.useState(0)
+	const [ingredients, setIngredients] = useState(props.ingredients)
+	const [ingredients, setIngredients] = useState(props.ingredients)
+	const [recipes, setRecipes] = useState(props.recipes)
+	const [myRecipes, setMyRecipes] = useState(props.myRecipes)
+	const [restrictions, setRestrictions] = useState(props.myRecipes)
+	const uid = router.query.uid
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue)
@@ -40,11 +64,29 @@ function App() {
 					<Tab label="Meal Planner" disabled />
 				</Tabs>
 			</Box>
-			<TabPanel value={value} index={0}>
-				<Kitchen />
+			<TabPanel value={tab} index={0}>
+				<Kitchen 
+					ingredients={props.ingredients}
+					myIngredients={props.myIngredients}
+					equipment={props.equipment}
+					myEquipment={props.myEquipment}
+					recipes={props.recipes}
+					myRecipes={props.myRecipes}
+					restrictions={props.restrictions}
+					myRestrictions={props.myRestrictions}
+				/>
 			</TabPanel>
-			<TabPanel value={value} index={0}>
-				<Recipes />
+			<TabPanel value={tab} index={1}>
+				<Recipes 
+					ingredients={props.ingredients}
+					myIngredients={props.myIngredients}
+					equipment={props.equipment}
+					myEquipment={props.myEquipment}
+					recipes={props.recipes}
+					myRecipes={props.myRecipes}
+					restrictions={props.restrictions}
+					myRestrictions={props.myRestrictions}
+				/>
 			</TabPanel>
 			<TabPanel value={value} index={0}>
 			</TabPanel>
