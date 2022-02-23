@@ -38,5 +38,6 @@ db.Sequelize = Sequelize;
 
 //exporting info
 db.equipment = require("./equipment.js")(sequelize, Sequelize)
+db.rating = require("./rating.js")(sequelize, Sequelize)
 
 module.exports = db;
