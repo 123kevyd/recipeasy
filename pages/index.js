@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+//import Head from 'next/head'
+//import Image from 'next/image'
+//import styles from '../styles/Home.module.css'
 
 export default function Home() {
 	const [ingredients, setIngredients] = useState(null)
@@ -25,7 +25,7 @@ export default function Home() {
 	return (
 		<div>
 			<div>Hello world</div>
-			list
+			{list}
 		</div>
 	)
 }
