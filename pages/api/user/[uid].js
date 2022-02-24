@@ -10,7 +10,6 @@ export default async function handler(req, res) {
         res.status(204).json();
     } else if (req.method === 'GET') {
         const result = await user.get(req, res);
-        console.log(result);
         res.status(200).json({id: result.dataValues.id, 
                             username: result.dataValues.username,
                             ingredients: result.dataValues.ingredients,
