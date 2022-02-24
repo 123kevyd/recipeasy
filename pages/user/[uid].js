@@ -1,18 +1,17 @@
 
-import * as React from 'react'
 import { useRouter } from 'next/router'
-import Kitchen from '../../components/kitchen'
-import Recipes from '../../components/recipes'
+import { useState } from 'react'
+import Kitchen from '../../components/kitchen_comp'
+import Recipes from '../../components/recipes_comp'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 
 export async function getServerSideProps(context) 
 {
-	uid = context.uid
-	return 
-	{
-		props = {
+	const uid = context.uid
+	return {
+		props: {
 			inredients: [],
 			myIngredients: [],
 			recipes: [],
@@ -22,7 +21,7 @@ export async function getServerSideProps(context)
 			restrictions: [],
 			myRestrictions: []
 		}
-	
+	}
 }
 
 
@@ -43,12 +42,15 @@ function TabPanel(props)
 }
 
 function App(props) {
-	const [tab, setTab] = React.useState(0)
+	const [tab, setTab] = useState(0)
+	const router = useRouter()
 	const [ingredients, setIngredients] = useState(props.ingredients)
-	const [ingredients, setIngredients] = useState(props.ingredients)
+	const [myIngredients, setMyIngredients] = useState(props.myIngredients)
 	const [recipes, setRecipes] = useState(props.recipes)
 	const [myRecipes, setMyRecipes] = useState(props.myRecipes)
-	const [restrictions, setRestrictions] = useState(props.myRecipes)
+	const [restrictions, setRestrictions] = useState(props.restrictions)
+	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
+	const [value, setValue] = useState(0)
 	const uid = router.query.uid
 
 	const handleChange = (event, newValue) => {
