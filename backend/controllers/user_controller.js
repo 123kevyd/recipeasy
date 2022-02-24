@@ -35,6 +35,6 @@ exports.delete = async(req, res) => {
 }
 
 exports.get = async(req,res) => {
-    const result = await user.findByPk(req.data.primaryKey);
+    const result = await user.findByPk(req.query.uid);
     return result;
 }
