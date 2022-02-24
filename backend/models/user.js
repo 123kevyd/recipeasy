@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     restrictions: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'user',
+    freezeTableName:  true,
   });
   return User;
 };
