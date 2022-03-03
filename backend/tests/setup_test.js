@@ -1,3 +1,4 @@
+/*
 const chai = require("chai");
 const sinon = require("sinon");
 const db = require("../models")
@@ -19,3 +20,4 @@ describe("Rating Controller", function() {
   });
 });
 //test a connection db
+*/
