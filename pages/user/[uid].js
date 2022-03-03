@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
 import Kitchen from '../../components/kitchen'
-import Recipes from '../../components/recipes'
+import Recipes from '../../components/cookbook'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
