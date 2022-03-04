@@ -22,7 +22,7 @@ export async function getServerSideProps(context)
 			restrictions: [],
 			myRestrictions: []
 		}
-	
+	}
 }
 
 

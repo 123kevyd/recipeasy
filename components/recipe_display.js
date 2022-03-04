@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
-import { Box, Card, CardHeader, CardContent, Typography, List, ListItem, ListItemText, Checkbox, Chip, ListItemIcon } from '@mui/material'
+import { Box, Card, CardHeader, CardContent, Typography, List, ListItem, ListItemText, Checkbox, Chip, ListItemIcon, createTheme } from '@mui/material'
+import { ThemeProvider } from '@emotion/react';
 
 class RecipeDisplay extends Component {
+	theme = createTheme({
+		overrides: {
+			Card: {
+                root: {
+				    margin: '15px'
+                }
+			}
+		}
+	})
+
     render() { 
         return (
-            <>
+            <ThemeProvider theme={this.theme}>
                 <Box>
                     <Typography
                         align='center'
@@ -76,7 +87,7 @@ class RecipeDisplay extends Component {
                         </Card>
                     </Box>
                 </Box>
-            </>
+            </ThemeProvider>
         );
     }
 }

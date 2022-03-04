@@ -16,7 +16,7 @@ class RecipeRatingDisplay extends Component {
                 {this.props.reviews.map( review => 
                     <Card key={review}>
                         <CardContent>
-                            <Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
+                            <Box sx={{display:'grid', gridTemplateColumns: '141px auto'}}>
                                 <Box>
                                     {review.rating > 0 ? <StarIcon /> : <StarBorderIcon />}
                                     {review.rating > 1 ? <StarIcon /> : <StarBorderIcon />}

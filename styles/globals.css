@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.MuiCard-root {
+  margin: 15px;
+}
+
+.MuiTypography-h4 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
