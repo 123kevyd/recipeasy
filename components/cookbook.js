@@ -6,10 +6,10 @@ import Filter from './filter_comp'
 import RecipeTable from './recipe_table_comp';
 
 class Cookbook extends Component {
-	state = { recipeOpen: false }
 
 	tempRecipes = [{
-		title: "Easy Waffles",
+		id: 1,
+		title: "HARD Waffles",
 		description: "Consider this your new, go-to waffle recipe when you want to start your day off on a sweet note. No fussy steps or unexpected ingredients are required here, which means you can whip these up whenever your cravings hit.",
 		time: 30,
 		tags: ["Gluten Free", "Vegan", "Fish Free"],
@@ -30,10 +30,11 @@ class Cookbook extends Component {
 		equipment: ["Waffle Iron", "Whisk"],
 		reviews: [
 			{ rating: 5, difficulty: 3, description: "Loved this recipe, simple technique, on hand ingredients. My son is a very picky person, tastes all imperfections, and sensitive to over seasoning and sweetness. He loved this waffle and asked me to save the recipe, Which he has never done before" },
-			{ rating: 2, difficulty: 1, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
+			{ rating: 2, difficulty: 5, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
 			{ rating: 3, difficulty: 4, description: "Very easy recipe and it doesn’t make too many. I added approx. 1/4 more cup of flour and into the liquid ingredients I added 1 tsp vanilla. The recipe doesn't specify milk so I used a mix of 2% and whole." }
 		]
 	}, {
+		id: 2,
 		title: "Easy Waffles",
 		description: "Consider this your new, go-to waffle recipe when you want to start your day off on a sweet note. No fussy steps or unexpected ingredients are required here, which means you can whip these up whenever your cravings hit.",
 		time: 30,
@@ -62,13 +63,6 @@ class Cookbook extends Component {
 
 	currRecipe = this.tempRecipes[0]
 
-	handleToggleRecipe = () => {
-		let recipeOpen = this.state.recipeOpen
-		recipeOpen = !recipeOpen
-		this.setState({recipeOpen: recipeOpen})
-		console.log(this.state.recipeOpen)
-	}
-
 	render() { 
 		return (
 			<>
@@ -83,11 +77,6 @@ class Cookbook extends Component {
 				</Box>
 
 				<Button variant="contained" onClick={this.handleToggleRecipe}>Open View Recipe</Button>
-				<View_Recipe
-					onToggleRecipeView={this.handleToggleRecipe}
-					recipeOpen={this.state.recipeOpen}
-					recipe={this.currRecipe}
-				/>
 			</>
 		);
 	}
