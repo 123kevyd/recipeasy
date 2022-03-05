@@ -7,9 +7,9 @@ exports.get = async(req,res) => {
 }
 
 exports.post = async(req,res) => {
-    const entry = await rating.create({ 
+    const result = await rating.create({ 
         review: req.data.review, 
         stars: req.data.stars 
     });
-    console.log("Entry Auto ID:", entry.id);
+    return result;
 }
