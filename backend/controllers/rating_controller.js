@@ -1,6 +1,7 @@
 const db = require("../models");
 const rating = db.rating;
-const recipe = db.recipe;
+//const recipe = recipe_controller.js;
+const recipe = require ("./recipe_controller.js");
 
 exports.get = async(req,res) => {
     const result = await rating.findByPk(req.body.data.primaryKey);
@@ -9,8 +10,10 @@ exports.get = async(req,res) => {
 
 exports.post = async(req,res) => {
     recipeReq = {
-        query: {
-            uid: req.body.data.recipeId
+        body: {
+            data: {
+                primaryKey: req.body.data.recipeId
+            }
         }
     };
 
@@ -18,19 +21,27 @@ exports.post = async(req,res) => {
         review: req.body.data.review, 
         stars: req.body.data.stars 
     });
+    
+    ratedRecipe = await recipe.get(recipeReq);
+    ratingIds = [result.dataValues.id];
 
-    ratedRecipe = recipe.get(reqcipeReq);
+    if(ratedRecipe.dataValues.ratings){
+        ratingIds = ratingIds.concat(JSON.parse(ratedRecipe.dataValues.ratings));
+    }
 
     recipe.put({ 
-        data: {
-            name: ratedRecipe.dataValues.name, 
-            instructions: ratedRecipe.dataValues.instructions,
-            equipment: ratedRecipe.dataValues.equipment,
-            ingredients: ratedRecipe.dataValues.ingredients,
-            servings: ratedRecipe.dataValues.servings,
-            details: ratedRecipe.dataValues.details,
-            author: ratedRecipe.dataValues.author,
-            ratings: ratedRecipe.dataValues.ratings
+        body: {
+            data: {
+                primaryKey: ratedRecipe.dataValues.id,
+                name: ratedRecipe.dataValues.name, 
+                instructions: ratedRecipe.dataValues.instructions,
+                equipment: JSON.parse(ratedRecipe.dataValues.equipment),
+                ingredients: JSON.parse(ratedRecipe.dataValues.ingredients),
+                servings: ratedRecipe.dataValues.servings,
+                details: ratedRecipe.dataValues.details,
+                author: ratedRecipe.dataValues.author,
+                ratings: ratingIds
+            }
         }
     })
     return result;
