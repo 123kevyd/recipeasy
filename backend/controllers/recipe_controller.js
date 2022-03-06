@@ -12,8 +12,8 @@ exports.post = async(req,res) => {
         const entry = await recipe.create({ 
             name: req.body.data.name, 
             instructions: req.body.data.instructions,
-            equipment: req.body.data.equipment,
-            ingredients: req.body.data.ingredients,
+            ingredients: JSON.stringify(req.body.data.ingredients),
+            equipment: JSON.stringify(req.body.data.equipment),
             servings: req.body.data.servings,
             details: req.body.data.details,
             author: req.body.data.author

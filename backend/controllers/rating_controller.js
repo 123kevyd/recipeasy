@@ -21,7 +21,7 @@ exports.post = async(req,res) => {
 
     ratedRecipe = recipe.get(reqcipeReq);
 
-    recipe.post({ 
+    recipe.put({ 
         data: {
             name: ratedRecipe.dataValues.name, 
             instructions: ratedRecipe.dataValues.instructions,
