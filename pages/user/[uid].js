@@ -10,33 +10,16 @@ import Box from '@mui/material/Box'
 export async function getServerSideProps(context) 
 {
 	const uid = context.uid
-	const ingredients = [
-		{ title: 'Milk'}, { title: 'Bread' },  { title: 'Cheddar' },  { title: 'Coffee' },  { title: 'Eggs' }
-	]
-	const myIngredients = [
-		{ title: 'Milk'}
-	]
-	const restrictions = [
-		{ title: 'Gluten Free' }, { title: 'Vegetarian' }, { title: 'Vegan' }, { title: 'Peanut Allergy' }
-	]
-	const myRestrictions = []
-	const equipment = [
-		{ title: 'Stove' }, { title: 'Microwave' }, { title: 'Beater' }, { title: 'Cutting Board' }, { title: 'Freezer' }, { title: 'Pressure Cooker' }
-	]
-	const myEquipment = [
-		{ title: 'Stove' }
-	]
-
 	return {
 		props: {
-			ingredients: ingredients,
-			myIngredients: myIngredients,
+			inredients: [],
+			myIngredients: [],
 			recipes: [],
 			myRecipes: [],
-			equipment: equipment,
-			myEquipment: myEquipment,
-			restrictions: restrictions,
-			myRestrictions: myRestrictions
+			equipment: [],
+			myEquipment: [],
+			restrictions: [],
+			myRestrictions: []
 		}
 	}
 }

@@ -1,14 +1,9 @@
-import { useEffect } from 'react'
 import Ingredients from './ingredients_comp'
 import Restrictions from './restrictions_comp'
 import Equipment from './equipment_comp'
 import MyRecipes from './my_recipes_comp'
 import Box from '@mui/material/Box'
 export default function Kitchen(props) {
-	useEffect(() => {
-		console.log("mounting kitchen")
-	})
-
 	const kitchen = (
 		<Box sx={{ 
 			display: 'flex',
@@ -33,5 +28,5 @@ export default function Kitchen(props) {
 			/>
 		</Box>
 	)
-	return kitchen
+	return <div />
 }
