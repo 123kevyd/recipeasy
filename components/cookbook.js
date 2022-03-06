@@ -1,7 +1,5 @@
-import { Description } from '@mui/icons-material';
 import { Button, Typography, Box } from '@mui/material';
 import React, { Component } from 'react';
-import View_Recipe from './view_recipe';
 import Filter from './filter_comp'
 import RecipeTable from './recipe_table_comp';
 
@@ -67,16 +65,15 @@ class Cookbook extends Component {
 		return (
 			<>
 				<Typography variant='h4' align='center'>My Cookbook</Typography>
-				<Box sx={{display:'grid', gridTemplateColumns: 'auto auto'}}>
-					<Box>
+				{/* <Box sx={{display:'grid', gridTemplateColumns: 'auto auto'}}> */}
+				<Box margin='100px'>
+					{/* <Box>
 						<Filter />
-					</Box>
+					</Box> */}
 					<Box>
 						<RecipeTable recipes={this.tempRecipes} />
 					</Box>
 				</Box>
-
-				<Button variant="contained" onClick={this.handleToggleRecipe}>Open View Recipe</Button>
 			</>
 		);
 	}

@@ -1,23 +1,40 @@
-import { Chip, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, TableSortLabel, Button } from '@mui/material';
+import { Button, Chip } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
+import { DataGrid } from '@mui/x-data-grid'
+import { Box } from '@mui/system';
 
 class RecipeTable extends Component {
 	state = { 
         recipeOpen: false,
         currRecipe: this.props.recipes[0],
-        shownRecipes: this.formatRecipes(this.props.recipes),
-        sortInfo: [
-            { colName: "Title", dir: 'asc', active: false },
-            { colName: "Time", dir: 'asc', active: false },
-            { colName: "Difficulty", dir: 'asc', active: false },
-            { colName: "Rating", dir: 'asc', active: false }
-        ]
+        shownRecipes: this.formatRecipes(this.props.recipes)
     }
+
+    cols = [
+        { field: 'key', headerName: 'View Recipe', width: 100, renderCell: (params) => {
+            return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
+        }},
+        { field: 'title', headerName: 'Recipe Name', width: 300},
+        { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
+            return '' + params.value + " mins"
+        }},
+        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => {
+            return this.getStarsFromNum(params.value)
+        }},
+        { field: 'rating', headerName: 'Rating', width: 140, renderCell: (params) => {
+            return this.getStarsFromNum(params.value)
+        }},
+        { field: 'tags', headerName: 'Tags', minWidth: 300, renderCell: (params) => {
+            return this.getTags(params.value)
+        }}
+    ]
 
     formatRecipes(recipes) {
         recipes.forEach((recipe) => {
+            recipe.key = recipe.id
             recipe.rating = this.getAverageRating(recipe.reviews)
             recipe.difficulty = this.getAverageDifficulty(recipe.reviews)
         })
@@ -40,104 +57,50 @@ class RecipeTable extends Component {
     }
 
     getTags(tags) {
-        return tags.map( tag => <Chip key={tag} label={tag} />)
+        return <>{tags.map( tag => <Chip key={tag} label={tag} />)}</>
     }
 
-	handleToggleRecipe = (recipe) => {
+    getStarsFromNum(num) {
+        // let numStars = []
+        // for (let i = 1; i <= 5; i++) {
+        //     if (num >= i)
+        //         numStars.push(1)
+        //     else
+        //         numStars.push(0)
+        // }
+        // return numStars.map(hasStar => hasStar === 1? <StarIcon key={} /> : <StarBorderIcon />)
+        return (
+            <>
+                {num > 0 ? <StarIcon /> : <StarBorderIcon />}
+                {num > 1 ? <StarIcon /> : <StarBorderIcon />}
+                {num > 2 ? <StarIcon /> : <StarBorderIcon />}
+                {num > 3 ? <StarIcon /> : <StarBorderIcon />}
+                {num > 4 ? <StarIcon /> : <StarBorderIcon />}
+            </>
+        )
+    }
+
+	handleToggleRecipe = (key) => {
 		let recipeOpen = this.state.recipeOpen
 		recipeOpen = !recipeOpen
+
+        let currRecipe = this.state.shownRecipes.find((elem) => {return elem.id === key})
+console.log(this.state.shownRecipes, currRecipe, key)
 		this.setState({recipeOpen: recipeOpen})
+        this.setState({currRecipe: currRecipe})
+        console.log(this.state.currRecipe)
 	}
-
-    compareRecipes(a, b, orderBy) {
-        if (b[orderBy] < a[orderBy])
-            return -1
-        if (b[orderBy] > a[orderBy])
-            return 1
-        return 0
-    }
-
-    getCompare (order, orderBy) {
-        return order === 'desc' ? (a, b) => this.compareRecipes(a, b, orderBy) : (a, b) => -(this.compareRecipes(a, b, orderBy));
-    }
-
-    handleSortChange = (colName) => {
-        let sortInfo = JSON.parse(JSON.stringify(this.state.sortInfo))
-        let index = -1
-        let allRecipes = JSON.parse(JSON.stringify(this.props.recipes))
-
-        sortInfo.forEach((elem, i) => {if (elem.colName === colName) index = i})
-        if (!sortInfo[index].active) {
-            sortInfo.forEach((elem) => {elem.active = false})
-            sortInfo[index].active = true
-            sortInfo[index].dir = 'asc'
-        } else if (sortInfo[index].dir === "asc") {
-            sortInfo.forEach((elem) => {elem.active = false})
-            sortInfo[index].active = true
-            sortInfo[index].dir = 'desc'
-        } else {
-            sortInfo.forEach((elem) => {elem.active = false})
-        }
-        
-        allRecipes.sort(this.getCompare(sortInfo[index].dir, sortInfo[index].colName))
-
-        this.setState({sortInfo: sortInfo})
-        this.setState({shownRecipes: this.formatRecipes(allRecipes)})
-    }
 
     render() { 
         return (
             <>
-                <TableContainer>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                {this.state.sortInfo.map(column =>
-                                    <TableCell key={column.colName}>
-                                        <TableSortLabel
-                                            active={column.active}
-                                            direction={column.dir}
-                                            onClick={() => this.handleSortChange(column.colName)}
-                                        >
-                                            {column.colName}
-                                        </TableSortLabel>
-                                    </TableCell>
-                                )}
-                                <TableCell>
-                                    Tags
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            { this.state.shownRecipes.map( recipe =>
-                                <TableRow key={recipe.id} onClick={(recipe) => this.handleToggleRecipe(recipe)}>
-                                    <TableCell>{recipe.title}</TableCell>   
-                                    <TableCell>{recipe.time} mins</TableCell>
-                                    <TableCell>
-                                        { <Stack direction='row'>
-                                            <Typography variant='body1'>
-                                            {recipe.difficulty}&nbsp;
-                                            </Typography>
-                                            <StarIcon />
-                                        </Stack> }
-                                    </TableCell>
-                                    <TableCell>
-                                        <Stack direction='row'>
-                                            <Typography variant='body1'>
-                                                {recipe.rating}&nbsp;
-                                            </Typography>
-                                            <StarIcon />
-                                        </Stack>
-                                        
-                                    </TableCell>
-                                    <TableCell>
-                                        {this.getTags(recipe.tags)}
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <Box style={{ width: '100%' }}>
+                    <DataGrid
+                        rows={this.state.shownRecipes}
+                        columns={this.cols} 
+                        autoHeight
+                        />
+                </Box>
                 <View_Recipe
                     onToggleRecipeView={this.handleToggleRecipe}
                     recipeOpen={this.state.recipeOpen}
