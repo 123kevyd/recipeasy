@@ -9,8 +9,8 @@ exports.get = async(req,res) => {
 exports.post = async(req,res) => {
     if(req.body.data.review && req.body.data.stars) {
         const entry = await rating.create({ 
-            review: req.data.review, 
-            stars: req.data.stars 
+            review: req.body.data.review, 
+            stars: req.body.data.stars 
         });
         return entry;
     } else {
