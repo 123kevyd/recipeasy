@@ -32,6 +32,18 @@ npm run dev
 yarn dev
 ```
 
+## Commands Section
+
+Sync tables with database by running:
+```bash
+npm run migrate
+```
+
+Roll back from previous migration:
+```bash
+npm run down
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
