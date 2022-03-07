@@ -11,11 +11,6 @@ export default function Recipes(props) {
 			const found = myRecipes.some( recipe2 =>
 				recipe1.title === recipe2.title
 			)
-			//if(found){
-				//console.log(`recipe ${recipe1.title} matched`)
-			//}else{
-				//console.log(`recipe ${recipe1.title} didn't match`)
-			//}
 			return ! found
 		})
 	}
