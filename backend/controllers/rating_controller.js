@@ -7,9 +7,13 @@ exports.get = async(req,res) => {
 }
 
 exports.post = async(req,res) => {
-    const entry = await rating.create({ 
-        review: req.data.review, 
-        stars: req.data.stars 
-    });
-    console.log("Entry Auto ID:", entry.id);
+    if(req.body.data.review && req.body.data.stars) {
+        const entry = await rating.create({ 
+            review: req.body.data.review, 
+            stars: req.body.data.stars 
+        });
+        return entry;
+    } else {
+        //do nothing
+    }
 }
