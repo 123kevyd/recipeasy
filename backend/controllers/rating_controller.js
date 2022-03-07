@@ -8,40 +8,46 @@ exports.get = async(req,res) => {
 }
 
 exports.post = async(req,res) => {
-    recipeReq = {
-        body: {
-            data: {
-                primaryKey: req.body.data.recipeId
+    if(req.body.data.review && req.body.data.stars && req.body.data.recipeId) {
+        recipeReq = {
+            body: {
+                data: {
+                    primaryKey: req.body.data.recipeId
+                }
             }
+        };
+
+        const result = await rating.create({ 
+            review: req.body.data.review, 
+            stars: req.body.data.stars 
+        });
+        
+        ratedRecipe = await recipe.get(recipeReq);
+        ratingIds = [result.dataValues.id];
+
+        if(ratedRecipe.dataValues.ratings){
+            ratingIds = ratingIds.concat(JSON.parse(ratedRecipe.dataValues.ratings));
         }
-    };
 
-    const result = await rating.create({ 
-        review: req.body.data.review, 
-        stars: req.body.data.stars 
-    });
-    
-    ratedRecipe = await recipe.get(recipeReq);
-    ratingIds = [result.dataValues.id];
+        recipe.put({ 
+            body: {
+                data: {
+                    primaryKey: ratedRecipe.dataValues.id,
+                    name: ratedRecipe.dataValues.name, 
+                    instructions: ratedRecipe.dataValues.instructions,
+                    equipment: JSON.parse(ratedRecipe.dataValues.equipment),
+                    ingredients: JSON.parse(ratedRecipe.dataValues.ingredients),
+                    servings: ratedRecipe.dataValues.servings,
+                    details: ratedRecipe.dataValues.details,
+                    author: ratedRecipe.dataValues.author,
+                    ratings: ratingIds
+                }
+            }
+        })
 
-    if(ratedRecipe.dataValues.ratings){
-        ratingIds = ratingIds.concat(JSON.parse(ratedRecipe.dataValues.ratings));
+        return result;
+
+    } else {
+        //nothing
     }
-
-    recipe.put({ 
-        body: {
-            data: {
-                primaryKey: ratedRecipe.dataValues.id,
-                name: ratedRecipe.dataValues.name, 
-                instructions: ratedRecipe.dataValues.instructions,
-                equipment: JSON.parse(ratedRecipe.dataValues.equipment),
-                ingredients: JSON.parse(ratedRecipe.dataValues.ingredients),
-                servings: ratedRecipe.dataValues.servings,
-                details: ratedRecipe.dataValues.details,
-                author: ratedRecipe.dataValues.author,
-                ratings: ratingIds
-            }
-        }
-    })
-    return result;
 }
