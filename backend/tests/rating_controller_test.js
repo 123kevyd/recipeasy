@@ -3,8 +3,8 @@ const sinon = require("sinon");
 const db = require("../models")
 const expect = chai.expect;
 const rating = db.rating;
-const recipe = db.recipe;
 const RatingController = require("../controllers/rating_controller");
+const RecipeController = require("../controllers/recipe_controller");
 
 describe("Rating Controller", function() {
   
@@ -17,16 +17,17 @@ describe("Rating Controller", function() {
       stars: 1,
       review: "Worst Movie"
     }
-  
-    const request = {
-        data: {
-            primaryKey: 5
-        }
-    };
-
 
     describe("Testing Get Function", async function() {
         it("Should get different objects based on request input", async function() {
+            var request = {
+                body: {
+                    data: {
+                        primaryKey: 5
+                    }
+                }
+            };
+
             const mockMethod = sinon.stub(rating, "findByPk");
             mockMethod.withArgs(5).returns(fiveStarReview);
             mockMethod.withArgs(1).returns(oneStarReview);
@@ -35,28 +36,87 @@ describe("Rating Controller", function() {
             expect(toCheck.stars).to.be.equal(5);
             expect(toCheck.review).to.be.equal("Best Movie");
 
-            request.data.primaryKey = 1;
+            request.body.data.primaryKey = 1;
             toCheck = await RatingController.get(request);
             expect(toCheck.stars).to.be.equal(1);
             expect(toCheck.review).to.be.equal("Worst Movie");
         });
     });
-
+    
     describe("Testing Post Function", async function() {
         it("Should get different objects based on request input", async function() {
+            var request = {
+                body: {
+                    data: {
+                        recipeId: 5,
+                        stars: 3,
+                        review: "Yo"
+                    }
+                }
+            };
+
             const createMethod = sinon.stub(rating, "create");
-            const updateMethod = sinon.stub(recipe, "update");
-            mockMethod.withArgs(5).returns(fiveStarReview);
-            mockMethod.withArgs(1).returns(oneStarReview);
+            createMethod.returns({
+                dataValues: {
+                    review: "Yo",
+                    id: 1,
+                }
+            });
+            
+            const getMethod = sinon.stub(RecipeController, "get");
+            getMethod.returns({
+                dataValues: {
+                    id: 1,
+                    name: "name", 
+                    instructions: "instr",
+                    equipment: [2],
+                    ingredients: [3],
+                    servings: 2,
+                    details: "details",
+                    author: 2,
+                    ratings: [2]
+                }
+            });
 
-            toCheck = await RatingController.get(request);
-            expect(toCheck.stars).to.be.equal(5);
-            expect(toCheck.review).to.be.equal("Best Movie");
+            const putMethod = sinon.stub(RecipeController, "put");
+            
+            putMethod.withArgs({ 
+                body: {
+                    data: {
+                        primaryKey: 1,
+                        name: "name", 
+                        instructions: "instr",
+                        equipment: [2],
+                        ingredients: [3],
+                        servings: 2,
+                        details: "details",
+                        author: 2,
+                        ratings: [1,2]
+                    }
+                }
+            });
 
-            request.data.primaryKey = 1;
-            toCheck = await RatingController.get(request);
-            expect(toCheck.stars).to.be.equal(1);
-            expect(toCheck.review).to.be.equal("Worst Movie");
+            putMethod.withArgs({ 
+                body: {
+                    data: {
+                        primaryKey: 1,
+                        name: "name", 
+                        instructions: "instr",
+                        equipment: [2],
+                        ingredients: [3],
+                        servings: 2,
+                        details: "details",
+                        author: 2,
+                        ratings: [1]
+                    }
+                }
+            }).throwsException("failed to concat");
+
+            toCheck = await RatingController.post(request);
+            expect(toCheck.dataValues.review).to.be.equal("Yo");
+
+            sinon.restore()
         });
     });
+    
 });

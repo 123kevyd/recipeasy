@@ -8,11 +8,31 @@ const RecipeController = require("../controllers/recipe_controller");
 describe("Recipe Controller", function() {
 
     const recipe1 = {
-        instructions: "Chili"
-    };
+        dataValues: {
+            id: 1,
+            name: "Chili", 
+            instructions: "instr",
+            equipment: [2],
+            ingredients: [3],
+            servings: 2,
+            details: "details",
+            author: 2,
+            ratings: [2]
+        }
+    }
 
     const recipe2 = {
-        instructions: "Fries"
+        dataValues: {
+            id: 1,
+            name: "Fries", 
+            instructions: "instr",
+            equipment: [2],
+            ingredients: [3],
+            servings: 2,
+            details: "details",
+            author: 2,
+            ratings: [2]
+        }
     }
   
     const request = {
@@ -29,7 +49,7 @@ describe("Recipe Controller", function() {
             }
         }
     };
-
+    
     describe("Testing Get Function", async function() {
         it("Should get different objects based on request input", async function() {
             const mockMethod = sinon.stub(recipe, "findByPk");
@@ -37,14 +57,15 @@ describe("Recipe Controller", function() {
             mockMethod.withArgs(1).returns(recipe2);
 
             toCheck = await RecipeController.get(request);
-            expect(toCheck.instructions).to.be.equal("Chili");
+            console.log(toCheck);
+            expect(toCheck.dataValues.name).to.be.equal("Chili");
 
             request.body.data.primaryKey = 1;
             toCheck = await RecipeController.get(request);
-            expect(toCheck.instructions).to.be.equal("Fries");
+            expect(toCheck.dataValues.name).to.be.equal("Fries");
         });
     });
-
+    
     describe("Testing Post Function", async function() {
     
         it("Should Call Create Method", async function() {
@@ -66,4 +87,6 @@ describe("Recipe Controller", function() {
             expect(toCheck).to.be.equal("Update Method was Successfully Called");
         });
     });
+
+    
 });
