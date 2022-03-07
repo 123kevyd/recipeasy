@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Ingredients from './ingredients_comp'
 import Restrictions from './restrictions_comp'
 import Equipment from './equipment_comp'
@@ -28,5 +29,5 @@ export default function Kitchen(props) {
 			/>
 		</Box>
 	)
-	return <div />
+	return kitchen
 }
