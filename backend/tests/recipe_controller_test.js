@@ -55,4 +55,15 @@ describe("Recipe Controller", function() {
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
         });
     });
+
+    describe("Testing Put Function", async function() {
+    
+        it("Should Call Create Method", async function() {
+            const mockMethod = sinon.stub(recipe, "create");
+            mockMethod.returns("Create Method was Successfully Called");
+
+            toCheck = await RecipeController.post(request);
+            expect(toCheck).to.be.equal("Create Method was Successfully Called");
+        });
+    });
 });
