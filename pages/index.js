@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button'
 //
 
 export default function Login(props) {
+	const router = useRouter()
 	const [username, setUsername] = useState('')
 
 	const handleChange = (event) => {
