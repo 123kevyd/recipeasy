@@ -3,6 +3,7 @@ const sinon = require("sinon");
 const db = require("../models")
 const expect = chai.expect;
 const rating = db.rating;
+const recipe = db.recipe;
 const RatingController = require("../controllers/rating_controller");
 
 describe("Rating Controller", function() {
@@ -43,7 +44,8 @@ describe("Rating Controller", function() {
 
     describe("Testing Post Function", async function() {
         it("Should get different objects based on request input", async function() {
-            const mockMethod = sinon.stub(rating, "findByPk");
+            const createMethod = sinon.stub(rating, "create");
+            const updateMethod = sinon.stub(recipe, "update");
             mockMethod.withArgs(5).returns(fiveStarReview);
             mockMethod.withArgs(1).returns(oneStarReview);
 
