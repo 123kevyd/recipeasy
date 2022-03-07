@@ -39,5 +39,4 @@ export default function Restrictions(props) {
 			<KitchenList items={myRestrictions} delHandler={deleteRestriction}/>
 		</Stack>
 	)
-			
 }
