@@ -4,7 +4,6 @@ import KitchenList from "./kitchen_list_comp"
 import Stack from "@mui/material/Stack"
 
 export default function Ingredients(props) {
-	//const ingredients = props.ingredients
 
 	const [ myIngredients, setMyIngredients ] = useState(props.myIngredients)
 
@@ -13,11 +12,6 @@ export default function Ingredients(props) {
 			const found = myIngredients.some( ingredient2 =>
 				ingredient1.title === ingredient2.title
 			)
-			//if(found){
-				//console.log(`ingredient ${ingredient1.title} matched`)
-			//}else{
-				//console.log(`ingredient ${ingredient1.title} didn't match`)
-			//}
 			return ! found
 		})
 	}
@@ -47,4 +41,3 @@ export default function Ingredients(props) {
 	)
 			
 }
-

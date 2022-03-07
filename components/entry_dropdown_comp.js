@@ -12,7 +12,6 @@ export default function EntryDropdown(props) {
 				options={props.items}
 				getOptionLabel={item => item.title}
 				filterSelectedOptions
-				//options={ingredients.map((option) => option.title)}
 				onChange={props.handler}
 				renderInput={(params) => (
 					<TextField

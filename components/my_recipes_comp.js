@@ -4,8 +4,6 @@ import KitchenList from "./kitchen_list_comp"
 import Stack from "@mui/material/Stack"
 
 export default function Recipes(props) {
-	//const recipes = props.recipes
-
 	const [ myRecipes, setMyRecipes ] = useState(props.myRecipes)
 
 	const getDropdownList = () => {
@@ -47,4 +45,3 @@ export default function Recipes(props) {
 	)
 			
 }
-
