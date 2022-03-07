@@ -15,13 +15,12 @@ class View_Recipe extends Component {
                 maxWidth='lg'
                 fullWidth
                 open={this.props.recipeOpen}
-                onClose={() => this.props.onToggleRecipeView()}
+                onClose={this.props.onToggleRecipeView}
             >
                 <>
                     <RecipeModalHeader
                         onToggleModal={this.props.onToggleRecipeView}
                         title="Recipe Viewer"
-                        id={this.props.recipe.id}
                     />
                     <RecipeDisplay recipe={this.props.recipe} />
                     <RecipeRatingDisplay reviews={this.props.recipe.reviews} />

@@ -83,12 +83,11 @@ class RecipeTable extends Component {
 	handleToggleRecipe = (key) => {
 		let recipeOpen = this.state.recipeOpen
 		recipeOpen = !recipeOpen
-
-        let currRecipe = this.state.shownRecipes.find((elem) => {return elem.id === key})
-console.log(this.state.shownRecipes, currRecipe, key)
-		this.setState({recipeOpen: recipeOpen})
-        this.setState({currRecipe: currRecipe})
-        console.log(this.state.currRecipe)
+        if (recipeOpen) {
+            let currRecipe = this.state.shownRecipes.find((elem) => {return elem.id === key})
+            this.setState({currRecipe: currRecipe})
+        }
+        this.setState({recipeOpen: recipeOpen})
 	}
 
     render() { 

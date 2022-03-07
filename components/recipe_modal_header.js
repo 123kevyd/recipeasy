@@ -10,7 +10,7 @@ class RecipeModalHeader extends Component {
             >
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>{this.props.title}</Typography>
-                    <IconButton edge="end" onClick={() => this.props.onToggleModal(this.props.id)}>
+                    <IconButton edge="end" onClick={this.props.onToggleModal}>
                         <CloseIcon />
                     </IconButton>
                 </Toolbar>
