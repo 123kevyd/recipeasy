@@ -7,6 +7,11 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 
+const db = require("../backend/models")
+const equipment = db.equipment
+const ingredients = db.ingredients
+const recipes = db.recipest
+const equipment = db.equipment
 export async function getServerSideProps(context) 
 {
 	const uid = context.uid
