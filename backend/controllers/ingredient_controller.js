@@ -9,14 +9,6 @@ exports.get = async(req,res) => {
 
 // adds an ingredient to the db
 exports.post = async(req,res) => {
-    recipeReq = {
-        body: {
-            data: {
-                primaryKey: req.body.data.recipeId
-            }
-        }
-    };
-
     const result = await ingredients.create({ 
         name: req.body.data.name, 
         price: req.body.data.price
