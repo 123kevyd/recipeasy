@@ -21,9 +21,6 @@ function DelButton({onClick, item}) {
 }
 
 export default function KitchenList(props) {
-	//const deleteIngredient = (ingredient) => {
-		//props.delHandler(ingredient)
-	//}
 	const listItems = (
 		props.items.map(item => 
 			<ListItem
