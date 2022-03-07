@@ -1,7 +1,17 @@
-FROM node:alpine
-WORKDIR '/app'
+#base image
+FROM node:16-alpine
 
-COPY package.json
+#make directory for docker image
+RUN mkdir -p /usr/app/
+WORKDIR /usr/app
+
+#copying files to docker image working directory
+COPY ./ ./
+
+#install dependencies
 RUN npm install
-COPY ..
-CMD ["npm","start"]
+#create .next folder
+RUN npm run build 
+
+EXPOSE 3000
+CMD ["npm", "start"]
