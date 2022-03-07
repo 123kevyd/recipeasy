@@ -2,7 +2,7 @@ const db = require("../models");
 const recipe = db.recipe;
 
 exports.get = async(req,res) => {
-    const result = await recipe.findByPk(req.data.primaryKey);
+    const result = await recipe.findByPk(req.body.data.primaryKey);
     return result;
     //console.log(result);
 }
@@ -12,8 +12,8 @@ exports.post = async(req,res) => {
         const entry = await recipe.create({ 
             name: req.body.data.name, 
             instructions: req.body.data.instructions,
-            equipment: req.body.data.equipment,
-            ingredients: req.body.data.ingredients,
+            ingredients: JSON.stringify(req.body.data.ingredients),
+            equipment: JSON.stringify(req.body.data.equipment),
             servings: req.body.data.servings,
             details: req.body.data.details,
             author: req.body.data.author
@@ -31,6 +31,7 @@ exports.put = async(req,res) => {
             instructions: req.body.data.instructions,
             ingredients: JSON.stringify(req.body.data.ingredients),
             equipment: JSON.stringify(req.body.data.equipment),
+            ratings: JSON.stringify(req.body.data.ratings),
             servings: req.body.data.servings,
             details: req.body.data.details,
             author: req.body.data.author
