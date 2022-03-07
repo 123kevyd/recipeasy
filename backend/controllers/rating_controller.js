@@ -1,7 +1,6 @@
 const db = require("../models");
 const rating = db.rating;
-//const recipe = recipe_controller.js;
-const recipe = require ("./recipe_controller.js");
+const recipe = require("./recipe_controller.js");
 
 exports.get = async(req,res) => {
     const result = await rating.findByPk(req.body.data.primaryKey);
