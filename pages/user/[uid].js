@@ -6,6 +6,7 @@ import Recipes from '../../components/recipes_comp'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
+import Cookbook from '../../components/cookbook'
 
 export async function getServerSideProps(context) 
 {
@@ -54,13 +55,13 @@ function App(props) {
 	const uid = router.query.uid
 
 	const handleChange = (event, newValue) => {
-		setValue(newValue)
+		setTab(newValue)
 	}
 
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-				<Tabs value={value} onChange={handleChange} centered>
+				<Tabs value={tab} onChange={handleChange} centered>
 					<Tab label="Kitchen" />
 					<Tab label="Recipes" />
 					<Tab label="Meal Planner" disabled />
@@ -79,7 +80,7 @@ function App(props) {
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={1}>
-				<Recipes 
+				<Cookbook 
 					ingredients={props.ingredients}
 					myIngredients={props.myIngredients}
 					equipment={props.equipment}
@@ -90,7 +91,7 @@ function App(props) {
 					myRestrictions={props.myRestrictions}
 				/>
 			</TabPanel>
-			<TabPanel value={value} index={0}>
+			<TabPanel value={tab} index={0}>
 			</TabPanel>
 		</Box>
 	)
