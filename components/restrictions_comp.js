@@ -4,7 +4,6 @@ import KitchenList from "./kitchen_list_comp"
 import Stack from "@mui/material/Stack"
 
 export default function Restrictions(props) {
-	//const restrictions = props.restrictions
 
 	const [ myRestrictions, setMyRestrictions ] = useState(props.myRestrictions)
 
@@ -13,11 +12,6 @@ export default function Restrictions(props) {
 			const found = myRestrictions.some( restriction2 =>
 				restriction1.title === restriction2.title
 			)
-			//if(found){
-				//console.log(`restriction ${restriction1.title} matched`)
-			//}else{
-				//console.log(`restriction ${restriction1.title} didn't match`)
-			//}
 			return ! found
 		})
 	}
