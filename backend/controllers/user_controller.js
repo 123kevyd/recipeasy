@@ -38,3 +38,8 @@ exports.get = async(req,res) => {
     const result = await user.findByPk(req.query.uid);
     return result;
 }
+
+exports.login = async(req, res) => {
+	return user.findOrCreate({where: {username: req.query}})
+}
+		
