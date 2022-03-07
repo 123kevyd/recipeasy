@@ -2,7 +2,7 @@ const db = require("../models");
 const recipe = db.recipe;
 
 exports.get = async(req,res) => {
-    const result = await recipe.findByPk(req.data.primaryKey);
+    const result = await recipe.findByPk(req.body.data.primaryKey);
     return result;
     //console.log(result);
 }
