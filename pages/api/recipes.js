@@ -6,7 +6,9 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
             const result = await recipe.post(req);
-            res.status(200).json([{id: result.dataValues.id}]);
+            res.status(200).json([{
+                id: result.dataValues.id
+            }]);
         } catch (error) {
             console.log(error);
         }
@@ -15,7 +17,9 @@ export default async function handler(req, res) {
     else if (req.method === 'GET') {
         try {
             const result = await recipe.get(req);
-	        res.status(200).json([{ result }])
+	        res.status(200).json([{ 
+                result
+            }])
         } catch (error) {
             console.log(error);
         }
