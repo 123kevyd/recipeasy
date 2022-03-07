@@ -8,27 +8,48 @@ const RecipeController = require("../controllers/recipe_controller");
 describe("Recipe Controller", function() {
 
     const recipe1 = {
-        instructions: "Chili"
-    };
+        dataValues: {
+            id: 1,
+            name: "Chili", 
+            instructions: "instr",
+            equipment: [2],
+            ingredients: [3],
+            servings: 2,
+            details: "details",
+            author: 2,
+            ratings: [2]
+        }
+    }
 
     const recipe2 = {
-        instructions: "Fries"
+        dataValues: {
+            id: 1,
+            name: "Fries", 
+            instructions: "instr",
+            equipment: [2],
+            ingredients: [3],
+            servings: 2,
+            details: "details",
+            author: 2,
+            ratings: [2]
+        }
     }
   
     const request = {
-        data: {
-            primaryKey: 5,
-            name: "name1", 
-            instructions: "name1",
-            equipment: "name1",
-            ingredients: "name1",
-            servings: "name1",
-            details: "name1",
-            author: "name1"
+        body: { 
+            data: {
+                primaryKey: 5,
+                name: "name1", 
+                instructions: "name1",
+                equipment: "name1",
+                ingredients: "name1",
+                servings: "name1",
+                details: "name1",
+                author: "name1"
+            }
         }
     };
-
-
+    
     describe("Testing Get Function", async function() {
         it("Should get different objects based on request input", async function() {
             const mockMethod = sinon.stub(recipe, "findByPk");
@@ -36,15 +57,15 @@ describe("Recipe Controller", function() {
             mockMethod.withArgs(1).returns(recipe2);
 
             toCheck = await RecipeController.get(request);
-            expect(toCheck.instructions).to.be.equal("Chili");
+            console.log(toCheck);
+            expect(toCheck.dataValues.name).to.be.equal("Chili");
 
-            request.data.primaryKey = 1;
+            request.body.data.primaryKey = 1;
             toCheck = await RecipeController.get(request);
-            expect(toCheck.stars).to.be.equal(1);
-            expect(toCheck.review).to.be.equal("Fries");
+            expect(toCheck.dataValues.name).to.be.equal("Fries");
         });
     });
-
+    
     describe("Testing Post Function", async function() {
     
         it("Should Call Create Method", async function() {
@@ -55,4 +76,17 @@ describe("Recipe Controller", function() {
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
         });
     });
+
+    describe("Testing Put Function", async function() {
+    
+        it("Should Call Update Method", async function() {
+            const mockMethod = sinon.stub(recipe, "update");
+            mockMethod.returns("Update Method was Successfully Called");
+
+            toCheck = await RecipeController.put(request);
+            expect(toCheck).to.be.equal("Update Method was Successfully Called");
+        });
+    });
+
+    
 });
