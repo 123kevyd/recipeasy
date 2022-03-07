@@ -4,7 +4,6 @@ import KitchenList from "./kitchen_list_comp"
 import Stack from "@mui/material/Stack"
 
 export default function Equipment(props) {
-	//const equipment = props.equipment
 
 	const [ myEquipment, setMyEquipment ] = useState(props.myEquipment)
 
@@ -13,11 +12,6 @@ export default function Equipment(props) {
 			const found = myEquipment.some( equipment2 =>
 				equipment1.title === equipment2.title
 			)
-			//if(found){
-				//console.log(`ingredient ${ingredient1.title} matched`)
-			//}else{
-				//console.log(`ingredient ${ingredient1.title} didn't match`)
-			//}
 			return ! found
 		})
 	}
