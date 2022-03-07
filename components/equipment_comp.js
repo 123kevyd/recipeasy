@@ -39,5 +39,4 @@ export default function Equipment(props) {
 			<KitchenList items={myEquipment} delHandler={deleteEquipment}/>
 		</Stack>
 	)
-			
 }
