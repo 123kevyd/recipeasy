@@ -81,11 +81,13 @@ export async function getServerSideProps(context)
 		{ title: 'Stove' }
 	]
 
+	let recipes = tempRecipes
+
 	return {
 		props: {
 			ingredients: ingredients,
 			myIngredients: myIngredients,
-			recipes: tempRecipes, //TODO: Switch to db val
+			recipes: recipes, //TODO: Switch to db val
 			myRecipes: [],
 			equipment: equipment,
 			myEquipment: myEquipment,

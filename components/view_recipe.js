@@ -23,7 +23,7 @@ class View_Recipe extends Component {
                         title="Recipe Viewer"
                     />
                     <RecipeDisplay recipe={this.props.recipe} />
-                    <RecipeRatingDisplay reviews={this.props.recipe.reviews} />
+                    <RecipeRatingDisplay reviews={(this.props.recipe !== undefined ? this.props.recipe.reviews : undefined)} />
                 </>
             </Dialog>
         );
