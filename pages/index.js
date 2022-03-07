@@ -1,5 +1,5 @@
 import { useState, useEffect, Component } from 'react'
-import { router } from 'next/router'
+import { useRouter } from 'next/router'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
@@ -9,28 +9,16 @@ import Button from '@material-ui/core/Button'
 //import styles from '../styles/Home.module.css'
 //
 
-export default class Login extends Component {
-	constructor (props) {
-		super(props)
+export default function Login(props) {
+	const [username, setUsername] = useState('')
 
-		this.state = {
-			username: ""
-		}
-
-		this.loginClicked = this.loginClicked.bind(this)
+	const handleChange = (event) => {
+		setUsername({ [event.currentTarget.id]: event.currentTarget.value })
 	}
 
-	handleChange = (event) => {
-		this.setState({ [event.currentTarget.id]: event.currentTarget.value })
-	}
-
-
-
-	async loginClicked(event) {
-		console.log(event)
-		console.log(this.state)
-		if(this.state.username != ""){
-			await fetch('api/user/[user]')
+	const loginClicked = () => {
+		if(username != ""){
+			fetch('api/user/[user]')
 				.then((res) => res.json)
 				.then((data) => {
 					console.log(data)
@@ -39,25 +27,23 @@ export default class Login extends Component {
 		}
 	}
 
-	render() {
-		return (
-			<div className="Login">
-				<form className="loginForm">
-					<InputLabel>
-						User Name
-					</InputLabel>
-					<Input
-						id="username"
-						onChange={this.handleChange}
-						type="text"
-					>
-					</Input>
-					<Button onClick={this.loginClicked} type="button" color="primary" className="loginForm__login-button">
-						log in
-					</Button>
-				</form>
-			</div>
-		)
-	}
+	return (
+		<div className="Login">
+			<form className="loginForm">
+				<InputLabel>
+					User Name
+				</InputLabel>
+				<Input
+					id="username"
+					onChange={handleChange}
+					type="text"
+				>
+				</Input>
+				<Button onClick={loginClicked} type="button" color="primary" className="loginForm__login-button">
+					log in
+				</Button>
+			</form>
+		</div>
+	)
 }
 
