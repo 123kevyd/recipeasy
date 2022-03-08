@@ -14,12 +14,13 @@ export default function Login(props) {
 	const [username, setUsername] = useState('')
 
 	const handleChange = (event) => {
-		setUsername({ [event.currentTarget.id]: event.currentTarget.value })
+		setUsername(event.currentTarget.value)
 	}
 
 	const loginClicked = () => {
 		if(username != ""){
-			fetch('api/user/[user]')
+			console.log(username)
+			fetch(`api/user/${username}`)
 				.then((res) => res.json)
 				.then((data) => {
 					console.log(data)
