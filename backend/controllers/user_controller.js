@@ -41,6 +41,6 @@ exports.get = async(req,res) => {
 
 exports.login = async(req, res) => {
 	const [result, created] = await user.findOrCreate({where: {username: req.query.user}});
-	return result ? user : null
+	return result
 }
 		

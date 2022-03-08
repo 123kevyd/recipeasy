@@ -21,7 +21,7 @@ export default function Login(props) {
 		if(username != ""){
 			console.log(username)
 			fetch(`api/user/${username}`)
-				.then((res) => res.json)
+				.then((res) => res.json())
 				.then((data) => {
 					console.log(data)
 					router.push(`/user/${data.id}`)
