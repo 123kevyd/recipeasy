@@ -7,30 +7,28 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 
-const db = require("../backend/models")
-const equipment = db.equipment
-const ingredients = db.ingredients
-const recipes = db.recipest
-const equipment = db.equipment
+const db = require("../../backend/models")
+const UserModel = db.user
+const EquipmentModel = db.equipment
+const IngredientModel = db.ingredient
+const RecipesModel = db.recipes
+const RestrictionModel = db.restriction
 export async function getServerSideProps(context) 
 {
-	const uid = context.uid
-	const ingredients = [
-		{ title: 'Milk'}, { title: 'Bread' },  { title: 'Cheddar' },  { title: 'Coffee' },  { title: 'Eggs' }
-	]
-	const myIngredients = [
-		{ title: 'Milk'}
-	]
-	const restrictions = [
-		{ title: 'Gluten Free' }, { title: 'Vegetarian' }, { title: 'Vegan' }, { title: 'Peanut Allergy' }
-	]
-	const myRestrictions = []
-	const equipment = [
-		{ title: 'Stove' }, { title: 'Microwave' }, { title: 'Beater' }, { title: 'Cutting Board' }, { title: 'Freezer' }, { title: 'Pressure Cooker' }
-	]
-	const myEquipment = [
-		{ title: 'Stove' }
-	]
+	const uid = context.params.uid
+	console.log("user id:")
+	console.log(uid)
+	const user = await UserModel.findByPk(uid)
+	console.log(user)
+	console.log(Object.getOwnPropertyNames(UserModel).filter(function(p){
+		return typeof user[p] === 'function'
+	}))
+	const ingredients = IngredientModel.findAll()
+	const equipment = EquipmentModel.findAll()
+	const restrictions = RestrictionModel.findAll()
+	const myIngredients = user.getIngredients()
+	const myEquipment = user.getEquipment()
+	const myRestrictions = user.getRestrictions()
 
 	return {
 		props: {
