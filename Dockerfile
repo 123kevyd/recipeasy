@@ -1,5 +1,5 @@
 #base image
-FROM node:16-alpine
+FROM node:17-alpine
 
 #make directory for docker image
 RUN mkdir -p /usr/app/
