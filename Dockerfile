@@ -11,6 +11,7 @@ COPY ./ ./
 
 #delete package-lock.json
 RUN rm package-lock.json
+RUN npm config set timeout 6000000
 
 #install dependencies
 RUN npm install
