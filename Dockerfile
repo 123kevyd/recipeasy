@@ -10,14 +10,14 @@ WORKDIR /usr/app
 COPY ./ ./
 
 #delete package-lock.json
-RUN rm package-lock.json
-RUN npm config set timeout 6000000
+#RUN rm package-lock.json
+#RUN npm config set timeout 6000000
 
 #upgrading npm version
-RUN npm install -g npm@8.5.3
+#RUN npm install -g npm@8.5.3
 
 #install dependencies
-RUN npm install
+#RUN npm install
 #create .next folder
 RUN npm run build 
 
