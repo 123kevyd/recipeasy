@@ -2,12 +2,13 @@ const db = require("../models");
 const user = db.user;
 
 exports.post = async(req, res) => {
-    if (req.body.data.ingredients && req.body.data.equipment && req.body.data.restrictions) {
+    if (req.body.data.ingredients && req.body.data.equipment && req.body.data.restrictions && req.body.data.recipes) {
         //Body fields exist - updating an existing user's information
         console.log(req.body.data);
         const entry = await user.update({ingredients: JSON.stringify(req.body.data.ingredients),
                                         equipment: JSON.stringify(req.body.data.equipment),
-                                        restrictions: JSON.stringify(req.body.data.restrictions)}, {
+                                        restrictions: JSON.stringify(req.body.data.restrictions),
+                                        recipes: JSON.stringify(req.body.data.recipes)}, {
                                             where: {
                                                 id: req.query.uid
                                             }
