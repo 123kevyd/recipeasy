@@ -23,26 +23,25 @@ describe("User Controller", function() {
         var request = {
           query: {
               uid: 5
-          }
+            }
         };
-        it("Should get different objects based on request input", async function() {
+
+        var response = {};
+
+        it("Should Call the ServerSideProps Get", async function() {
             var mockFind = sinon.stub(user, "findByPk");
             mockFind.withArgs(5).returns(firstUser);
             mockFind.withArgs(1).returns(secondUser);
-            
             toCheck = await UserController.get(5);
             expect(toCheck.username).to.be.equal("First Guy");
             expect(toCheck.restrictions).to.be.equal("none");
 
-            request.query.uid = 1;
             toCheck = await UserController.get(1);
             expect(toCheck.username).to.be.equal("Second Girl");
             expect(toCheck.restrictions).to.be.equal("lactose");
         });
-
-
     });
-    /*
+    
     describe("Testing Post Function", async function() {
         var request = {
             query: {
@@ -63,15 +62,32 @@ describe("User Controller", function() {
             expect(toCheck).to.be.equal(undefined);
         });
       
-        it("Should Call Create Method", async function() {
-            var mockFind = sinon.stub(user, "findOne");
-            mockFind.returns("something");
+        var mockFind = sinon.stub(user, "findOne");
+        it("User Does Not Exist, Should Call Create Method", async function() {
+            request.body.data.username = "missingUser";
+            mockFind.withArgs({
+                where: {
+                    username: "missingUser"
+                }
+            }).returns(null);
 
             var mockCreate = sinon.stub(user, "create");
             mockCreate.returns("Create Method was Successfully Called");
 
             toCheck = await UserController.post(request);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
+        });
+
+        it("User Does Exist, Should Not Call Create Method", async function() {
+            request.body.data.username = "foundUser";
+            mockFind.withArgs({
+                where: {
+                    username: "foundUser"
+                }
+            }).returns("found");
+
+            toCheck = await UserController.post(request);
+            expect(toCheck).to.be.equal("foundUser");
         });
 
         it("Should Call Update Method", async function() {
@@ -86,5 +102,5 @@ describe("User Controller", function() {
             expect(toCheck).to.be.equal("Update Method was Successfully Called");
             sinon.restore();
         });
-    });*/
+    });
 });
