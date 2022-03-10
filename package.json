@@ -9,7 +9,7 @@
     "migrate": "cd backend && npx sequelize-cli db:migrate",
     "down": "cd backend && npx sequelize-cli db:migrate:undo",
     "seed": "cd backend && npx sequelize-cli seed:generate --name demo-user",
-    "testBackend": "mocha './backend/**/*_test.js'"
+    "test": "mocha './backend/**/*_test.js'"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
