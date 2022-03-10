@@ -47,8 +47,9 @@ exports.get = async(req,res) => {
     return result;
 }
 
-//For getServerSideProps
-exports.get = async(uid) => {
-    const result = await user.findByPk(uid);
-    return result;
+exports.login = async(req, res) => {
+	const [result, created] = await user.findOrCreate({where: {username: req.query.user}});
+	return result
 }
+		
+
