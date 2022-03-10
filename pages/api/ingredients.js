@@ -1,6 +1,6 @@
 const ingredient = require ("../../backend/controllers/ingredient_controller.js");
 
-export default function handler(req, res)
+export default async function handler(req, res)
 {
 	// adding a new ingredient
     if (req.method === 'POST') {
