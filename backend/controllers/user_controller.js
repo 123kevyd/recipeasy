@@ -64,12 +64,10 @@ exports.delete = async(req, res) => {
 }
 
 exports.get = async(req,res) => {
-    const result = await user.findByPk(req.query.uid);
-    return result;
-}
-
-//For getServerSideProps
-exports.get = async(uid) => {
-    const result = await user.findByPk(uid);
-    return result;
+    if (req.query.uid) {
+        return await user.findByPk(req.query.uid);
+    } else {
+        //uid passed directly into the get method, for getServerSideProps
+        return await user.findByPk(req);
+    }
 }
