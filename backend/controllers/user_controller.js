@@ -4,7 +4,7 @@ const user = db.user;
 exports.post = async(req, res) => {
     if (req.body.data.ingredients || req.body.data.equipment || req.body.data.restrictions || req.body.data.recipes) {
         //Body fields exist - updating an existing user's informatio
-        entry = None
+        entry = null
         if (req.body.data.ingredients) {
             entry = await user.update({ingredients: JSON.stringify(req.body.data.ingredients),
                                             where: {
