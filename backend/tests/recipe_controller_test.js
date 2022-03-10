@@ -57,7 +57,6 @@ describe("Recipe Controller", function() {
             mockMethod.withArgs(1).returns(recipe2);
 
             toCheck = await RecipeController.get(request);
-            console.log(toCheck);
             expect(toCheck.dataValues.name).to.be.equal("Chili");
 
             request.body.data.primaryKey = 1;

@@ -4,7 +4,6 @@ const user = db.user;
 exports.post = async(req, res) => {
     if (req.body.data.ingredients && req.body.data.equipment && req.body.data.restrictions) {
         //Body fields exist - updating an existing user's information
-        console.log(req.body.data);
         const entry = await user.update({ingredients: JSON.stringify(req.body.data.ingredients),
                                         equipment: JSON.stringify(req.body.data.equipment),
                                         restrictions: JSON.stringify(req.body.data.restrictions)}, {
@@ -33,7 +32,6 @@ exports.post = async(req, res) => {
 }
 
 exports.delete = async(req, res) => {
-    console.log(req.query)
     const result = await user.destroy({
         where: {
             id: req.query.uid

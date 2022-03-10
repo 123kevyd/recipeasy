@@ -44,7 +44,7 @@ describe("Rating Controller", function() {
     });
     
     describe("Testing Post Function", async function() {
-        it("Should get different objects based on request input", async function() {
+        it("Should call create Rating as well as insert itself into a Recipe object", async function() {
             var request = {
                 body: {
                     data: {
@@ -115,8 +115,23 @@ describe("Rating Controller", function() {
             toCheck = await RatingController.post(request);
             expect(toCheck.dataValues.review).to.be.equal("Yo");
 
-            sinon.restore()
+            sinon.restore();
         });
+        /*
+        it("Should do nothing as request is not valid", async function() {
+            var request = {
+                body: {
+                    data: {
+                        recipeId: 5,
+                        review: "Yo"
+                    }
+                }
+            };
+
+            toCheck = await RatingController.post(request);
+            expect(toCheck.dataValues.review).to.be.equal(null);
+        });
+        */
     });
     
 });
