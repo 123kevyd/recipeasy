@@ -2,11 +2,10 @@ const chai = require("chai");
 const sinon = require("sinon");
 const db = require("../models")
 const expect = chai.expect;
-const equipment = db.equipment;
-const EquipmentController = require("../controllers/equipment_controller");
+const ingredient = db.ingredient;
+const IngredientController = require("../controllers/ingredient_controller");
 
 describe("Equipment Controller", function() {
-
     describe("Testing Get Function", async function() {
         var request = {
             data: {
@@ -15,10 +14,10 @@ describe("Equipment Controller", function() {
         };
         
         it("Should get different objects based on request input", async function() {
-            const mockMethod = sinon.stub(equipment, "findAll");
-            mockMethod.returns("Method Find All was Successfully Called");
+            const mockFind = sinon.stub(ingredient, "findByPk");
+            mockFind.returns("Method Find By Pk was Successfully Called");
 
-            toCheck = await EquipmentController.get(request);
+            toCheck = await IngredientController.get(request);
             expect(toCheck).to.be.equal("Method Find All was Successfully Called");
         });
     });
@@ -33,13 +32,13 @@ describe("Equipment Controller", function() {
         };
 
         it("Should Call Nothing Due to Bad Request", async function() {
-            toCheck = await EquipmentController.post(request);
+            toCheck = await IngredientController.post(request);
             expect(toCheck).to.be.equal(undefined);
         });
     
         it("Should Call Create Method", async function() {
-            const mockMethod = sinon.stub(equipment, "create");
-            mockMethod.returns("Create Method was Successfully Called");
+            const mockCreate = sinon.stub(ingredient, "create");
+            mockCreate.returns("Create Method was Successfully Called");
             request.body.data.name = "username";
 
             toCheck = await EquipmentController.post(request);
