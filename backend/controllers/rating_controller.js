@@ -3,8 +3,12 @@ const rating = db.rating;
 const recipe = require("./recipe_controller.js");
 
 exports.get = async(req,res) => {
-    const result = await rating.findByPk(req.body.data.primaryKey);
-    return result;
+    if(req.body.data.primaryKey) {
+        const result = await rating.findByPk(req.body.data.primaryKey);
+        return result;
+    } else {
+        //do nothing
+    }
 }
 
 exports.post = async(req,res) => {

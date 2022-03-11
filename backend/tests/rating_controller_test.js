@@ -8,6 +8,14 @@ const RecipeController = require("../controllers/recipe_controller");
 
 describe("Rating Controller", function() {
     describe("Testing Get Function", async function() {
+        var request = {
+            body: {
+                data: {
+                    primaryKey: 5
+                }
+            }
+        };
+
         it("Should get different objects based on request input", async function() {
             var fiveStarReview = {
                 stars: 5,
@@ -18,14 +26,6 @@ describe("Rating Controller", function() {
               stars: 1,
               review: "Worst Movie"
             }
-
-            var request = {
-                body: {
-                    data: {
-                        primaryKey: 5
-                    }
-                }
-            };
 
             const mockFind = sinon.stub(rating, "findByPk");
             mockFind.withArgs(5).returns(fiveStarReview);
@@ -39,6 +39,12 @@ describe("Rating Controller", function() {
             toCheck = await RatingController.get(request);
             expect(toCheck.stars).to.be.equal(1);
             expect(toCheck.review).to.be.equal("Worst Movie");
+        });
+
+        it("Should return nothing due to bad request", async function() {
+            request.body.data.primaryKey = null
+            toCheck = await RatingController.get(request);
+            expect(toCheck).to.be.equal(undefined);
         });
     });
     

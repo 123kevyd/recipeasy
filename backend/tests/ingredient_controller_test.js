@@ -23,7 +23,7 @@ describe("Equipment Controller", function() {
             expect(toCheck).to.be.equal("Method Find By Pk was Successfully Called");
         });
 
-        it("Should get different objects based on request input", async function() {
+        it("Should Get Nothing Due to Invalid Input", async function() {
             request.body.data.primaryKey = null;
             toCheck = await IngredientController.get(request);
             expect(toCheck).to.be.equal(undefined);

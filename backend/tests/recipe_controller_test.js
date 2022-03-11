@@ -63,6 +63,13 @@ describe("Recipe Controller", function() {
             toCheck = await RecipeController.get(request);
             expect(toCheck.dataValues.name).to.be.equal("Fries");
         });
+
+        it("Should get different objects based on request input", async function() {
+            request.body.data.primaryKey = null;
+
+            toCheck = await RecipeController.get(request);
+            expect(toCheck).to.be.equal(undefined);
+        });
     });
     
     describe("Testing Post Function", async function() {
