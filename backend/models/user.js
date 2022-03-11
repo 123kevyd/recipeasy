@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     restrictions: DataTypes.STRING
   }, {
     sequelize,
-		timestamps: false,
+	timestamps: false,
     modelName: 'user',
     freezeTableName:  true,
   });

@@ -25,6 +25,7 @@ export default function Kitchen(props) {
 				myRestrictions={props.myRestrictions}
 			/>
 			<MyRecipes
+				recipes={props.recipes}
 				myRecipes={props.myRecipes}
 			/>
 		</Box>
