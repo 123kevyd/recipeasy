@@ -8,8 +8,10 @@ const IngredientController = require("../controllers/ingredient_controller");
 describe("Equipment Controller", function() {
     describe("Testing Get Function", async function() {
         var request = {
-            data: {
-                primaryKey: 5
+            body: {
+                data: {
+                    primaryKey: 5
+                }
             }
         };
         
@@ -18,7 +20,13 @@ describe("Equipment Controller", function() {
             mockFind.returns("Method Find By Pk was Successfully Called");
 
             toCheck = await IngredientController.get(request);
-            expect(toCheck).to.be.equal("Method Find All was Successfully Called");
+            expect(toCheck).to.be.equal("Method Find By Pk was Successfully Called");
+        });
+
+        it("Should get different objects based on request input", async function() {
+            request.body.data.primaryKey = null;
+            toCheck = await IngredientController.get(request);
+            expect(toCheck).to.be.equal(undefined);
         });
     });
 
@@ -26,7 +34,8 @@ describe("Equipment Controller", function() {
         var request = {
             body: {
                 data: {
-                    name: null
+                    name: null,
+                    price: null
                 }
             }
         };
@@ -37,11 +46,13 @@ describe("Equipment Controller", function() {
         });
     
         it("Should Call Create Method", async function() {
+            request.body.data.name = "username";
+            request.body.data.price = 5;
+
             const mockCreate = sinon.stub(ingredient, "create");
             mockCreate.returns("Create Method was Successfully Called");
-            request.body.data.name = "username";
 
-            toCheck = await EquipmentController.post(request);
+            toCheck = await IngredientController.post(request);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
         });
     });
