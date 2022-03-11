@@ -7,19 +7,18 @@ const RatingController = require("../controllers/rating_controller");
 const RecipeController = require("../controllers/recipe_controller");
 
 describe("Rating Controller", function() {
-  
-    const fiveStarReview = {
-        stars: 5,
-        review: "Best Movie"
-    };
-
-    const oneStarReview = {
-      stars: 1,
-      review: "Worst Movie"
-    }
-
     describe("Testing Get Function", async function() {
         it("Should get different objects based on request input", async function() {
+            var fiveStarReview = {
+                stars: 5,
+                review: "Best Movie"
+            };
+        
+            var oneStarReview = {
+              stars: 1,
+              review: "Worst Movie"
+            }
+
             var request = {
                 body: {
                     data: {
@@ -28,9 +27,9 @@ describe("Rating Controller", function() {
                 }
             };
 
-            const mockMethod = sinon.stub(rating, "findByPk");
-            mockMethod.withArgs(5).returns(fiveStarReview);
-            mockMethod.withArgs(1).returns(oneStarReview);
+            const mockFind = sinon.stub(rating, "findByPk");
+            mockFind.withArgs(5).returns(fiveStarReview);
+            mockFind.withArgs(1).returns(oneStarReview);
 
             toCheck = await RatingController.get(request);
             expect(toCheck.stars).to.be.equal(5);
@@ -55,7 +54,7 @@ describe("Rating Controller", function() {
                 }
             };
 
-            const createMethod = sinon.stub(rating, "create");
+            var createMethod = sinon.stub(rating, "create");
             createMethod.returns({
                 dataValues: {
                     review: "Yo",
@@ -63,7 +62,7 @@ describe("Rating Controller", function() {
                 }
             });
             
-            const getMethod = sinon.stub(RecipeController, "get");
+            var getMethod = sinon.stub(RecipeController, "get");
             getMethod.returns({
                 dataValues: {
                     id: 1,
@@ -78,7 +77,7 @@ describe("Rating Controller", function() {
                 }
             });
 
-            const putMethod = sinon.stub(RecipeController, "put");
+            var putMethod = sinon.stub(RecipeController, "put");
             
             putMethod.withArgs({ 
                 body: {
@@ -117,21 +116,34 @@ describe("Rating Controller", function() {
 
             sinon.restore();
         });
-        /*
+        
         it("Should do nothing as request is not valid", async function() {
             var request = {
                 body: {
                     data: {
                         recipeId: 5,
-                        review: "Yo"
+                        review: "Yo",
+                        stars: null
                     }
                 }
             };
 
             toCheck = await RatingController.post(request);
-            expect(toCheck.dataValues.review).to.be.equal(null);
+            expect(toCheck).to.be.equal(undefined);
+
+            request.body.data.recipeId = null;
+            request.body.data.stars = 5;
+
+            toCheck = await RatingController.post(request);
+            expect(toCheck).to.be.equal(undefined);
+
+            request.body.data.review = null;
+            request.body.data.recipeId = 5;
+            
+            toCheck = await RatingController.post(request);
+            expect(toCheck).to.be.equal(undefined);
         });
-        */
+        
     });
     
 });
