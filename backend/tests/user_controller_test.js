@@ -26,9 +26,9 @@ describe("User Controller", function() {
           }
         };
         it("Should get different objects based on request input", async function() {
-            const mockMethod = sinon.stub(user, "findByPk");
-            mockMethod.withArgs(5).returns(firstUser);
-            mockMethod.withArgs(1).returns(secondUser);
+            var mockFind = sinon.stub(user, "findByPk");
+            mockFind.withArgs(5).returns(firstUser);
+            mockFind.withArgs(1).returns(secondUser);
 
             toCheck = await UserController.get(request);
             expect(toCheck.username).to.be.equal("First Guy");
@@ -42,7 +42,6 @@ describe("User Controller", function() {
     });
 
     describe("Testing Post Function", async function() {
-        
         var request = {
             query: {
                 uid: 1
@@ -52,7 +51,8 @@ describe("User Controller", function() {
                   username: null,
                   ingredients: null,
                   equipment: null,
-                  restrictions: null
+                  restrictions: null,
+                  recipes: null
               }
             }
         };
@@ -95,11 +95,14 @@ describe("User Controller", function() {
             request.body.data.ingredients = "what";
             request.body.data.restrictions = "when";
             request.body.data.equipment = "who";
+            request.body.data.recipes = "why";
 
-            const mockMethod = sinon.stub(user, "update");
-            mockMethod.returns("Update Method was Successfully Called");
+            var mockUpdate = sinon.stub(user, "update");
+            mockUpdate.returns("Update Method was Successfully Called");
+            
 
             toCheck = await UserController.post(request);
+            sinon.assert.callCount(mockUpdate, 4);
             expect(toCheck).to.be.equal("Update Method was Successfully Called");
         });
     });
