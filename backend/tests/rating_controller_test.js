@@ -7,30 +7,29 @@ const RatingController = require("../controllers/rating_controller");
 const RecipeController = require("../controllers/recipe_controller");
 
 describe("Rating Controller", function() {
-  
-    const fiveStarReview = {
-        stars: 5,
-        review: "Best Movie"
-    };
-
-    const oneStarReview = {
-      stars: 1,
-      review: "Worst Movie"
-    }
-
     describe("Testing Get Function", async function() {
-        it("Should get different objects based on request input", async function() {
-            var request = {
-                body: {
-                    data: {
-                        primaryKey: 5
-                    }
+        var request = {
+            body: {
+                data: {
+                    primaryKey: 5
                 }
-            };
+            }
+        };
 
-            const mockMethod = sinon.stub(rating, "findByPk");
-            mockMethod.withArgs(5).returns(fiveStarReview);
-            mockMethod.withArgs(1).returns(oneStarReview);
+        it("Should get different objects based on request input", async function() {
+            var fiveStarReview = {
+                stars: 5,
+                review: "Best Movie"
+            };
+        
+            var oneStarReview = {
+              stars: 1,
+              review: "Worst Movie"
+            }
+
+            const mockFind = sinon.stub(rating, "findByPk");
+            mockFind.withArgs(5).returns(fiveStarReview);
+            mockFind.withArgs(1).returns(oneStarReview);
 
             toCheck = await RatingController.get(request);
             expect(toCheck.stars).to.be.equal(5);
@@ -41,10 +40,16 @@ describe("Rating Controller", function() {
             expect(toCheck.stars).to.be.equal(1);
             expect(toCheck.review).to.be.equal("Worst Movie");
         });
+
+        it("Should return nothing due to bad request", async function() {
+            request.body.data.primaryKey = null
+            toCheck = await RatingController.get(request);
+            expect(toCheck).to.be.equal(undefined);
+        });
     });
     
     describe("Testing Post Function", async function() {
-        it("Should get different objects based on request input", async function() {
+        it("Should call create Rating as well as insert itself into a Recipe object", async function() {
             var request = {
                 body: {
                     data: {
@@ -55,7 +60,7 @@ describe("Rating Controller", function() {
                 }
             };
 
-            const createMethod = sinon.stub(rating, "create");
+            var createMethod = sinon.stub(rating, "create");
             createMethod.returns({
                 dataValues: {
                     review: "Yo",
@@ -63,7 +68,7 @@ describe("Rating Controller", function() {
                 }
             });
             
-            const getMethod = sinon.stub(RecipeController, "get");
+            var getMethod = sinon.stub(RecipeController, "get");
             getMethod.returns({
                 dataValues: {
                     id: 1,
@@ -78,7 +83,7 @@ describe("Rating Controller", function() {
                 }
             });
 
-            const putMethod = sinon.stub(RecipeController, "put");
+            var putMethod = sinon.stub(RecipeController, "put");
             
             putMethod.withArgs({ 
                 body: {
@@ -115,8 +120,36 @@ describe("Rating Controller", function() {
             toCheck = await RatingController.post(request);
             expect(toCheck.dataValues.review).to.be.equal("Yo");
 
-            sinon.restore()
+            sinon.restore();
         });
+        
+        it("Should do nothing as request is not valid", async function() {
+            var request = {
+                body: {
+                    data: {
+                        recipeId: 5,
+                        review: "Yo",
+                        stars: null
+                    }
+                }
+            };
+
+            toCheck = await RatingController.post(request);
+            expect(toCheck).to.be.equal(undefined);
+
+            request.body.data.recipeId = null;
+            request.body.data.stars = 5;
+
+            toCheck = await RatingController.post(request);
+            expect(toCheck).to.be.equal(undefined);
+
+            request.body.data.review = null;
+            request.body.data.recipeId = 5;
+            
+            toCheck = await RatingController.post(request);
+            expect(toCheck).to.be.equal(undefined);
+        });
+        
     });
     
 });

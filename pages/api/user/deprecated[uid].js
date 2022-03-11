@@ -15,7 +15,8 @@ export default async function handler(req, res) {
             username: result.dataValues.username,
             ingredients: result.dataValues.ingredients,
             equipment: result.dataValues.equipment,
-            restrictions: result.dataValues.restrictions
+            restrictions: result.dataValues.restrictions,
+            recipes: result.dataValues.recipes
         });
     }
 }
