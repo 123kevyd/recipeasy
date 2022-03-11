@@ -42,13 +42,13 @@ exports.delete = async(req, res) => {
     return result;
 }
 
-exports.get = async(req,res) => {
-    const result = await user.findByPk(req.query.uid);
+exports.get = async(uid) => {
+    const result = await user.findByPk(uid);
     return result;
 }
 
-exports.login = async(req, res) => {
-	const [result, created] = await user.findOrCreate({where: {username: req.query.user}});
+exports.login = async(username) => {
+	const [result, created] = await user.findOrCreate({where: {username: username}});
 	return result
 }
 		

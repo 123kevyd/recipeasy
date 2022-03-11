@@ -4,8 +4,23 @@ const recipe = db.recipe;
 exports.get = async(req,res) => {
     const result = await recipe.findByPk(req.body.data.primaryKey);
     return result;
-    
 }
+
+exports.getAll = async() => {
+	result = await recipe.findAll()
+	return result
+}
+	
+
+//exports.getAll = async(jsonArr) => {
+	//const idList = JSON.parse(jsonArr)
+	//const result = recipe.findAll({
+		//where: {
+			//id: idList
+		//}
+	//})
+    //return result
+//}
 
 exports.post = async(req,res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
