@@ -64,7 +64,7 @@ describe("Recipe Controller", function() {
             expect(toCheck.dataValues.name).to.be.equal("Fries");
         });
 
-        it("Should get different objects based on request input", async function() {
+        it("Should Call Nothing Due to Bad Request", async function() {
             request.body.data.primaryKey = null;
 
             toCheck = await RecipeController.get(request);
