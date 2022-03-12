@@ -69,44 +69,44 @@ function filterToUserData(items, idString){
 
 export async function getServerSideProps(context) 
 {
-	//const userCont = require("../../backend/controllers/user_controller")
-	//const equipmentCont = require("../../backend/controllers/equipment_controller")
-	//const ingredientCont = require("../../backend/controllers/ingredient_controller")
-	//const recipeCont = require("../../backend/controllers/recipe_controller")
-	////const restriction = require("../../backend/controllers/restriction_controller")
-	//const uid = context.params.uid
-	//const user = await userCont.get(uid)
-	//const ingredientsProm = ingredientCont.getAll()
-	////const restrictions = restriction.getAll()
-	////const recipes = recipe.getAll()
-	//let recipes = tempRecipes
-	//const equipmentProm = equipmentCont.getAll()
+	const userCont = require("../../backend/controllers/user_controller")
+	const equipmentCont = require("../../backend/controllers/equipment_controller")
+	const ingredientCont = require("../../backend/controllers/ingredient_controller")
+	const recipeCont = require("../../backend/controllers/recipe_controller")
+	//const restriction = require("../../backend/controllers/restriction_controller")
+	const uid = context.params.uid
+	const user = await userCont.get(uid)
+	const ingredientsProm = ingredientCont.getAll()
+	//const restrictions = restriction.getAll()
+	//const recipes = recipe.getAll()
+	let recipes = tempRecipes
+	const equipmentProm = equipmentCont.getAll()
 
-	//var [ingredients, equipment] = await Promise.all([ingredientsProm, equipmentProm])
-	//ingredients = ingredients.map(function(ingredient) {
-		//return {id: ingredient.dataValues.id, name: ingredient.dataValues.name}
-	//})
-	//equipment = equipment.map(function(equipment) {
-		//return {id: equipment.dataValues.id, name: equipment.dataValues.name}
-	//})
+	var [ingredients, equipment] = await Promise.all([ingredientsProm, equipmentProm])
+	ingredients = ingredients.map(function(ingredient) {
+		return {id: ingredient.dataValues.id, name: ingredient.dataValues.name}
+	})
+	equipment = equipment.map(function(equipment) {
+		return {id: equipment.dataValues.id, name: equipment.dataValues.name}
+	})
 
 
-	//const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
-	//const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
+	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
+	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
 	
 	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
 	//const myRecipes = filterToUserData(recipes, user.recipes)
 
-	const ingredients = []
-	const myIngredients = []
-	const equipment = []
-	const myEquipment = []
+	//const ingredients = []
+	//const myIngredients = []
+	//const equipment = []
+	//const myEquipment = []
 	let restrictions = []
 	let myRestrictions = []
-	let recipes = []
-	let myRecipes = []
+	//let recipes = []
+	//let myRecipes = []
 
-	return {
+	const result = {
 		props: {
 			ingredients: ingredients,
 			myIngredients: myIngredients,
@@ -118,6 +118,9 @@ export async function getServerSideProps(context)
 			myRestrictions: myRestrictions
 		}
 	}
+	console.log(result)
+
+	return result
 }
 
 
