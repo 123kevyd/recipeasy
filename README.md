@@ -3,7 +3,7 @@
 Team members <br/>
 Kevin Derksen - 123kevyd <br/>
 Edmund Wong - wonge1 <br/>
-Xian Mardiros - RightMakesMight <br/>
+Xian Mardiros - StoicDeveloper <br/>
 Vinh Tran - vinhtrann <br/>
 Sebastian Araneda - sebaraneda <br/>
 
