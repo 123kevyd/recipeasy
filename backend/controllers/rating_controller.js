@@ -12,7 +12,7 @@ exports.get = async(req,res) => {
 }
 
 exports.post = async(req,res) => {
-    if(req.body.data.review && req.body.data.stars && req.body.data.recipeId) {
+    if(req.body.data.review && req.body.data.stars && req.body.data.recipeId && req.body.data.difficulty) {
         recipeReq = {
             body: {
                 data: {
@@ -23,7 +23,8 @@ exports.post = async(req,res) => {
 
         const result = await rating.create({ 
             review: req.body.data.review, 
-            stars: req.body.data.stars 
+            stars: req.body.data.stars,
+            difficulty: req.body.data.difficulty
         });
         
         ratedRecipe = await recipe.get(recipeReq);
