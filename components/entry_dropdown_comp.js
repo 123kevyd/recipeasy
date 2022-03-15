@@ -13,14 +13,14 @@ export default function EntryDropdown(props) {
 				getOptionLabel={item => item.title}
 				filterSelectedOptions
 				onChange={props.handler}
+				autoHighlight
 				renderInput={(params) => (
 					<TextField
 						{...params}
 						label="Search"
 						InputProps={{
-							...params.InputProps,
-								type: 'search',
-							}}
+							...params.InputProps
+						}} 
 					/>
 				)}
 			/>
