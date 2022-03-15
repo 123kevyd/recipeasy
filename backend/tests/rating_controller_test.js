@@ -55,6 +55,7 @@ describe("Rating Controller", function() {
                     data: {
                         recipeId: 5,
                         stars: 3,
+                        difficulty: 4,
                         review: "Yo"
                     }
                 }
