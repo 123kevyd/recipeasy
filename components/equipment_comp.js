@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Typography from '@mui/material/Typography'
 import EntryDropdown from "./entry_dropdown_comp"
 import KitchenList from "./kitchen_list_comp"
 import Stack from "@mui/material/Stack"
@@ -32,6 +33,7 @@ export default function Equipment(props) {
 
 	return (
 		<Stack spacing={2} sx={{ width: 300, padding: 3, border: '1px blue solid', margin: 3 }}>
+			<Typography align="center" variant="h5" component="div">Equipment</Typography>
 			<EntryDropdown
 				items={getDropdownList()}
 				handler={equipmentSelected}

@@ -4,6 +4,7 @@ import Restrictions from './restrictions_comp'
 import Equipment from './equipment_comp'
 import MyRecipes from './my_recipes_comp'
 import Box from '@mui/material/Box'
+
 export default function Kitchen(props) {
 	const kitchen = (
 		<Box sx={{ 
