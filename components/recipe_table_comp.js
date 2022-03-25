@@ -1,10 +1,9 @@
 import { Button, Chip } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
 import { DataGrid } from '@mui/x-data-grid'
 import { Box } from '@mui/system';
+import RatingStars from './rating_stars_comp';
 
 class RecipeTable extends Component {
 	state = { 
@@ -21,11 +20,11 @@ class RecipeTable extends Component {
         { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
             return '' + params.value + " mins"
         }},
-        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => {
-            return this.getStarsFromNum(params.value)
+        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => { 
+            return <RatingStars stars={params.value} />
         }},
         { field: 'rating', headerName: 'Rating', width: 140, renderCell: (params) => {
-            return this.getStarsFromNum(params.value)
+            return <RatingStars stars={params.value} />
         }},
         { field: 'tags', headerName: 'Tags', minWidth: 300, renderCell: (params) => {
             return this.getTags(params.value)
@@ -35,25 +34,18 @@ class RecipeTable extends Component {
     formatRecipes(recipes) {
         recipes.forEach((recipe) => {
             recipe.key = recipe.id
-            recipe.rating = this.getAverageRating(recipe.reviews)
-            recipe.difficulty = this.getAverageDifficulty(recipe.reviews)
+            recipe.rating = this.getAverageVal(recipe.reviews, 'rating')
+            recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
         })
         return recipes
     }
 
-    getAverageDifficulty(reviews) {
+    getAverageVal(reviews, colName) {
         let sum = 0
-        Object.values(reviews).forEach( review => {
-            sum += review.difficulty;
+        reviews.forEach( review => {
+            sum += review[colName];
         })
-        return (sum / reviews.length).toFixed(1)
-    }
-    getAverageRating(reviews) {
-        let sum = 0
-        Object.values(reviews).forEach( review => {
-            sum += review.rating;
-        })
-        return (sum / reviews.length).toFixed(1)
+        return ((sum / reviews.length).toFixed(1))
     }
 
     getTags(tags) {
@@ -61,21 +53,9 @@ class RecipeTable extends Component {
     }
 
     getStarsFromNum(num) {
-        // let numStars = []
-        // for (let i = 1; i <= 5; i++) {
-        //     if (num >= i)
-        //         numStars.push(1)
-        //     else
-        //         numStars.push(0)
-        // }
-        // return numStars.map(hasStar => hasStar === 1? <StarIcon key={} /> : <StarBorderIcon />)
         return (
             <>
-                {num > 0 ? <StarIcon /> : <StarBorderIcon />}
-                {num > 1 ? <StarIcon /> : <StarBorderIcon />}
-                {num > 2 ? <StarIcon /> : <StarBorderIcon />}
-                {num > 3 ? <StarIcon /> : <StarBorderIcon />}
-                {num > 4 ? <StarIcon /> : <StarBorderIcon />}
+                <RatingStars stars={num} />
             </>
         )
     }
