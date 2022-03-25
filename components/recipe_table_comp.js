@@ -3,12 +3,14 @@ import StarIcon from '@mui/icons-material/Star'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
+import View_Add_Recipe from "./view_add_recipes"
 import { DataGrid } from '@mui/x-data-grid'
 import { Box } from '@mui/system';
 
 class RecipeTable extends Component {
 	state = { 
         recipeOpen: false,
+        addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
         shownRecipes: this.formatRecipes(this.props.recipes)
     }
@@ -90,9 +92,17 @@ class RecipeTable extends Component {
         this.setState({recipeOpen: recipeOpen})
 	}
 
+    handleToggleAdd = () => {
+		let addRecipeOpen = this.state.addRecipeOpen
+		addRecipeOpen = !addRecipeOpen
+        this.setState({addRecipeOpen: addRecipeOpen})
+	}
+
+
     render() { 
         return (
             <>
+                <Button variant='contained' onClick={() => this.handleToggleAdd()}>Add</Button>
                 <Box style={{ width: '100%' }}>
                     <DataGrid
                         rows={this.state.shownRecipes}
@@ -105,6 +115,11 @@ class RecipeTable extends Component {
                     recipeOpen={this.state.recipeOpen}
                     recipe={this.state.currRecipe}
                 />
+                <View_Add_Recipe
+                    addRecipeOpen={this.state.addRecipeOpen}
+                    onToggleAddRecipeView={this.handleToggleAdd}
+                />
+                    
             </>
         );
     }
