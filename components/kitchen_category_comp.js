@@ -9,10 +9,7 @@ export default function KitchenCategory(props) {
 
 	// using the drilled-down props and setters
 	// causes an issue where the dropdown and item list doesn't update
-	//const myItems = props.myItems
-	//const setMyItems = props.setMyItems
-	//const items = props.items
-	//const setItems = props.setItems
+	// later will need to replace items and myItems getters and setters with the drilled-down versions
 	const [myItems, setMyItems] = useState(props.myItems)
 	const [items, setItems] = useState(props.items)
 

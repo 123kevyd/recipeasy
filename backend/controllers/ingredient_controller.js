@@ -15,15 +15,6 @@ exports.getAll = async() => {
 	result = await ingredients.findAll()
 	return result
 }
-//exports.getAll = async(jsonArr) => {
-	//const idList = JSON.parse(jsonArr)
-	//const result = ingredients.findAll({
-		//where: {
-			//id: idList
-		//}
-	//})
-    //return result
-//}
 
 // adds an ingredient to the db
 exports.post = async(req,res) => {

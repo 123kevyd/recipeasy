@@ -16,16 +16,6 @@ exports.getAll = async() => {
 }
 	
 
-//exports.getAll = async(jsonArr) => {
-	//const idList = JSON.parse(jsonArr)
-	//const result = recipe.findAll({
-		//where: {
-			//id: idList
-		//}
-	//})
-    //return result
-//}
-
 exports.post = async(req,res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
         const entry = await recipe.create({ 

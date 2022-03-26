@@ -90,20 +90,13 @@ export async function getServerSideProps(context)
 		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
 	})
 
-	console.log("fetched user")
-	console.log(user)
 
 	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
 	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
 	//const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
 	
 	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
-	//const myRecipes = filterToUserData(recipes, user.recipes)
 
-	//const ingredients = []
-	//const myIngredients = []
-	//const equipment = []
-	//const myEquipment = []
 	let restrictions = []
 	let myRestrictions = []
 	let recipes = tempRecipes
@@ -121,7 +114,6 @@ export async function getServerSideProps(context)
 			myRestrictions: myRestrictions
 		}
 	}
-	console.log(result)
 
 	return result
 }
