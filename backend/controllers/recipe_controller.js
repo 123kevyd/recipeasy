@@ -10,6 +10,12 @@ exports.get = async(req,res) => {
     }
 }
 
+exports.getAll = async() => {
+	result = await recipe.findAll()
+	return result
+}
+	
+
 exports.post = async(req,res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
         const entry = await recipe.create({ 

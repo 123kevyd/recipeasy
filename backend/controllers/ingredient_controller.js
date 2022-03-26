@@ -11,6 +11,11 @@ exports.get = async(req,res) => {
     }
 }
 
+exports.getAll = async() => {
+	result = await ingredients.findAll()
+	return result
+}
+
 // adds an ingredient to the db
 exports.post = async(req,res) => {
 	const body = JSON.parse(req.body)

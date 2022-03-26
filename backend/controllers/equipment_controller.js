@@ -6,6 +6,11 @@ exports.get = async(req,res) => {
     return result;
 }
 
+exports.getAll = async() => {
+	result = await equipment.findAll()
+	return result
+}
+
 exports.post = async(req, res) => {
 	const body = JSON.parse(req.body)
     if(body.name) {

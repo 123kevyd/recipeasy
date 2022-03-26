@@ -7,7 +7,6 @@ export default async function handler(req, res)
 	// adding a new ingredient
     if (req.method === 'POST') {
         try {
-			console.log(req.body)
             const result = await ingredient.post(req);
             res.status(200).json([{
                 id: result.dataValues.id
