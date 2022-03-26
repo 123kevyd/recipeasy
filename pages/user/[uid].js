@@ -153,6 +153,8 @@ function App(props) {
 	const [myRecipes, setMyRecipes] = useState(props.myRecipes)
 	const [restrictions, setRestrictions] = useState(props.restrictions)
 	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
+	const [equipment, setEquipment] = useState(props.equipment)
+	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
 	const uid = router.query.uid
 
 	const handleChange = (event, newValue) => {
@@ -178,6 +180,14 @@ function App(props) {
 					myRecipes={props.myRecipes}
 					restrictions={props.restrictions}
 					myRestrictions={props.myRestrictions}
+					setRestrictions={setRestrictions}
+					setMyRestrictions={setMyRestrictions}
+					setMyIngredients={setMyIngredients}
+					setIngredients={setIngredients}
+					setMyEquipment={setMyEquipment}
+					setEquipment={setEquipment}
+					setMyRecipes={setMyRecipes}
+					setRecipes={setRecipes}
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={1}>

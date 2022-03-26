@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'restriction',
-		timestamps: false,
   });
   return Restriction;
 };

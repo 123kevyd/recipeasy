@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT
   }, {
     sequelize,
-		timestamps: false,
     modelName: 'ingredient',
     freezeTableName: true,
   });

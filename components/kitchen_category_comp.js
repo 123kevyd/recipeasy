@@ -5,15 +5,23 @@ import EntryDropdown from "./entry_dropdown_comp"
 import KitchenList from "./kitchen_list_comp"
 import Stack from "@mui/material/Stack"
 
-export default function KitenCategory(props) {
+export default function KitchenCategory(props) {
 
-	const [ myItems, setMyItems ] = useState(props.myItems)
-	const [ items, setItems ] = useState(props.items)
+	// using the drilled-down props and setters
+	// causes an issue where the dropdown and item list doesn't update
+	//const myItems = props.myItems
+	//const setMyItems = props.setMyItems
+	//const items = props.items
+	//const setItems = props.setItems
+	const [myItems, setMyItems] = useState(props.myItems)
+	const [items, setItems] = useState(props.items)
+
+
 	const router = useRouter()
 	const uid = router.query.uid
 
 	const getDropdownList = () => {
-		return props.items.filter( item1 => {
+		return items.filter( item1 => {
 			const found = myItems.some( item2 =>
 				item1.title === item2.title
 			)
@@ -24,7 +32,11 @@ export default function KitenCategory(props) {
 	const [ dropdownList, setDropdownList ] = useState(getDropdownList())
 
 	const itemSelected = async (event, value) => {
-		if(!props.items.some(item => item.title == value)){
+
+		if(value == null){
+			return false
+		}
+		if(typeof value == 'string'){
 			// save to items and to user
 			await fetch(`/api/${props.endpoint}/`, {method: 'POST', body: JSON.stringify({price: 0, name: value})})
 				.then((res) => res.json())
@@ -40,8 +52,9 @@ export default function KitenCategory(props) {
 						}
 					).then(() =>
 						{
-							setItems(items.concat([{id: id, name: value}]))
-							setMyItems(myItems.concat([{id:id, title: value}]))
+							const newItem = {id: id, title: value}
+							setItems(items.concat([newItem]))
+							setMyItems(myItems.concat([newItem]))
 							setDropdownList(getDropdownList())
 						}
 					)
@@ -53,7 +66,7 @@ export default function KitenCategory(props) {
 			await fetch(`/api/user/${uid}/`, 
 				{
 					method: 'PUT',
-					body: {[props.field]: itemIds}
+					body: JSON.stringify({[props.field]: itemIds})
 				}
 			)
 			setMyItems(myItems.concat([value]))
