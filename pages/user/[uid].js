@@ -78,17 +78,53 @@ export async function getServerSideProps(context)
 	const userProm = userCont.get(uid)
 	const ingredientsProm = ingredientCont.getAll()
 	//const restrictions = restriction.getAll()
-	//const recipesProm = recipeCont.getAll()
+	const recipesProm = recipeCont.getAll()
 	const equipmentProm = equipmentCont.getAll()
 
-	//var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
-	var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
+	var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
+	//var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
 	ingredients = ingredients.map(function(ingredient) {
 		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
 	})
+
 	equipment = equipment.map(function(equipment) {
 		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
 	})
+
+	recipes = recipes.map(function(recipes) {
+		return {id: recipes.dataValues.id,
+				title: recipes.dataValues.name,
+				description: recipes.dataValues.details,
+				time: recipes.dataValues.time,
+				tags: JSON.parse(recipes.dataValues.tags),
+				ingredients: JSON.parse(recipes.dataValues.ingredients),
+				directions: JSON.parse(recipes.dataValues.instructions),
+				equipment: JSON.parse(recipes.dataValues.equipment),
+				reviews: recipes.dataValues.ratings
+			}
+	})
+
+	for (recipeIndex in recipes) {
+		let equipmentList = recipes[recipeIndex].equipment;
+		let ingredientList = recipes[recipeIndex].ingredients
+		recipes[recipeIndex].equipment = [];
+		recipes[recipeIndex].ingredients = [];
+
+		for (let equipmentIndex in equipmentList) {
+			let equipEntry = equipment.find(equip => equip.id === equipmentList[equipmentIndex]);
+			if (equipEntry) {
+				recipes[recipeIndex].equipment.push(equipEntry.title);
+			}
+		}
+
+		for (let ingredientIndex in ingredientList) {
+			let ingredientEntry = ingredients.find(ingredient => ingredient.id === ingredientList[ingredientIndex].id);
+			if (ingredientEntry) {
+				let formatEntry = {id: ingredientEntry.id, quantity: ingredientList[ingredientIndex].quantity, name: ingredientEntry.title, unit: ingredientList[ingredientIndex].unit};
+				recipes[recipeIndex].ingredients.push(formatEntry);
+			}
+		}
+	}
 
 
 	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
@@ -99,7 +135,7 @@ export async function getServerSideProps(context)
 
 	let restrictions = []
 	let myRestrictions = []
-	let recipes = tempRecipes
+	//recipes = tempRecipes
 	let myRecipes = []
 
 	const result = {
