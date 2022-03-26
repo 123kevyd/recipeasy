@@ -86,4 +86,13 @@ Port: 5432
 username: postgres
 password: comp4350
 
+## Known issues
 
+If running this code in development on a windows machine and you encounter this error:
+`Unsupported platform for @next/swc-linux-x64-gnu@12.1.0`
+
+First, ensure you are using at least version 17.0.0 or above of node and 8.5.x of npm
+
+Second, delete package-lock.json and remove the @next/swc-linux-x64-gnu@12.1.0 from the package.json dependencies.
+
+Finally, you should be able to run npm install with no issues

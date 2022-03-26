@@ -5,22 +5,22 @@ import Autocomplete from "@mui/material/Autocomplete"
 import {useEffect} from 'react'
 export default function EntryDropdown(props) {
 	return (
-		<Stack spacing={2} sx={{ width: 300 }}>
+		<Stack spacing={2} sx={{ width: 1 }}>
 			<Autocomplete
-				sx={{ width: 0.75 }}
+				fullWidth
 				freeSolo
 				options={props.items}
 				getOptionLabel={item => item.title}
 				filterSelectedOptions
 				onChange={props.handler}
+				autoHighlight
 				renderInput={(params) => (
 					<TextField
 						{...params}
 						label="Search"
 						InputProps={{
-							...params.InputProps,
-								type: 'search',
-							}}
+							...params.InputProps
+						}} 
 					/>
 				)}
 			/>

@@ -7,13 +7,13 @@ const EquipmentController = require("../controllers/equipment_controller");
 
 describe("Equipment Controller", function() {
 
-    const request = {
-        data: {
-            primaryKey: 5
-        }
-    };
-
     describe("Testing Get Function", async function() {
+        var request = {
+            data: {
+                primaryKey: 5
+            }
+        };
+        
         it("Should get different objects based on request input", async function() {
             const mockMethod = sinon.stub(equipment, "findAll");
             mockMethod.returns("Method Find All was Successfully Called");
