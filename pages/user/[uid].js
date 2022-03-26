@@ -75,24 +75,27 @@ export async function getServerSideProps(context)
 	const recipeCont = require("../../backend/controllers/recipe_controller")
 	//const restriction = require("../../backend/controllers/restriction_controller")
 	const uid = context.params.uid
-	const user = await userCont.get(uid)
+	const userProm = userCont.get(uid)
 	const ingredientsProm = ingredientCont.getAll()
 	//const restrictions = restriction.getAll()
-	//const recipes = recipe.getAll()
-	let recipes = tempRecipes
+	//const recipesProm = recipeCont.getAll()
 	const equipmentProm = equipmentCont.getAll()
 
-	var [ingredients, equipment] = await Promise.all([ingredientsProm, equipmentProm])
+	//var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
+	var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
 	ingredients = ingredients.map(function(ingredient) {
-		return {id: ingredient.dataValues.id, name: ingredient.dataValues.name}
+		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
 	})
 	equipment = equipment.map(function(equipment) {
-		return {id: equipment.dataValues.id, name: equipment.dataValues.name}
+		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
 	})
 
+	console.log("fetched user")
+	console.log(user)
 
 	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
 	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
+	//const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
 	
 	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
 	//const myRecipes = filterToUserData(recipes, user.recipes)
@@ -103,15 +106,15 @@ export async function getServerSideProps(context)
 	//const myEquipment = []
 	let restrictions = []
 	let myRestrictions = []
-	//let recipes = []
-	//let myRecipes = []
+	let recipes = tempRecipes
+	let myRecipes = []
 
 	const result = {
 		props: {
 			ingredients: ingredients,
 			myIngredients: myIngredients,
 			recipes: recipes, //TODO: Switch to db val
-			myRecipes: [],
+			myRecipes: myRecipes,
 			equipment: equipment,
 			myEquipment: myEquipment,
 			restrictions: restrictions,
