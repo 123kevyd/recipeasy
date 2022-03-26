@@ -77,6 +77,8 @@ docker run -p 80:80 \
 	-e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
 	-e 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
 	-d dpage/pgadmin4`
+For copy-pasting:
+docker run -p 80:80 -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' -e 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' -d dpage/pgadmin4`
 It may be necessary to use a different port.
 Then access localhost:80/ in a web browser and enter the credentials used while running the container.
 Create a new server with the following info in the connection tab:
