@@ -4,6 +4,8 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 //import Head from 'next/head'
 //import Image from 'next/image'
 //import styles from '../styles/Home.module.css'
@@ -30,22 +32,26 @@ export default function Login(props) {
 	}
 
 	return (
-		<div className="Login">
-			<form className="loginForm">
-				<InputLabel>
-					User Name
-				</InputLabel>
-				<Input
-					id="username"
-					onChange={handleChange}
-					type="text"
-				>
-				</Input>
-				<Button onClick={loginClicked} type="button" color="primary" className="loginForm__login-button">
-					log in
-				</Button>
-			</form>
-		</div>
+		<Box className="Login">
+			<Typography>
+			</Typography>
+			<Box>
+				<form className="loginForm">
+					<InputLabel>
+						User Name
+					</InputLabel>
+					<Input
+						id="username"
+						onChange={handleChange}
+						type="text"
+					>
+					</Input>
+					<Button onClick={loginClicked} type="button" color="primary" className="loginForm__login-button">
+						log in
+					</Button>
+				</form>
+			<Box>
+		</Box>
 	)
 }
 
