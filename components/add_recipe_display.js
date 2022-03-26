@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Box, Button, ListItemText, TextField, Chip, ListItemIcon, createTheme } from '@mui/material'
+import AddRecipeIngredients from './add_recipe_ingredients'
 
 class AddRecipeDisplay extends Component {
 	theme = createTheme({
@@ -11,6 +12,22 @@ class AddRecipeDisplay extends Component {
 			}
 		}
 	})
+
+    ingredients = [
+		{ name: "all-purpose flour", quantity: 1, unit: "cup"},
+		{ name: "sugar", quantity: 2 , unit: "tablespoon"},
+		{ name: "baking powder", quantity: 1, unit: "teaspoon"},
+		{ name: "salt", quantity: 0.25, unit: "teaspoon"},
+		{ name: "milk", quantity: 1, unit: "cup"},
+		{ name: "eggs", quantity: 2, unit: "large"},
+		{ name: "unslated butter (melted)", quantity: 4, unit: "tablespoon"}
+	];
+
+    ingUnit = [
+        "cup",
+        "tablespoon",
+        "teaspoon"
+    ]
 
     formatAddRequest() {
         return {
@@ -45,34 +62,29 @@ class AddRecipeDisplay extends Component {
             <Box
             component="form"
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                width: 1000,
+                margin: 2,
+                //'& .MuiTextField-root': { m: 1, width: '25ch' },
+                maxWidth: '100%'
             }}
             noValidate
             autoComplete="off"
             >
                 <div>
                     <TextField
-                    required
-                    id="outlined-required"
-                    label="Required"
+                        required
+                        id="outlined-required"
+                        label="Recipe Name"
+                        fullWidth
                     />
                     <TextField
-                    id="outlined-password-input"
-                    label="Password"
+                        width = "25"
+                        label="Total Servings" 
+                        id="outlined-number"
+                        margin = "normal"
+                        type="number"
                     />
-                    <TextField
-                    id="outlined-read-only-input"
-                    label="Read Only"
-                    />
-                    <TextField
-                    id="outlined-number"
-                    label="Number"
-                    />
-                    <TextField id="outlined-search" label="Search field" type="search" />
-                    <TextField
-                    id="outlined-helperText"
-                    label="Ingredients"
-                    />
+                    <AddRecipeIngredients></AddRecipeIngredients>
                 </div>
                 <Button variant='contained' onClick={() => this.addRecipe(this.formatAddRequest())}>Submit</Button>
             </Box>
