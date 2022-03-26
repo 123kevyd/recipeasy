@@ -42,7 +42,6 @@ exports.put = async(req, res) => {
         if (body.recipes) {
 			updateUserList(thisUser, "recipes", body.recipes)
         }
-		console.log("updated")
 		return true
     }else {
         //Bad request

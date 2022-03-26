@@ -1,5 +1,8 @@
+console.log("ingredients controller")
 const db = require("../models");
+console.log("after models")
 const ingredients = db.ingredient;
+console.log("after db")
 
 // retrieves ingredient by primary key
 exports.get = async(req,res) => {
@@ -10,6 +13,7 @@ exports.get = async(req,res) => {
         //do nothing
     }
 }
+console.log("after ger")
 
 // adds an ingredient to the db
 exports.post = async(req,res) => {
@@ -24,3 +28,4 @@ exports.post = async(req,res) => {
         //do nothing
     }
 }
+console.log("leaving ingredients controller")
