@@ -24,27 +24,22 @@ export default function Ingredients(props) {
 	const [ dropdownList, setDropdownList ] = useState(getDropdownList())
 
 	const ingredientSelected = async (event, value) => {
-		console.log("event")
-		console.log(event)
-		console.log("value")
-		console.log(value)
-		
 		if(!props.ingredients.some(ingredient => ingredient.title == value)){
 			// save to ingredients and to user
-			console.log("storing ingredient")
 			await fetch(`/api/ingredients`, {method: 'POST', body: JSON.stringify({price: 0, name: value})})
 				.then((res) => res.json())
 				.then((data) => {
 					const id = data[0].id
-					console.log(id)
+					var ingIds = myIngredients.map(ingredient => ingredient.id)
+					ingIds = ingIds.filter(ingredient => ingredient != null)
+					ingIds.push(id)
 					fetch(`/api/user/${uid}`, 
 						{
 							method: 'PUT',
-							body: JSON.stringify({ingredients: id})
+							body: JSON.stringify({ingredients: ingIds})
 						}
 					).then(() =>
 						{
-							console.log('stored ingredient-user relation')
 							setIngredients(ingredients.concat([{id: id, name: value}]))
 							setMyIngredients(myIngredients.concat([{id:id, title: value}]))
 							setDropdownList(getDropdownList())
@@ -52,10 +47,13 @@ export default function Ingredients(props) {
 					)
 				})
 		}else{
+			var ingIds = myIngredients.map(ingredient => ingredient.id)
+			ingIds = ingIds.filter(ingredient => ingredient != null)
+			ingIds.push(value.id)
 			await fetch(`/api/user/${uid}`, 
 				{
 					method: 'PUT',
-					body: {ingredient: value.id}
+					body: {ingredients: ingIds}
 				}
 			)
 			setMyIngredients(myIngredients.concat([value]))
@@ -64,7 +62,15 @@ export default function Ingredients(props) {
 		// todo: check if the request was successful
 	}
 
-	const deleteIngredient = (ingredient1) => {
+	const deleteIngredient = async (ingredient1) => {
+		var ingIds = myIngredients.map(ingredient => ingredient.id)
+		ingIds.splice(ingIds.findIndex((id) => id == ingredient1.id), 1)
+		await fetch(`/api/user/${uid}`, 
+			{
+				method: 'PUT',
+				body: JSON.stringify({ingredients: ingIds})
+			}
+		)
 		setMyIngredients(myIngredients.filter(ingredient2 => {
 			return ingredient1.title !== ingredient2.title
 		}))

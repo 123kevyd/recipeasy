@@ -14,45 +14,36 @@ async function addToUserList(currUser, uid, listName, id) {
 	console.log("added to list")
 }
 
+async function updateUserList(currUser, listName, listString) {
+	console.log("updating user list")
+	console.log(listString)
+	const json = JSON.stringify(listString)
+	console.log(json)
+	currUser[listName] = JSON.stringify(listString)
+	currUser.save()
+}
+
 exports.put = async(req, res) => {
-	console.log(req)
     if (req.body && req.query.user) {
         //Body fields exist - updating an existing user's informatio
 		const body = JSON.parse(req.body)
 		const uid = req.query.user
-		console.log(uid)
         const thisUser = await user.findByPk(uid);
-		console.log(thisUser)
         var entry = null
-		console.log("storing item")
-		console.log(body)
         if (body.ingredients) {
-			addToUserList(thisUser, uid, "ingredients", body.ingredient)
+			updateUserList(thisUser, "ingredients", body.ingredients)
         }
-        if (req.body.equipment) {
-			addToUserList(thisUser, uid, "equipment", body.ingredient)
+        if (body.equipment) {
+			updateUserList(thisUser, "equipment", body.equipment)
         }
-        if (req.body.restrictions) {
-			addToUserList(thisUser, uid, "ingredients", body.restrictions)
+        if (body.restrictions) {
+			updateUserList(thisUser, "restrictions", body.restrictions)
         }
-        if (req.body.recipes) {
-			addToUserList(thisUser, uid, "recipes", body.recipes)
+        if (body.recipes) {
+			updateUserList(thisUser, "recipes", body.recipes)
         }
-        //Model.update only returns an array with the number of rows affected
+		console.log("updated")
 		return true
-		
-    //}else if (req.body.data.username) {
-        //entry = await user.findOne({
-            //where: {
-                //username: req.body.data.username
-            //}
-        //})
-
-        //if (!entry) {
-            //entry = await user.create({username: req.body.data.username});
-        //}
-
-        //return entry;
     }else {
         //Bad request
     }
