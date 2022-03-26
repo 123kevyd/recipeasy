@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import { Box, Button, ListItemText, TextField, Chip, ListItemIcon, createTheme } from '@mui/material'
-import { ThemeProvider } from '@emotion/react';
-import { recipe } from '../backend/models';
-//const Recipe = require ("../../backend/controllers/recipe_controller.js");
-const Recipe = require ("../pages/api/recipe.js");
 
 class AddRecipeDisplay extends Component {
 	theme = createTheme({
@@ -18,22 +14,30 @@ class AddRecipeDisplay extends Component {
 
     formatAddRequest() {
         return {
-            "body": {
-                "data": {
-                    "name": "testRecipe",
-                    "instructions": "Whisk the thing",
-                    "ingredients": ["egg"],
-                    "equipment": ["whisk"],
-                    "servings": 3,
-                    "details": null,
-                    "author": "edmundTesting"
-                }
+            "data": {
+                "name": "testRecipe",
+                "instructions": "Whisk the thing",
+                "ingredients": ["egg"],
+                "equipment": ["whisk"],
+                "servings": 3,
+                "details": null,
+                "author": 1
             }
+            
         }
     }
 
-    addRecipe(request) {
-        recipe.handler(request);
+    async addRecipe(request) {
+        const response = await fetch(`http://localhost:3000/api/recipes`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'User-Agent': '*',
+                },
+                body: JSON.stringify(request)
+            });
+        
+        console.log(response);
     }
 
     render() { 
