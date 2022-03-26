@@ -52,14 +52,6 @@ class RecipeTable extends Component {
         return <>{tags.map( tag => <Chip key={tag} label={tag} />)}</>
     }
 
-    getStarsFromNum(num) {
-        return (
-            <>
-                <RatingStars stars={num} />
-            </>
-        )
-    }
-
 	handleToggleRecipe = (key) => {
 		let recipeOpen = this.state.recipeOpen
 		recipeOpen = !recipeOpen
