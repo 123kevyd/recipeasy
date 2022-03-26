@@ -32,7 +32,6 @@ export default function KitchenCategory(props) {
 	const [ dropdownList, setDropdownList ] = useState(getDropdownList())
 
 	const itemSelected = async (event, value) => {
-
 		if(value == null){
 			return false
 		}
