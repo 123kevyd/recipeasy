@@ -1,5 +1,7 @@
 'use strict';
 
+var i = 1
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -23,8 +25,15 @@ fs
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
   .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
+	  try{
+		const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+		db[model.name] = model;
+	  }catch(exception){
+	  	console.log("failed to find dependency in models/index.js");
+	 	console.log(exception);
+
+		// TODO: Find out why this error was being thrown in the first place
+	  }
   });
 
 Object.keys(db).forEach(modelName => {
@@ -37,11 +46,11 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //exporting info
+db.user = require("./user.js")(sequelize, Sequelize)
 db.equipment = require("./equipment.js")(sequelize, Sequelize)
 db.rating = require("./rating.js")(sequelize, Sequelize)
-db.equipment = require("./equipment.js")(sequelize, Sequelize)
 db.recipe = require("./recipe.js")(sequelize, Sequelize)
+db.restriction = require("./restriction.js")(sequelize, Sequelize)
 db.ingredient = require("./ingredient.js")(sequelize, Sequelize)
-db.user = require("./user.js")(sequelize, Sequelize)
 
 module.exports = db;

@@ -14,13 +14,13 @@ let tempRecipes = [{
 	time: 30,
 	tags: ["Gluten Free", "Vegan", "Fish Free"],
 	ingredients: [
-		{ name: "all-purpose flour", quantity: 1, unit: "cup"},
-		{ name: "sugar", quantity: 2 , unit: "tablespoon"},
-		{ name: "baking powder", quantity: 1, unit: "teaspoon"},
-		{ name: "salt", quantity: 0.25, unit: "teaspoon"},
-		{ name: "milk", quantity: 1, unit: "cup"},
-		{ name: "eggs", quantity: 2, unit: "large"},
-		{ name: "unslated butter (melted)", quantity: 4, unit: "tablespoon"}
+		{ id: "1", name: "all-purpose flour", quantity: 1, unit: "cup"},
+		{ id: "2", name: "sugar", quantity: 2 , unit: "tablespoon"},
+		{ id: "3", name: "baking powder", quantity: 1, unit: "teaspoon"},
+		{ id: "4", name: "salt", quantity: 0.25, unit: "teaspoon"},
+		{ id: "5", name: "milk", quantity: 1, unit: "cup"},
+		{ id: "6", name: "eggs", quantity: 2, unit: "large"},
+		{ id: "7", name: "unslated butter (melted)", quantity: 4, unit: "tablespoon"}
 	],
 	directions: [
 		"Preheat waffle iron according to manufacturer's instructions. In a large bowl, whisk flour, sugar, baking powder, and salt; set aside.",
@@ -29,9 +29,9 @@ let tempRecipes = [{
 	],
 	equipment: ["Waffle Iron", "Whisk"],
 	reviews: [
-		{ rating: 5, difficulty: 3, description: "Loved this recipe, simple technique, on hand ingredients. My son is a very picky person, tastes all imperfections, and sensitive to over seasoning and sweetness. He loved this waffle and asked me to save the recipe, Which he has never done before" },
-		{ rating: 2, difficulty: 5, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
-		{ rating: 3, difficulty: 4, description: "Very easy recipe and it doesn’t make too many. I added approx. 1/4 more cup of flour and into the liquid ingredients I added 1 tsp vanilla. The recipe doesn't specify milk so I used a mix of 2% and whole." }
+		{ id: "1", rating: 5, difficulty: 3, description: "Loved this recipe, simple technique, on hand ingredients. My son is a very picky person, tastes all imperfections, and sensitive to over seasoning and sweetness. He loved this waffle and asked me to save the recipe, Which he has never done before" },
+		{ id: "2", rating: 2, difficulty: 5, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
+		{ id: "3", rating: 3, difficulty: 4, description: "Very easy recipe and it doesn't make too many. I added approx. 1/4 more cup of flour and into the liquid ingredients I added 1 tsp vanilla. The recipe doesn't specify milk so I used a mix of 2% and whole." }
 	]
 }, {
 	id: 2,
@@ -40,13 +40,13 @@ let tempRecipes = [{
 	time: 30,
 	tags: ["Gluten Free", "Vegan", "Fish Free"],
 	ingredients: [
-		{ name: "all-purpose flour", quantity: 1, unit: "cup"},
-		{ name: "sugar", quantity: 2 , unit: "tablespoon"},
-		{ name: "baking powder", quantity: 1, unit: "teaspoon"},
-		{ name: "salt", quantity: 0.25, unit: "teaspoon"},
-		{ name: "milk", quantity: 1, unit: "cup"},
-		{ name: "eggs", quantity: 2, unit: "large"},
-		{ name: "unslated butter (melted)", quantity: 4, unit: "tablespoon"}
+		{ id: "1", name: "all-purpose flour", quantity: 1, unit: "cup"},
+		{ id: "2", name: "sugar", quantity: 2 , unit: "tablespoon"},
+		{ id: "3", name: "baking powder", quantity: 1, unit: "teaspoon"},
+		{ id: "4", name: "salt", quantity: 0.25, unit: "teaspoon"},
+		{ id: "5", name: "milk", quantity: 1, unit: "cup"},
+		{ id: "6", name: "eggs", quantity: 2, unit: "large"},
+		{ id: "7", name: "unslated butter (melted)", quantity: 4, unit: "tablespoon"}
 	],
 	directions: [
 		"Preheat waffle iron according to manufacturer's instructions. In a large bowl, whisk flour, sugar, baking powder, and salt; set aside.",
@@ -55,46 +55,67 @@ let tempRecipes = [{
 	],
 	equipment: ["Waffle Iron", "Whisk"],
 	reviews: [
-		{ rating: 5, difficulty: 3, description: "Loved this recipe, simple technique, on hand ingredients. My son is a very picky person, tastes all imperfections, and sensitive to over seasoning and sweetness. He loved this waffle and asked me to save the recipe, Which he has never done before" },
-		{ rating: 2, difficulty: 1, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
-		{ rating: 3, difficulty: 4, description: "Very easy recipe and it doesn't make too many. I added approx. 1/4 more cup of flour and into the liquid ingredients I added 1 tsp vanilla. The recipe doesn't specify milk so I used a mix of 2% and whole." }
+		{ id: "1", rating: 5, difficulty: 3, description: "Loved this recipe, simple technique, on hand ingredients. My son is a very picky person, tastes all imperfections, and sensitive to over seasoning and sweetness. He loved this waffle and asked me to save the recipe, Which he has never done before" },
+		{ id: "2", rating: 2, difficulty: 1, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
+		{ id: "3", rating: 3, difficulty: 4, description: "Very easy recipe and it doesn't make too many. I added approx. 1/4 more cup of flour and into the liquid ingredients I added 1 tsp vanilla. The recipe doesn't specify milk so I used a mix of 2% and whole." }
 	]
 }] //TODO: remove once db val used
 
+
+function filterToUserData(items, idString){
+	const ids = new Set(JSON.parse(idString))
+	return items.filter((item) => ids.has(item.id))
+}
+
 export async function getServerSideProps(context) 
 {
-	const uid = context.uid
-	const ingredients = [
-		{ title: 'Milk'}, { title: 'Bread' },  { title: 'Cheddar' },  { title: 'Coffee' },  { title: 'Eggs' }
-	]
-	const myIngredients = [
-		{ title: 'Milk'}
-	]
-	const restrictions = [
-		{ title: 'Gluten Free' }, { title: 'Vegetarian' }, { title: 'Vegan' }, { title: 'Peanut Allergy' }
-	]
-	const myRestrictions = []
-	const equipment = [
-		{ title: 'Stove' }, { title: 'Microwave' }, { title: 'Beater' }, { title: 'Cutting Board' }, { title: 'Freezer' }, { title: 'Pressure Cooker' }
-	]
-	const myEquipment = [
-		{ title: 'Stove' }
-	]
+	const userCont = require("../../backend/controllers/user_controller")
+	const equipmentCont = require("../../backend/controllers/equipment_controller")
+	const ingredientCont = require("../../backend/controllers/ingredient_controller")
+	const recipeCont = require("../../backend/controllers/recipe_controller")
+	//const restriction = require("../../backend/controllers/restriction_controller")
+	const uid = context.params.uid
+	const userProm = userCont.get(uid)
+	const ingredientsProm = ingredientCont.getAll()
+	//const restrictions = restriction.getAll()
+	//const recipesProm = recipeCont.getAll()
+	const equipmentProm = equipmentCont.getAll()
 
+	//var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
+	var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
+	ingredients = ingredients.map(function(ingredient) {
+		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
+	})
+	equipment = equipment.map(function(equipment) {
+		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
+	})
+
+
+	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
+	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
+	//const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
+	
+	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
+
+	let restrictions = []
+	let myRestrictions = []
 	let recipes = tempRecipes
+	let myRecipes = []
 
-	return {
+	const result = {
 		props: {
 			ingredients: ingredients,
 			myIngredients: myIngredients,
 			recipes: recipes, //TODO: Switch to db val
-			myRecipes: [],
+			myRecipes: myRecipes,
 			equipment: equipment,
 			myEquipment: myEquipment,
 			restrictions: restrictions,
 			myRestrictions: myRestrictions
 		}
 	}
+
+	return result
 }
 
 
@@ -124,6 +145,8 @@ function App(props) {
 	const [myRecipes, setMyRecipes] = useState(props.myRecipes)
 	const [restrictions, setRestrictions] = useState(props.restrictions)
 	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
+	const [equipment, setEquipment] = useState(props.equipment)
+	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
 	const uid = router.query.uid
 
 	const handleChange = (event, newValue) => {
@@ -149,6 +172,14 @@ function App(props) {
 					myRecipes={props.myRecipes}
 					restrictions={props.restrictions}
 					myRestrictions={props.myRestrictions}
+					setRestrictions={setRestrictions}
+					setMyRestrictions={setMyRestrictions}
+					setMyIngredients={setMyIngredients}
+					setIngredients={setIngredients}
+					setMyEquipment={setMyEquipment}
+					setEquipment={setEquipment}
+					setMyRecipes={setMyRecipes}
+					setRecipes={setRecipes}
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={1}>
