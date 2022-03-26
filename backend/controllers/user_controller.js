@@ -1,52 +1,58 @@
 const db = require("../models");
 const user = db.user;
 
-exports.post = async(req, res) => {
-    if (req.body.data.ingredients || req.body.data.equipment || req.body.data.restrictions || req.body.data.recipes) {
+async function addToUserList(currUser, uid, listName, id) {
+	console.log("adding to list")
+	//entry = await user.update({
+		//ingredients: JSON.stringify(JSON.parse(currUser[listName]).concat([id])),
+		//where: {
+			//id: uid
+		//}
+	//})
+	currUser[listName] = JSON.stringify(JSON.parse(currUser[listName]).concat([id]))
+	currUser.save()
+	console.log("added to list")
+}
+
+exports.put = async(req, res) => {
+	console.log(req)
+    if (req.body && req.query.user) {
         //Body fields exist - updating an existing user's informatio
-        entry = null
-        if (req.body.data.ingredients) {
-            entry = await user.update({ingredients: JSON.stringify(req.body.data.ingredients),
-                                            where: {
-                                                id: req.query.uid
-                                            }
-            })
+		const body = JSON.parse(req.body)
+		const uid = req.query.user
+		console.log(uid)
+        const thisUser = await user.findByPk(uid);
+		console.log(thisUser)
+        var entry = null
+		console.log("storing item")
+		console.log(body)
+        if (body.ingredients) {
+			addToUserList(thisUser, uid, "ingredients", body.ingredient)
         }
-        if (req.body.data.equipment) {
-            entry = await user.update({equipment: JSON.stringify(req.body.data.equipment),
-                                            where: {
-                                                id: req.query.uid
-                                            }
-            })
+        if (req.body.equipment) {
+			addToUserList(thisUser, uid, "equipment", body.ingredient)
         }
-        if (req.body.data.restrictions) {
-            entry = await user.update({restrictions: JSON.stringify(req.body.data.restrictions),
-                where: {
-                    id: req.query.uid
-                }
-            })
+        if (req.body.restrictions) {
+			addToUserList(thisUser, uid, "ingredients", body.restrictions)
         }
-        if (req.body.data.recipes) {
-            entry = await user.update({recipes: JSON.stringify(req.body.data.recipes),
-                where: {
-                    id: req.query.uid
-                }
-            })
+        if (req.body.recipes) {
+			addToUserList(thisUser, uid, "recipes", body.recipes)
         }
         //Model.update only returns an array with the number of rows affected
-        return entry;
-    }else if (req.body.data.username) {
-        entry = await user.findOne({
-            where: {
-                username: req.body.data.username
-            }
-        })
+		return true
+		
+    //}else if (req.body.data.username) {
+        //entry = await user.findOne({
+            //where: {
+                //username: req.body.data.username
+            //}
+        //})
 
-        if (!entry) {
-            entry = await user.create({username: req.body.data.username});
-        }
+        //if (!entry) {
+            //entry = await user.create({username: req.body.data.username});
+        //}
 
-        return entry;
+        //return entry;
     }else {
         //Bad request
     }

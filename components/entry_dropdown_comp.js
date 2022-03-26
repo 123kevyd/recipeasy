@@ -10,7 +10,7 @@ export default function EntryDropdown(props) {
 				fullWidth
 				freeSolo
 				options={props.items}
-				getOptionLabel={item => item.title}
+				getOptionLabel={item => item.title || item}
 				filterSelectedOptions
 				onChange={props.handler}
 				autoHighlight

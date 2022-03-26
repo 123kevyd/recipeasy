@@ -14,6 +14,7 @@ export default async function handler(req, res)
         }
     }
     // retrieving an ingredient
+	// why is this here? ingredients are fetched as part of recipes and users, not on their own
     else if (req.method === 'GET') {
         try {
             const result = await ingredient.get(req);
