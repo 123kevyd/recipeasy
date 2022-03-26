@@ -1,9 +1,10 @@
-import { Button, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import React, { Component } from 'react';
-import Filter from './filter_comp'
 import RecipeTable from './recipe_table_comp';
 
 class Cookbook extends Component {
+	test() { return 1 }
+
 	render() { 
 		return (
 			<>

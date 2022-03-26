@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Typography, Card, CardContent, Box, Stack } from '@mui/material'
+import { Typography, Card, CardContent, Box, Stack, Divider } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
+import RatingStars from './rating_stars_comp';
 
 class RecipeRatingDisplay extends Component {
     render() { 
@@ -15,29 +16,18 @@ class RecipeRatingDisplay extends Component {
                 </Typography>
                 { this.props.reviews ?
                     this.props.reviews.map( review => 
-                        <Card key={review}>
+                        <Card key={review.id}>
                             <CardContent>
                                 <Box sx={{display:'grid', gridTemplateColumns: '250px auto'}}>
                                     <Box>
-                                        <Stack direction='row'>
-                                            <Typography>Rating:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
-                                            <Box>
-                                                {review.rating > 0 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.rating > 1 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.rating > 2 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.rating > 3 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.rating > 4 ? <StarIcon /> : <StarBorderIcon />}
-                                            </Box>
+                                        <Stack direction='row' mb={2}>
+                                            <Typography>Rating:&nbsp;&nbsp;&nbsp;</Typography>
+                                            <RatingStars stars={review.rating} />
                                         </Stack>
+                                        
                                         <Stack direction='row'>
-                                            <Typography>Difficulty:&nbsp;&nbsp;&nbsp;</Typography>
-                                            <Box>
-                                                {review.difficulty > 0 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.difficulty > 1 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.difficulty > 2 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.difficulty > 3 ? <StarIcon /> : <StarBorderIcon />}
-                                                {review.difficulty > 4 ? <StarIcon /> : <StarBorderIcon />}
-                                            </Box>
+                                            <Typography>Difficulty:&nbsp;</Typography>
+                                            <RatingStars stars={review.difficulty} />
                                         </Stack>
                                     </Box>
                                     <Box>

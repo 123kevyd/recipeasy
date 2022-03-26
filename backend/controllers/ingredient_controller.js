@@ -27,10 +27,11 @@ exports.getAll = async() => {
 
 // adds an ingredient to the db
 exports.post = async(req,res) => {
-    if(req.body.data.name && req.body.data.price) {
+	const body = JSON.parse(req.body)
+    if(body.name && body.price != undefined) {
         const result = await ingredients.create({ 
-            name: req.body.data.name, 
-            price: req.body.data.price
+            name: body.name, 
+            price: body.price
         });
         return result;
     } else {

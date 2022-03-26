@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
-import Ingredients from './ingredients_comp'
-import Restrictions from './restrictions_comp'
-import Equipment from './equipment_comp'
+import KitchenCategory from './kitchen_category_comp'
 import MyRecipes from './my_recipes_comp'
 import Box from '@mui/material/Box'
 
@@ -13,17 +11,26 @@ export default function Kitchen(props) {
 			flexWrap: 'wrap',
 			border: '1px solid grey',
 			}}>
-			<Ingredients
-				ingredients={props.ingredients}
-				myIngredients={props.myIngredients}
+			<KitchenCategory
+				items={props.ingredients}
+				myItems={props.myIngredients}
+				title="Ingredients"
+				field="ingredients"
+				endpoint="ingredients"
 			/>
-			<Equipment
-				equipment={props.equipment}
-				myEquipment={props.myEquipment}
+			<KitchenCategory
+				items={props.equipment}
+				myItems={props.myEquipment}
+				title="Equipment"
+				field="equipment"
+				endpoint="equipment"
 			/>
-			<Restrictions
-				restrictions={props.restrictions}
-				myRestrictions={props.myRestrictions}
+			<KitchenCategory
+				items={props.restrictions}
+				myItems={props.myRestrictions}
+				title="Restrictions"
+				field="restrictions"
+				endpoint="restrictions"
 			/>
 			<MyRecipes
 				recipes={props.recipes}
