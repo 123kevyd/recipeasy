@@ -7,10 +7,11 @@ export default function EntryDropdown(props) {
 	return (
 		<Stack spacing={2} sx={{ width: 1 }}>
 			<Autocomplete
+				disabled={props.disabled}
 				fullWidth
 				freeSolo
 				options={props.items}
-				getOptionLabel={item => item.title}
+				getOptionLabel={item => item.title || item}
 				filterSelectedOptions
 				onChange={props.handler}
 				autoHighlight

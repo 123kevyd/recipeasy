@@ -9,5 +9,14 @@ export default async function handler(req, res) {
 		} else {
 			res.status(500).json(null);
 		}
+	}else if (req.method == 'PUT') {
+		const result = await user.put(req, res);
+		if(result) {
+			res.status(200).json(null);
+		} else {
+			res.status(500).json(null);
+		}
+
 	}
+		
 }
