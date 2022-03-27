@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
+import RatingStars from '../components/rating_stars_comp'
 //import Head from 'next/head'
 //import Image from 'next/image'
 //import styles from '../styles/Home.module.css'
@@ -31,6 +32,7 @@ export default function Login(props) {
 
 	return (
 		<div className="Login">
+			<RatingStars stars={0} />
 			<form className="loginForm">
 				<InputLabel>
 					User Name
