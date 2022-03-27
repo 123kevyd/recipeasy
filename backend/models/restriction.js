@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class restriction extends Model {
+  class Restriction extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.User, { through: 'User_Restriction' })
     }
   }
-  restriction.init({
+  Restriction.init({
     name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'restriction',
     freezeTableName: true
   });
-  return restriction;
+  return Restriction;
 };
