@@ -1,13 +1,127 @@
 
-import * as React from 'react'
 import { useRouter } from 'next/router'
-import Kitchen from '../../components/kitchen'
-import Recipes from '../../components/recipes'
+import { useState } from 'react'
+import Kitchen from '../../components/kitchen_comp'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
+import Cookbook from '../../components/cookbook'
 
-function TabPanel(props) {
+let tempRecipes = [{
+	id: 1,
+	title: "HARD Waffles",
+	description: "Consider this your new, go-to waffle recipe when you want to start your day off on a sweet note. No fussy steps or unexpected ingredients are required here, which means you can whip these up whenever your cravings hit.",
+	time: 30,
+	tags: ["Gluten Free", "Vegan", "Fish Free"],
+	ingredients: [
+		{ id: "1", name: "all-purpose flour", quantity: 1, unit: "cup"},
+		{ id: "2", name: "sugar", quantity: 2 , unit: "tablespoon"},
+		{ id: "3", name: "baking powder", quantity: 1, unit: "teaspoon"},
+		{ id: "4", name: "salt", quantity: 0.25, unit: "teaspoon"},
+		{ id: "5", name: "milk", quantity: 1, unit: "cup"},
+		{ id: "6", name: "eggs", quantity: 2, unit: "large"},
+		{ id: "7", name: "unslated butter (melted)", quantity: 4, unit: "tablespoon"}
+	],
+	directions: [
+		"Preheat waffle iron according to manufacturer's instructions. In a large bowl, whisk flour, sugar, baking powder, and salt; set aside.",
+		"In a small bowl, whisk milk and eggs; pour over flour mixture, and whisk gently to combine (don't overmix). Gently whisk in butter.",
+		"Following manufacturer's instructions, cook waffles until deep brown and crisp. (For a standard waffle iron, pour a generous 1/2 cup of batter into center, spreading to within 1/2 inch of edges, and close; waffle will cook in 2 to 3 minutes.) Serve warm, with maple syrup and butter, as desired."
+	],
+	equipment: ["Waffle Iron", "Whisk"],
+	reviews: [
+		{ id: "1", rating: 5, difficulty: 3, description: "Loved this recipe, simple technique, on hand ingredients. My son is a very picky person, tastes all imperfections, and sensitive to over seasoning and sweetness. He loved this waffle and asked me to save the recipe, Which he has never done before" },
+		{ id: "2", rating: 2, difficulty: 5, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
+		{ id: "3", rating: 3, difficulty: 4, description: "Very easy recipe and it doesn't make too many. I added approx. 1/4 more cup of flour and into the liquid ingredients I added 1 tsp vanilla. The recipe doesn't specify milk so I used a mix of 2% and whole." }
+	]
+}, {
+	id: 2,
+	title: "Easy Waffles",
+	description: "Consider this your new, go-to waffle recipe when you want to start your day off on a sweet note. No fussy steps or unexpected ingredients are required here, which means you can whip these up whenever your cravings hit.",
+	time: 30,
+	tags: ["Gluten Free", "Vegan", "Fish Free"],
+	ingredients: [
+		{ id: "1", name: "all-purpose flour", quantity: 1, unit: "cup"},
+		{ id: "2", name: "sugar", quantity: 2 , unit: "tablespoon"},
+		{ id: "3", name: "baking powder", quantity: 1, unit: "teaspoon"},
+		{ id: "4", name: "salt", quantity: 0.25, unit: "teaspoon"},
+		{ id: "5", name: "milk", quantity: 1, unit: "cup"},
+		{ id: "6", name: "eggs", quantity: 2, unit: "large"},
+		{ id: "7", name: "unslated butter (melted)", quantity: 4, unit: "tablespoon"}
+	],
+	directions: [
+		"Preheat waffle iron according to manufacturer's instructions. In a large bowl, whisk flour, sugar, baking powder, and salt; set aside.",
+		"In a small bowl, whisk milk and eggs; pour over flour mixture, and whisk gently to combine (don't overmix). Gently whisk in butter.",
+		"Following manufacturer's instructions, cook waffles until deep brown and crisp. (For a standard waffle iron, pour a generous 1/2 cup of batter into center, spreading to within 1/2 inch of edges, and close; waffle will cook in 2 to 3 minutes.) Serve warm, with maple syrup and butter, as desired."
+	],
+	equipment: ["Waffle Iron", "Whisk"],
+	reviews: [
+		{ id: "1", rating: 5, difficulty: 3, description: "Loved this recipe, simple technique, on hand ingredients. My son is a very picky person, tastes all imperfections, and sensitive to over seasoning and sweetness. He loved this waffle and asked me to save the recipe, Which he has never done before" },
+		{ id: "2", rating: 2, difficulty: 1, description: "I would not recommend 2 eggs! One egg is all you need, it took away from the fluffiness and was just too much w 2 I always use just 1, but decided to give 2 a try like the recipe called for, and my family definitely could tell the difference I won't do that again! Unless using 2 cups flour!" },
+		{ id: "3", rating: 3, difficulty: 4, description: "Very easy recipe and it doesn't make too many. I added approx. 1/4 more cup of flour and into the liquid ingredients I added 1 tsp vanilla. The recipe doesn't specify milk so I used a mix of 2% and whole." }
+	]
+}] //TODO: remove once db val used
+
+
+function filterToUserData(items, idString){
+	const ids = new Set(JSON.parse(idString))
+	return items.filter((item) => ids.has(item.id))
+}
+
+export async function getServerSideProps(context) 
+{
+	const userCont = require("../../backend/controllers/user_controller")
+	const equipmentCont = require("../../backend/controllers/equipment_controller")
+	const ingredientCont = require("../../backend/controllers/ingredient_controller")
+	const recipeCont = require("../../backend/controllers/recipe_controller")
+	//const restriction = require("../../backend/controllers/restriction_controller")
+	const uid = context.params.uid
+	const userProm = userCont.get(uid)
+	const ingredientsProm = ingredientCont.getAll()
+	//const restrictions = restriction.getAll()
+	//const recipesProm = recipeCont.getAll()
+	const equipmentProm = equipmentCont.getAll()
+
+	//var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
+	var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
+	ingredients = ingredients.map(function(ingredient) {
+		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
+	})
+	equipment = equipment.map(function(equipment) {
+		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
+	})
+
+
+	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
+	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
+	//const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
+	
+	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
+
+	let restrictions = []
+	let myRestrictions = []
+	let recipes = tempRecipes
+	let myRecipes = []
+
+	const result = {
+		props: {
+			ingredients: ingredients,
+			myIngredients: myIngredients,
+			recipes: recipes, //TODO: Switch to db val
+			myRecipes: myRecipes,
+			equipment: equipment,
+			myEquipment: myEquipment,
+			restrictions: restrictions,
+			myRestrictions: myRestrictions
+		}
+	}
+
+	return result
+}
+
+
+
+function TabPanel(props)
+{
 	// https://codesandbox.io/s/x5uvxj?file=/demo.js
 	const {value, index, children } = props
 
@@ -22,31 +136,58 @@ function TabPanel(props) {
 	)
 }
 
-function App() {
+function App(props) {
+	const [tab, setTab] = useState(0)
 	const router = useRouter()
-	const user_id = router.query.uid
-	const [value, setValue] = React.useState(0)
+	const [ingredients, setIngredients] = useState(props.ingredients)
+	const [myIngredients, setMyIngredients] = useState(props.myIngredients)
+	const [recipes, setRecipes] = useState(props.recipes)
+	const [myRecipes, setMyRecipes] = useState(props.myRecipes)
+	const [restrictions, setRestrictions] = useState(props.restrictions)
+	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
+	const [equipment, setEquipment] = useState(props.equipment)
+	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
+	const uid = router.query.uid
 
 	const handleChange = (event, newValue) => {
-		setValue(newValue)
+		setTab(newValue)
 	}
 
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-				<Tabs value={value} onChange={handleChange} centered>
+				<Tabs value={tab} onChange={handleChange} centered>
 					<Tab label="Kitchen" />
 					<Tab label="Recipes" />
 					<Tab label="Meal Planner" disabled />
 				</Tabs>
 			</Box>
-			<TabPanel value={value} index={0}>
-				<Kitchen />
+			<TabPanel value={tab} index={0}>
+				<Kitchen 
+					ingredients={props.ingredients}
+					myIngredients={props.myIngredients}
+					equipment={props.equipment}
+					myEquipment={props.myEquipment}
+					recipes={props.recipes}
+					myRecipes={props.myRecipes}
+					restrictions={props.restrictions}
+					myRestrictions={props.myRestrictions}
+					setRestrictions={setRestrictions}
+					setMyRestrictions={setMyRestrictions}
+					setMyIngredients={setMyIngredients}
+					setIngredients={setIngredients}
+					setMyEquipment={setMyEquipment}
+					setEquipment={setEquipment}
+					setMyRecipes={setMyRecipes}
+					setRecipes={setRecipes}
+				/>
 			</TabPanel>
-			<TabPanel value={value} index={0}>
-				<Recipes />
+			<TabPanel value={tab} index={1}>
+				<Cookbook
+					recipes={props.recipes}
+				/>
 			</TabPanel>
-			<TabPanel value={value} index={0}>
+			<TabPanel value={tab} index={0}>
 			</TabPanel>
 		</Box>
 	)

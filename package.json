@@ -8,7 +8,8 @@
     "lint": "next lint",
     "migrate": "cd backend && npx sequelize-cli db:migrate",
     "down": "cd backend && npx sequelize-cli db:migrate:undo",
-    "seed": "cd backend && npx sequelize-cli seed:generate --name demo-user"
+    "seed": "cd backend && npx sequelize-cli seed:generate --name demo-user",
+    "test": "mocha './backend/**/*_test.js' & jest"
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -18,13 +19,17 @@
     "next": "12.0.10",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
+    "process": "^0.11.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "sequelize": "^6.17.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.16.7",
+    "@testing-library/react": "^12.1.4",
     "eslint": "8.8.0",
     "eslint-config-next": "12.0.10",
+    "jest": "^27.5.1",
     "sequelize-cli": "^6.4.1"
   }
 }
