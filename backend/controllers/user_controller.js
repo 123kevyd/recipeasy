@@ -58,16 +58,12 @@ exports.delete = async(req, res) => {
     return result;
 }
 
-exports.get = async(req,res) => {
-    if (req.query.uid) {
-        return await user.findByPk(req.query.uid);
-    } else {
-        //uid passed directly into the get method, for getServerSideProps
-        return await user.findByPk(req);
-    }
+exports.get = async(uid) => {
+    const result = await user.findByPk(uid);
+    return result;
 }
 
-exports.login = async(req, res) => {
-	const [result, created] = await user.findOrCreate({where: {username: req.query.user}});
+exports.login = async(username) => {
+	const [result, created] = await user.findOrCreate({where: {username: username}});
 	return result
 }

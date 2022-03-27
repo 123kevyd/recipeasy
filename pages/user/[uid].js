@@ -61,40 +61,61 @@ let tempRecipes = [{
 	]
 }] //TODO: remove once db val used
 
+
+function filterToUserData(items, idString){
+	const ids = new Set(JSON.parse(idString))
+	return items.filter((item) => ids.has(item.id))
+}
+
 export async function getServerSideProps(context) 
 {
-	const uid = context.uid
-	const ingredients = [
-		{ title: 'Milk'}, { title: 'Bread' },  { title: 'Cheddar' },  { title: 'Coffee' },  { title: 'Eggs' }
-	]
-	const myIngredients = [
-		{ title: 'Milk'}
-	]
-	const restrictions = [
-		{ title: 'Gluten Free' }, { title: 'Vegetarian' }, { title: 'Vegan' }, { title: 'Peanut Allergy' }
-	]
-	const myRestrictions = []
-	const equipment = [
-		{ title: 'Stove' }, { title: 'Microwave' }, { title: 'Beater' }, { title: 'Cutting Board' }, { title: 'Freezer' }, { title: 'Pressure Cooker' }
-	]
-	const myEquipment = [
-		{ title: 'Stove' }
-	]
+	const userCont = require("../../backend/controllers/user_controller")
+	const equipmentCont = require("../../backend/controllers/equipment_controller")
+	const ingredientCont = require("../../backend/controllers/ingredient_controller")
+	const recipeCont = require("../../backend/controllers/recipe_controller")
+	//const restriction = require("../../backend/controllers/restriction_controller")
+	const uid = context.params.uid
+	const userProm = userCont.get(uid)
+	const ingredientsProm = ingredientCont.getAll()
+	//const restrictions = restriction.getAll()
+	//const recipesProm = recipeCont.getAll()
+	const equipmentProm = equipmentCont.getAll()
 
+	//var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
+	var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
+	ingredients = ingredients.map(function(ingredient) {
+		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
+	})
+	equipment = equipment.map(function(equipment) {
+		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
+	})
+
+
+	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
+	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
+	//const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
+	
+	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
+
+	let restrictions = []
+	let myRestrictions = []
 	let recipes = tempRecipes
+	let myRecipes = []
 
-	return {
+	const result = {
 		props: {
 			ingredients: ingredients,
 			myIngredients: myIngredients,
 			recipes: recipes, //TODO: Switch to db val
-			myRecipes: [],
+			myRecipes: myRecipes,
 			equipment: equipment,
 			myEquipment: myEquipment,
 			restrictions: restrictions,
 			myRestrictions: myRestrictions
 		}
 	}
+
+	return result
 }
 
 
@@ -124,6 +145,8 @@ function App(props) {
 	const [myRecipes, setMyRecipes] = useState(props.myRecipes)
 	const [restrictions, setRestrictions] = useState(props.restrictions)
 	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
+	const [equipment, setEquipment] = useState(props.equipment)
+	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
 	const uid = router.query.uid
 
 	const handleChange = (event, newValue) => {
@@ -149,6 +172,14 @@ function App(props) {
 					myRecipes={props.myRecipes}
 					restrictions={props.restrictions}
 					myRestrictions={props.myRestrictions}
+					setRestrictions={setRestrictions}
+					setMyRestrictions={setMyRestrictions}
+					setMyIngredients={setMyIngredients}
+					setIngredients={setIngredients}
+					setMyEquipment={setMyEquipment}
+					setEquipment={setEquipment}
+					setMyRecipes={setMyRecipes}
+					setRecipes={setRecipes}
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={1}>

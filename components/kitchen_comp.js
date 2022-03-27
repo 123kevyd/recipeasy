@@ -14,6 +14,8 @@ export default function Kitchen(props) {
 			<KitchenCategory
 				items={props.ingredients}
 				myItems={props.myIngredients}
+				setItems={props.setIngredients}
+				setMyItems={props.setMyIngredients}
 				title="Ingredients"
 				field="ingredients"
 				endpoint="ingredients"
@@ -21,6 +23,8 @@ export default function Kitchen(props) {
 			<KitchenCategory
 				items={props.equipment}
 				myItems={props.myEquipment}
+				setItems={props.setEquipment}
+				setMyItems={props.setMyEquipment}
 				title="Equipment"
 				field="equipment"
 				endpoint="equipment"
@@ -28,6 +32,8 @@ export default function Kitchen(props) {
 			<KitchenCategory
 				items={props.restrictions}
 				myItems={props.myRestrictions}
+				setItems={props.setRestrictions}
+				setMyItems={props.setMyRestrictions}
 				title="Restrictions"
 				field="restrictions"
 				endpoint="restrictions"
@@ -35,6 +41,8 @@ export default function Kitchen(props) {
 			<MyRecipes
 				recipes={props.recipes}
 				myRecipes={props.myRecipes}
+				setItems={props.setIngredients}
+				setMyItems={props.setMyIngredients}
 			/>
 		</Box>
 	)
