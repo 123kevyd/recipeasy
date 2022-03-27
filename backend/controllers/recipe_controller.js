@@ -1,13 +1,11 @@
 const db = require("../models");
 const recipe = db.recipe;
 const rating = db.rating;
-const ingredient = db.ingredient;
-const equipment = db.equipment;
 
 exports.get = async(req,res) => {
     if(req.body.data.primaryKey) {
         var result = await recipe.findByPk(req.body.data.primaryKey);
-        //Jank way of grabbing ratings - will create association between recipe and rating to cleanly pull associated ratings
+        //Grab ratings - will be replaced by association fetch in future
         let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
         let ratingObjects = [];
         for (ratingIndex in ratingsList) {
@@ -27,7 +25,7 @@ exports.get = async(req,res) => {
 exports.getAll = async() => {
 	var result = await recipe.findAll()
     for (recipeIndex in result) {
-        //jank way to Fetch ratings - will create associations and fetch through that in future
+        //Grab ratings - will be replaced by association fetch in future
         let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
         let ratingObjects = [];
         for (ratingIndex in ratingsList) {

@@ -27,7 +27,6 @@ export async function getServerSideProps(context)
 	const equipmentProm = equipmentCont.getAll()
 
 	var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
-	//var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
 	ingredients = ingredients.map(function(ingredient) {
 		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
 	})
@@ -88,14 +87,13 @@ export async function getServerSideProps(context)
 
 	let restrictions = []
 	let myRestrictions = []
-	//recipes = tempRecipes
 	let myRecipes = []
 
 	const result = {
 		props: {
 			ingredients: ingredients,
 			myIngredients: myIngredients,
-			recipes: recipes, //TODO: Switch to db val
+			recipes: recipes,
 			myRecipes: myRecipes,
 			equipment: equipment,
 			myEquipment: myEquipment,
