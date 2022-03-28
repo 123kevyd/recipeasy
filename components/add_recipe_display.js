@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Box, Button, ListItemText, TextField, Chip, Card, CardHeader, CardContent, createTheme, Select, OutlinedInput, MenuItem, InputLabel, FormControl, Stack } from '@mui/material'
 import AddRecipeIngredients from './add_recipe_ingredients'
 import { maxHeight } from '@mui/system';
+import { Title } from '@material-ui/icons';
+import AddRecipeDescription from './add_recipe_description_comp';
 
 class AddRecipeDisplay extends Component {
 	theme = createTheme({
@@ -28,6 +30,12 @@ class AddRecipeDisplay extends Component {
             "tags": [],
             "time": 0
         }
+    }
+
+    handleUpdateTime(newTime) {
+        let setTime = JSON.parse(JSON.stringify(this.state.newRecipe));
+        setTime.time = newTime;
+        this.setState({newRecipe: setTime});
     }
 
     handleAddIngredient() {
@@ -70,6 +78,7 @@ class AddRecipeDisplay extends Component {
         let updatedRecipe = JSON.parse(JSON.stringify(this.state.newRecipe));
         updatedRecipe.description = description;
         this.setState({newRecipe: updatedRecipe});
+        console.log(state.newRecipe);
     }
 
     handleUpdateRestrictions(tags) {
@@ -78,24 +87,6 @@ class AddRecipeDisplay extends Component {
         this.setState({newRecipe: updatedTags});
         
     }
-    
-    restrictions = [
-        'Oliver Hansen',
-        'Van Henry',
-        'April Tucker',
-        'Ralph Hubbard',
-        'Omar Alexander',
-        'Carlos Abbott',
-        'Miriam Wagner',
-        'Bradley Wilkerson',
-        'Virginia Andrews',
-        'Kelly Snyder',
-    ];
-
-    ingredients = [
-        'egg',
-        'milk'
-    ];
 
     unit = [
         'teaspoon',
@@ -131,19 +122,9 @@ class AddRecipeDisplay extends Component {
                 </Card>
                 <Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
                     <Box>
-                        <Card>
-                            <CardHeader title="Description"/>
-                            <CardContent>
-                                <TextField
-                                    required
-                                    label="Description"
-                                    fullWidth
-                                    multiline
-                                    rows={5}
-                                    onChange={(event) => this.handleUpdateDescription(event.target.value)}
-                                />
-                            </CardContent>
-                        </Card>
+                        <AddRecipeDescription
+                            handleChange={this.handleUpdateDescription()}
+                        />
                         <Card>
                             <CardHeader title="Restrictions"/>
                             <CardContent>   
@@ -171,7 +152,7 @@ class AddRecipeDisplay extends Component {
                                             ))}
                                             </Box>
                                         )}>
-                                        {this.restrictions.map((restriction) => (
+                                        {this.props.restrictions.map((restriction) => (
                                             <MenuItem
                                             key={restriction}
                                             value={restriction}
@@ -191,6 +172,7 @@ class AddRecipeDisplay extends Component {
                                 <TextField
                                     label="Total Minutes" 
                                     type="number"
+                                    onChange={(event) => this.handleUpdateTime(event.target.value)}
                                 />
                             </CardContent>
                         </Card>
@@ -207,12 +189,12 @@ class AddRecipeDisplay extends Component {
                                                     onChange={(event) => this.handleUpdateIngredientName(event.target.value,index)}
                                                     value={ingredient.name}
                                                     >
-                                                    {this.ingredients.map((ingredient) => (
+                                                    {this.props.ingredients.map(({ title } = ingredient) => (
                                                         <MenuItem
-                                                        key={ingredient}
-                                                        value={ingredient}
+                                                        key={title}
+                                                        value={title}
                                                         >
-                                                            {ingredient}
+                                                            {title}
                                                         </MenuItem>
                                                     ))}         
                                                 </Select>

@@ -11,7 +11,12 @@ class Cookbook extends Component {
 				<Typography variant='h4' align='center'>My Cookbook</Typography>
 				<Box margin='100px'>
 					<Box>
-						<RecipeTable recipes={this.props.recipes} />
+						<RecipeTable 
+							recipes={this.props.recipes}
+							ingredients={this.props.ingredients}
+							equipment={this.props.equipment}
+							restrictions={this.props.restrictions}
+						/>
 					</Box>
 				</Box>
 			</>

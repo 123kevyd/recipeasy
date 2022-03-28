@@ -90,6 +90,10 @@ class RecipeTable extends Component {
                 <View_Add_Recipe
                     addRecipeOpen={this.state.addRecipeOpen}
                     onToggleAddRecipeView={this.handleToggleAdd}
+                    recipes={this.props.recipes}
+					ingredients={this.props.ingredients}
+				    equipment={this.props.equipment}
+					restrictions={this.props.restrictions}
                 />
                     
             </>
