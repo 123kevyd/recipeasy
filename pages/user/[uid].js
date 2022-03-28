@@ -73,21 +73,24 @@ export async function getServerSideProps(context)
 	const equipmentCont = require("../../backend/controllers/equipment_controller")
 	const ingredientCont = require("../../backend/controllers/ingredient_controller")
 	const recipeCont = require("../../backend/controllers/recipe_controller")
-	//const restriction = require("../../backend/controllers/restriction_controller")
+	const restrictionCont = require("../../backend/controllers/restriction_controller")
 	const uid = context.params.uid
 	const userProm = userCont.get(uid)
 	const ingredientsProm = ingredientCont.getAll()
-	//const restrictions = restriction.getAll()
+	const restrictionsProm = restrictionCont.getAll()
 	//const recipesProm = recipeCont.getAll()
 	const equipmentProm = equipmentCont.getAll()
 
 	//var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
-	var [user, ingredients, equipment] = await Promise.all([userProm, ingredientsProm, equipmentProm])
+	var [user, ingredients, equipment, restrictions] = await Promise.all([userProm, ingredientsProm, equipmentProm, restrictionsProm])
 	ingredients = ingredients.map(function(ingredient) {
 		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
 	})
 	equipment = equipment.map(function(equipment) {
 		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
+	})
+	restrictions = restrictions.map(function(restrictions) {
+		return {id: restrictions.dataValues.id, title: restrictions.dataValues.name}
 	})
 
 
@@ -95,10 +98,8 @@ export async function getServerSideProps(context)
 	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
 	//const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
 	
-	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
+	const myRestrictions = filterToUserData(restrictions, user.restrictions)
 
-	let restrictions = []
-	let myRestrictions = []
 	let recipes = tempRecipes
 	let myRecipes = []
 
