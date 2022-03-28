@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import React from 'react';
 import RatingStars from '../rating_stars_comp'
 import '@testing-library/jest-dom/extend-expect';
@@ -52,13 +52,3 @@ test("Passing too many stars", () => {
 test("Passing too few stars", () => {
     expectToThrow(() => {render(<RatingStars stars={-1} />);});
 })
-    
-//     {
-//     try {
-//         render(<RatingStars stars={null}/>)
-//     } catch (e) {
-//         expect()
-//     }
-//     const element = screen.getByText('Reviews:')
-//     expect(element).toBeInTheDocument()
-// })
