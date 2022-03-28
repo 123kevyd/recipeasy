@@ -32,11 +32,17 @@ export default function Login(props) {
 	}
 
 	return (
-		<Box className="Login">
-			<Typography>
-			</Typography>
+		<Box>
 			<Box>
-				<form className="loginForm">
+				<Typography>
+					Recipeasy
+				</Typography>
+			</Box>
+			<Typography>
+				Login
+			</Typography>
+			<Box className="loginForm">
+				<form>
 					<InputLabel>
 						User Name
 					</InputLabel>
