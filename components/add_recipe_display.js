@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Box, Button, ListItemText, TextField, Chip, Card, CardHeader, CardContent, createTheme, Select, OutlinedInput, MenuItem, InputLabel, FormControl, Stack } from '@mui/material'
-import AddRecipeIngredients from './add_recipe_ingredients'
 import { maxHeight } from '@mui/system';
 import { Title } from '@material-ui/icons';
 import AddRecipeDescription from './add_recipe_description_comp';
+import AddRecipeRestriction from './add_recipe_restrictions_comp';
+import AddRecipeTime from './add_recipe_time_comp';
+import AddRecipeIngredient from './add_recipe_ingredient_comp';
+import AddRecipeInstructions from './add_recipe_instructions_comp';
 
 class AddRecipeDisplay extends Component {
 	theme = createTheme({
@@ -15,6 +18,12 @@ class AddRecipeDisplay extends Component {
 			}
 		}
 	})
+
+    unit = [
+        'teaspoon',
+        'tablespoon',
+        'cup'
+    ];
 
     state = {
         newRecipe: {
@@ -78,21 +87,13 @@ class AddRecipeDisplay extends Component {
         let updatedRecipe = JSON.parse(JSON.stringify(this.state.newRecipe));
         updatedRecipe.description = description;
         this.setState({newRecipe: updatedRecipe});
-        console.log(state.newRecipe);
     }
 
     handleUpdateRestrictions(tags) {
         let updatedTags = JSON.parse(JSON.stringify(this.state.newRecipe));
         updatedTags.tags = typeof tags === 'string' ? tags.split(',') : tags;
         this.setState({newRecipe: updatedTags});
-        
     }
-
-    unit = [
-        'teaspoon',
-        'tablespoon',
-        'cup'
-    ];
 
     async addRecipe(request) {
         const response = await fetch(`http://localhost:3000/api/recipes`, {
@@ -123,111 +124,29 @@ class AddRecipeDisplay extends Component {
                 <Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
                     <Box>
                         <AddRecipeDescription
-                            handleChange={this.handleUpdateDescription()}
+                            handleChange={this.handleUpdateDescription.bind(this)}
                         />
-                        <Card>
-                            <CardHeader title="Restrictions"/>
-                            <CardContent>   
-                                <FormControl fullWidth>
-                                    <InputLabel id="restriction-label">Tags</InputLabel>
-                                    <Select
-                                        labelId='restriction-label'
-                                        MenuProps = {{
-                                            PaperProps: {
-                                            style: {
-                                                maxHeight: 180,
-                                                width: 250
-                                            }
-                                            }
-                                        }}
-                                        fullWidth
-                                        multiple
-                                        onChange={(event) => this.handleUpdateRestrictions(event.target.value)}
-                                        value={this.state.newRecipe.tags}
-                                        input={<OutlinedInput label="Chip" />}
-                                        renderValue={(selected) => (
-                                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                            {selected.map((value) => (
-                                                <Chip key={value} label={value} />
-                                            ))}
-                                            </Box>
-                                        )}>
-                                        {this.props.restrictions.map((restriction) => (
-                                            <MenuItem
-                                            key={restriction}
-                                            value={restriction}
-                                            >
-                                                {restriction}
-                                            </MenuItem>
-                                        ))}        
-                                    </Select>
-                                </FormControl>
-                            </CardContent>
-                        </Card>
+                        <AddRecipeRestriction
+                            handleChange={this.handleUpdateRestrictions.bind(this)}
+                            state={this.state}
+                            restrictions={this.props.restrictions}
+                        />
                     </Box>
                     <Box>
-                        <Card>
-                            <CardHeader title="Time"/>
-                            <CardContent>
-                                <TextField
-                                    label="Total Minutes" 
-                                    type="number"
-                                    onChange={(event) => this.handleUpdateTime(event.target.value)}
-                                />
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader title="Ingredients"/>
-                            <CardContent>
-                                {this.state.newRecipe.ingredients.map((ingredient, index)=>{
-                                    return (
-                                        <>
-                                            <Stack direction="row" spacing={3}>
-                                                <Select
-                                                    label="Ingredient"
-                                                    fullWidth
-                                                    onChange={(event) => this.handleUpdateIngredientName(event.target.value,index)}
-                                                    value={ingredient.name}
-                                                    >
-                                                    {this.props.ingredients.map(({ title } = ingredient) => (
-                                                        <MenuItem
-                                                        key={title}
-                                                        value={title}
-                                                        >
-                                                            {title}
-                                                        </MenuItem>
-                                                    ))}         
-                                                </Select>
-                                                <Select
-                                                    label="Unit"
-                                                    fullWidth
-                                                    onChange={(event) => this.handleUpdateIngredientUnit(event.target.value, index)}
-                                                    value={ingredient.unit}
-                                                    >
-                                                    {this.unit.map((unit) => (
-                                                        <MenuItem
-                                                        key={unit}
-                                                        value={unit}
-                                                        >
-                                                            {unit}
-                                                        </MenuItem>
-                                                    ))}         
-                                                </Select>
-                                                <TextField
-                                                    label="Qnty"
-                                                    type="number"
-                                                    onChange={(event) => this.handleUpdateIngredientQuantity(event.target.value, index)}
-                                                />
-                                                <Button variant='contained' onClick={() => this.handleDeleteIngredient(index)}>Delete</Button>
-                                            </Stack>
-                                            {this.state.newRecipe.ingredients.length - 1 === index && (
-                                                <Button variant='contained' onClick={() => this.handleAddIngredient()}>Add Ingredient</Button>
-                                            )}
-                                        </>
-                                    );
-                                })}
-                            </CardContent>
-                        </Card>
+                        <AddRecipeTime
+                            handleChange={this.handleUpdateTime.bind(this)}
+                        />
+                        <AddRecipeIngredient
+                            handleAdd={this.handleAddIngredient.bind(this)}
+                            handleDelete={this.handleDeleteIngredient.bind(this)}
+                            handleName={this.handleUpdateIngredientName.bind(this)}
+                            handleUnit={this.handleUpdateIngredientUnit.bind(this)}
+                            handleQuantity={this.handleUpdateIngredientQuantity.bind(this)}
+                            ingredients={this.props.ingredients}
+                            state={this.state}
+                            unit={this.unit}
+                        />
+                        <AddRecipeInstructions/>
                     </Box>
                 </Box>
                 <Button variant='contained'>Submit</Button>
