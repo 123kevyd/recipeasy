@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "postgres",
+    "username": "dataentry",
     "password": "comp4350",
     "database": "comp4350",
-    "host": "database-1.cg8ib7yp5ium.us-east-1.rds.amazonaws.com",
+    "host": "sebastian@waxbill.cs.umanitoba.ca",
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
+    "username": "dataentry",
     "password": "comp4350",
     "database": "comp4350",
-    "host": "database-1.cg8ib7yp5ium.us-east-1.rds.amazonaws.com",
+    "host": "sebastian@waxbill.cs.umanitoba.ca",
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
+    "username": "dataentry",
     "password": "comp4350",
     "database": "comp4350",
-    "host": "database-1.cg8ib7yp5ium.us-east-1.rds.amazonaws.com",
+    "host": "sebastian@waxbill.cs.umanitoba.ca",
     "dialect": "postgres"
   }
 }
