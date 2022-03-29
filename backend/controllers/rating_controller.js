@@ -30,8 +30,12 @@ exports.post = async(req,res) => {
         ratedRecipe = await recipe.get(recipeReq);
         ratingIds = [result.dataValues.id];
 
+        ratedRecipe.dataValues.ratings = ratedRecipe.dataValues.ratings.map(function(rating) {
+            return rating.id
+        })
+
         if(ratedRecipe.dataValues.ratings){
-            ratingIds = ratingIds.concat(JSON.parse(ratedRecipe.dataValues.ratings));
+            ratingIds = ratingIds.concat(ratedRecipe.dataValues.ratings);
         }
 
         recipe.put({ 
@@ -39,10 +43,11 @@ exports.post = async(req,res) => {
                 data: {
                     primaryKey: ratedRecipe.dataValues.id,
                     name: ratedRecipe.dataValues.name, 
+                    time: ratedRecipe.dataValues.time,
+                    tags: ratedRecipe.dataValues.tags,
                     instructions: ratedRecipe.dataValues.instructions,
                     equipment: JSON.parse(ratedRecipe.dataValues.equipment),
                     ingredients: JSON.parse(ratedRecipe.dataValues.ingredients),
-                    servings: ratedRecipe.dataValues.servings,
                     details: ratedRecipe.dataValues.details,
                     author: ratedRecipe.dataValues.author,
                     ratings: ratingIds
