@@ -28,9 +28,9 @@ class AddRecipeDisplay extends Component {
     state = {
         newRecipe: {
             "title": "",
-            "directions": [{
-                content: ""
-            }],
+            "directions": [
+                ""
+            ],
             "ingredients": [{
                 unit: "",
                 quantity: 0,
@@ -43,6 +43,12 @@ class AddRecipeDisplay extends Component {
         }
     }
 
+    handleUpdateTitle(title) {
+        let setTitle = JSON.parse(JSON.stringify(this.state.newRecipe));
+        setTitle.title = title;
+        this.setState({newRecipe: setTitle});
+    }
+
     handleUpdateTime(newTime) {
         let setTime = JSON.parse(JSON.stringify(this.state.newRecipe));
         setTime.time = newTime;
@@ -51,7 +57,7 @@ class AddRecipeDisplay extends Component {
 
     handleUpdateInstruction(content, index) {
         let updatedInst = JSON.parse(JSON.stringify(this.state.newRecipe));
-        updatedInst.directions[index].content = content;
+        updatedInst.directions[index] = content;
         this.setState({newRecipe: updatedInst});
     }
 
@@ -119,23 +125,48 @@ class AddRecipeDisplay extends Component {
         this.setState({newRecipe: updatedTags});
     }
 
-    printX() {
-        console.log(this.state.newRecipe);
+    formatAddRequest() {
+        let recipe =  JSON.parse(JSON.stringify(this.state.newRecipe));
+        return {
+            "data": {
+                "name": recipe.title,
+                "instructions": JSON.stringify(recipe.directions),
+                "ingredients": JSON.stringify(recipe.ingredients),
+                "equipment": JSON.stringify(recipe.equipment),
+                "details": recipe.description,
+                "tags": JSON.stringify(recipe.tags),
+                "time": recipe.time
+            }
+            
+        }
+    }
+
+    formatAddRequestTest() {
+        return {
+            "body": {
+                "data": {
+                    "name": "testRecipe",
+                    "instructions": "Whisk the thing",
+                    "ingredients": ["egg"],
+                    "equipment": ["whisk"],
+                    "servings": 3,
+                    "details": null,
+                    "author": "edmundTesting"
+                }
+            }
+        }
     }
 
     async addRecipe() {
-        console.log(this.state.newRecipe);
-        /*
-        const response = await fetch(`http://localhost:3000/api/recipes`, {
+        const response = await fetch(`/api/recipes`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
                 'User-Agent': '*',
                 },
-                body: JSON.stringify(this.state.newRecipe)
+                body: JSON.stringify(this.formatAddRequest())
             });
         console.log(response);
-        */
     }
 
     render() { 
@@ -149,6 +180,7 @@ class AddRecipeDisplay extends Component {
                         <TextField
                             label="Title" 
                             fullWidth
+                            onChange={(event) => this.handleUpdateTitle(event.target.value)}
                         />
                     </CardContent>
                 </Card>
