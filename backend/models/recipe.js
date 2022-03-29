@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     ingredients: DataTypes.TEXT,
     details: DataTypes.TEXT,
     author: DataTypes.INTEGER,
-    ratings: DataTypes.STRING 
+    ratings: DataTypes.TEXT 
   }, {
     sequelize,
     modelName: 'recipe',
