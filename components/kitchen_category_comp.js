@@ -12,6 +12,15 @@ export default function KitchenCategory(props) {
 	// later will need to replace items and myItems getters and setters with the drilled-down versions
 	const [myItems, setMyItems] = useState(props.myItems)
 	const [items, setItems] = useState(props.items)
+	const [loadingItemTitles, setLoadtingItemTitles] = useState(new Set())
+	const toggleLoadingItemTitle = (title) => {
+		if(loadingItemTitles.has(title)){
+			loadingItemTitles.delete(title)
+		}else{
+			loadingItemTitles.add(title)
+		}
+		setLoadtingItemTitles(loadingItemTitles)
+	}
 
 
 	const router = useRouter()
@@ -27,6 +36,16 @@ export default function KitchenCategory(props) {
 	}
 
 	const [ dropdownList, setDropdownList ] = useState(getDropdownList())
+	const addIdToUserList = (id) => {
+		var itemIds = myItems.map(item => item.id)
+		itemIds = itemIds.filter(item => item != null)
+		itemIds.push(id)
+		return fetch(`/api/user/${uid}/`, 
+			{
+				method: 'PUT',
+				body: JSON.stringify({[props.field]: itemIds})
+			})
+	}
 
 	const itemSelected = async (event, value) => {
 		if(value == null){
@@ -34,19 +53,13 @@ export default function KitchenCategory(props) {
 		}
 		if(typeof value == 'string'){
 			// save to items and to user
+			toggleLoadingItemTitle(value)
 			await fetch(`/api/${props.endpoint}/`, {method: 'POST', body: JSON.stringify({price: 0, name: value})})
 				.then((res) => res.json())
 				.then((data) => {
 					const id = data[0].id
-					var itemIds = myItems.map(item => item.id)
-					itemIds = itemIds.filter(item => item != null)
-					itemIds.push(id)
-					fetch(`/api/user/${uid}/`, 
-						{
-							method: 'PUT',
-							body: JSON.stringify({[props.field]: itemIds})
-						}
-					).then(() =>
+					addIdToUserList(id)
+						.then(() =>
 						{
 							const newItem = {id: id, title: value}
 							setItems(items.concat([newItem]))
@@ -56,15 +69,8 @@ export default function KitchenCategory(props) {
 					)
 				})
 		}else{
-			var itemIds = myItems.map(item => item.id)
-			itemIds = itemIds.filter(item => item != null)
-			itemIds.push(value.id)
-			await fetch(`/api/user/${uid}/`, 
-				{
-					method: 'PUT',
-					body: JSON.stringify({[props.field]: itemIds})
-				}
-			)
+			toggleLoadingItemTitle(value.title)
+			addIdToUserList(value.id)
 			setMyItems(myItems.concat([value]))
 			setDropdownList(getDropdownList())
 		}
@@ -94,7 +100,7 @@ export default function KitchenCategory(props) {
 				items={getDropdownList()}
 				handler={itemSelected}
 			/>
-			<KitchenList items={myItems} delHandler={deleteItem}/>
+			<KitchenList loading={loadingItemTitles} items={myItems} delHandler={deleteItem}/>
 		</Stack>
 	)
 			

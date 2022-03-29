@@ -3,6 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
 import IconButton from "@mui/material/ListItemIcon"
+import LinearProgress from "@mui/material/LinearProgress"
 
 function DelButton({onClick, item}) {
 	
@@ -23,19 +24,22 @@ function DelButton({onClick, item}) {
 export default function KitchenList(props) {
 	const listItems = (
 		props.items.map(item => 
-			<ListItem
-				key={item.title}
-				secondaryAction={
-					<DelButton 
-						onClick={props.delHandler}
-						item={item}
-						/>
-				}
-			>
-				<ListItemText
-					primary={ item.title }
-				/>
-			</ListItem>
+			<div>
+				<ListItem
+					key={`${item.title}${props.loading.has(item.title)}`}
+					secondaryAction={
+						<DelButton 
+							onClick={props.delHandler}
+							item={item}
+							/>
+					}
+				>
+					<ListItemText
+						primary={ item.title }
+					/>
+				</ListItem>
+				{ props.loading.has(item.title) && <LinearProgress sx={{marginBotton: '-4px'}} />}
+			</div>
 		)
 	)
 
