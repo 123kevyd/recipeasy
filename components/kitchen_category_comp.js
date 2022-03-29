@@ -12,6 +12,7 @@ export default function KitchenCategory(props) {
 	// later will need to replace items and myItems getters and setters with the drilled-down versions
 	const [myItems, setMyItems] = useState(props.myItems)
 	const [items, setItems] = useState(props.items)
+	const [clearText, setClearText] = useState(true)
 	const [loadingItemTitles, setLoadtingItemTitles] = useState(new Set())
 	const toggleLoadingItemTitle = (title) => {
 		if(loadingItemTitles.has(title)){
@@ -48,6 +49,7 @@ export default function KitchenCategory(props) {
 	}
 
 	const itemSelected = async (event, value) => {
+		setClearText(!clearText)
 		if(value == null){
 			return false
 		}
@@ -99,6 +101,7 @@ export default function KitchenCategory(props) {
 			<EntryDropdown
 				items={getDropdownList()}
 				handler={itemSelected}
+				key={clearText}
 			/>
 			<KitchenList loading={loadingItemTitles} items={myItems} delHandler={deleteItem}/>
 		</Stack>
