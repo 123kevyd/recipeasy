@@ -3,21 +3,21 @@
     "username": "dataentry",
     "password": "comp4350",
     "database": "comp4350",
-    "host": "sebastian@waxbill.cs.umanitoba.ca",
+    "host": "waxbill.cs.umanitoba.ca",
     "dialect": "postgres"
   },
   "test": {
     "username": "dataentry",
     "password": "comp4350",
     "database": "comp4350",
-    "host": "sebastian@waxbill.cs.umanitoba.ca",
+    "host": "waxbill.cs.umanitoba.ca",
     "dialect": "postgres"
   },
   "production": {
     "username": "dataentry",
     "password": "comp4350",
     "database": "comp4350",
-    "host": "sebastian@waxbill.cs.umanitoba.ca",
+    "host": "waxbill.cs.umanitoba.ca",
     "dialect": "postgres"
   }
 }
