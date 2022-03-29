@@ -46,7 +46,9 @@ class AddRecipeIngredient extends Component {
                                         type="number"
                                         onChange={(event) => this.props.handleQuantity(event.target.value, index)}
                                     />
-                                    <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
+                                    {this.props.state.newRecipe.ingredients.length > 1 && (
+                                        <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
+                                    )}
                                 </Stack>
                                 {this.props.state.newRecipe.ingredients.length - 1 === index && (
                                     <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Ingredient</Button>
