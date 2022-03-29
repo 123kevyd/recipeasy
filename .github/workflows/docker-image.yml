@@ -25,4 +25,4 @@ jobs:
       run: docker build . --file Dockerfile --tag recipeasy-docker:$(date +%s)
       
     - name: Docker Push
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/recipeasy
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/recipeasy-docker:$(date +%s)
