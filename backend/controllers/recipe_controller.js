@@ -6,7 +6,7 @@ exports.get = async(req,res) => {
     if(req.body.data.primaryKey) {
         var result = await recipe.findByPk(req.body.data.primaryKey);
         //Grab ratings - will be replaced by association fetch in future
-        let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
+        let ratingsList = JSON.parse(result.dataValues.ratings);
         let ratingObjects = [];
         for (ratingIndex in ratingsList) {
             let returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
