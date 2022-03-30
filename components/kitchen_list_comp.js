@@ -28,9 +28,8 @@ export default function KitchenList(props) {
 		props.items.map(item => {
 			var loading = props.loading.has(item.title)
 			return (
-				<div>
+				<div key={`${item.title}${loading}`}>
 					<ListItem
-						key={`${item.title}${loading}`}
 						secondaryAction={
 							<DelButton 
 								disabled={loading}
