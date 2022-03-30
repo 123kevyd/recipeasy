@@ -1,7 +1,5 @@
 'use strict';
 
-require('dotenv').config({path:'../../.env'}) // specifying .env location
-
 var i = 1
 
 const fs = require('fs');
