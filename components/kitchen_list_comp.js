@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import List from "@mui/material/List"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
@@ -22,6 +23,7 @@ function DelButton({onClick, item}) {
 }
 
 export default function KitchenList(props) {
+	useEffect(() => console.log("rendering list"))
 	const listItems = (
 		props.items.map(item => 
 			<div>

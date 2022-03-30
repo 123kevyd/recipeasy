@@ -13,14 +13,15 @@ export default function KitchenCategory(props) {
 	const [myItems, setMyItems] = useState(props.myItems)
 	const [items, setItems] = useState(props.items)
 	const [clearText, setClearText] = useState(true)
-	const [loadingItemTitles, setLoadtingItemTitles] = useState(new Set())
-	const toggleLoadingItemTitle = (title) => {
-		if(loadingItemTitles.has(title)){
-			loadingItemTitles.delete(title)
+	const [loadingItemTitles, setLoadingItemTitles] = useState(new Set())
+	const setLoadingItemTitle = (title, isLoading) => {
+		var set = loadingItemTitles
+		if(isLoading){
+			set.add(title)
 		}else{
-			loadingItemTitles.add(title)
+			set.delete(title)
 		}
-		setLoadtingItemTitles(loadingItemTitles)
+		setLoadingItemTitles(new Set(set))
 	}
 
 
@@ -55,7 +56,9 @@ export default function KitchenCategory(props) {
 		}
 		if(typeof value == 'string'){
 			// save to items and to user
-			toggleLoadingItemTitle(value)
+			setLoadingItemTitle(value, true)
+			const newItem = {title: value}
+			setMyItems(myItems.concat([newItem]))
 			await fetch(`/api/${props.endpoint}/`, {method: 'POST', body: JSON.stringify({price: 0, name: value})})
 				.then((res) => res.json())
 				.then((data) => {
@@ -65,21 +68,25 @@ export default function KitchenCategory(props) {
 						{
 							const newItem = {id: id, title: value}
 							setItems(items.concat([newItem]))
-							setMyItems(myItems.concat([newItem]))
 							setDropdownList(getDropdownList())
+							setLoadingItemTitle(value, false)
 						}
 					)
 				})
 		}else{
-			toggleLoadingItemTitle(value.title)
-			addIdToUserList(value.id)
+			setLoadingItemTitle(value.title, true)
 			setMyItems(myItems.concat([value]))
-			setDropdownList(getDropdownList())
+			addIdToUserList(value.id)
+				.then(() => {
+					setLoadingItemTitle(value.title, false)
+					setDropdownList(getDropdownList())
+				})
 		}
 		// todo: check if the request was successful
 	}
 
 	const deleteItem = async (item1) => {
+		setLoadingItemTitle(item1.title, true)
 		var itemIds = myItems.map(item => item.id)
 		itemIds.splice(itemIds.findIndex((id) => id == item1.id), 1)
 		itemIds = itemIds.filter((id) => id != null)
@@ -92,6 +99,7 @@ export default function KitchenCategory(props) {
 		setMyItems(myItems.filter(item2 => {
 			return item1.title !== item2.title
 		}))
+		setLoadingItemTitle(item1.title, false)
 		setDropdownList(getDropdownList())
 	}
 
