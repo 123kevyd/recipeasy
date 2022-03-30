@@ -46,7 +46,7 @@ exports.post = async(req,res) => {
             name: req.body.data.name,
             time: req.body.data.time,
             tags: req.body.data.tags, 
-            instructions: req.body.data.instructions,
+            instructions: JSON.stringify(req.body.data.instructions),
             equipment: JSON.stringify(req.body.data.equipment),
             ingredients: JSON.stringify(req.body.data.ingredients),
             details: req.body.data.details,

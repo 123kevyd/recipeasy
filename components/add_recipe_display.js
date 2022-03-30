@@ -7,6 +7,7 @@ import AddRecipeRestriction from './add_recipe_restrictions_comp';
 import AddRecipeTime from './add_recipe_time_comp';
 import AddRecipeIngredient from './add_recipe_ingredient_comp';
 import AddRecipeInstructions from './add_recipe_instructions_comp';
+import AddRecipeEquipment from './add_recipe_equipment_comp';
 
 class AddRecipeDisplay extends Component {
 	theme = createTheme({
@@ -36,11 +37,47 @@ class AddRecipeDisplay extends Component {
                 quantity: 0,
                 name: ""
             }],
-            "equipment": [],
+            "equipment": [
+                ""
+            ],
             "description": "",
             "tags": [],
             "time": 0
         }
+    }
+
+    getEquipmentIds(equipment) {
+        let toReturn = [];
+        for(let i = 0; i < equipment.length; i++)
+        {
+            for(let j = 0; j < this.props.equipment.length; j++)
+            {
+                if(this.props.equipment[j].title == equipment[i])
+                {
+                    toReturn.push(this.props.equipment[j].id);
+                    break
+                }
+            }
+            
+        }
+        return toReturn;
+    }
+
+    getIngredientIds(ingredients) {
+        let toReturn = [];
+        for(let i = 0; i < ingredients.length; i++)
+        {
+            for(let j = 0; j < this.props.ingredients.length; j++)
+            {
+                if(this.props.ingredients[j].title == ingredients[i].name)
+                {
+                    toReturn.push(this.props.ingredients[j].id);
+                    break
+                }
+            }
+            
+        }
+        return toReturn;
     }
 
     handleUpdateTitle(title) {
@@ -55,6 +92,26 @@ class AddRecipeDisplay extends Component {
         this.setState({newRecipe: setTime});
     }
 
+    handleAddEquipment() {
+        let addEquip = JSON.parse(JSON.stringify(this.state.newRecipe));
+        addEquip.equipment.push("");
+        this.setState({newRecipe: addEquip});
+    }
+
+    handleDeleteEquipment(index) {
+        let delEquip = JSON.parse(JSON.stringify(this.state.newRecipe));
+        if (index > -1) {
+            delEquip.equipment.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        this.setState({newRecipe: delEquip});
+    }
+
+    handleUpdateEquipment(content, index) {
+        let updatedEquip = JSON.parse(JSON.stringify(this.state.newRecipe));
+        updatedEquip.equipment[index] = content;
+        this.setState({newRecipe: updatedEquip});
+    }
+
     handleUpdateInstruction(content, index) {
         let updatedInst = JSON.parse(JSON.stringify(this.state.newRecipe));
         updatedInst.directions[index] = content;
@@ -63,9 +120,9 @@ class AddRecipeDisplay extends Component {
 
     handleAddInstruction() {
         let addInst = JSON.parse(JSON.stringify(this.state.newRecipe));
-        addInst.directions.push({
-            content: ""
-        });
+        addInst.directions.push(
+            ""
+        );
         this.setState({newRecipe: addInst});
     }
 
@@ -130,9 +187,9 @@ class AddRecipeDisplay extends Component {
         return {
             "data": {
                 "name": recipe.title,
-                "instructions": JSON.stringify(recipe.directions),
-                "ingredients": JSON.stringify(recipe.ingredients),
-                "equipment": JSON.stringify(recipe.equipment),
+                "instructions": recipe.directions,
+                "ingredients": this.getIngredientIds(this.state.newRecipe.ingredients),
+                "equipment": this.getEquipmentIds(this.state.newRecipe.equipment),
                 "details": recipe.description,
                 "tags": JSON.stringify(recipe.tags),
                 "time": recipe.time
@@ -141,32 +198,20 @@ class AddRecipeDisplay extends Component {
         }
     }
 
-    formatAddRequestTest() {
-        return {
-            "body": {
-                "data": {
-                    "name": "testRecipe",
-                    "instructions": "Whisk the thing",
-                    "ingredients": ["egg"],
-                    "equipment": ["whisk"],
-                    "servings": 3,
-                    "details": null,
-                    "author": "edmundTesting"
-                }
-            }
-        }
-    }
-
     async addRecipe() {
+        //console.log(this.getIngredientIds(this.state.newRecipe.ingredients));
+        //console.log(this.getEquipmentIds(this.state.newRecipe.equipment));
+        
         const response = await fetch(`/api/recipes`, {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                'User-Agent': '*',
-                },
-                body: JSON.stringify(this.formatAddRequest())
-            });
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'User-Agent': '*',
+            },
+            body: JSON.stringify(this.formatAddRequest())
+        });
         console.log(response);
+        
     }
 
     render() { 
@@ -193,6 +238,13 @@ class AddRecipeDisplay extends Component {
                             handleAdd={this.handleAddInstruction.bind(this)}
                             handleDelete={this.handleDeleteInstruction.bind(this)}
                             handleContent={this.handleUpdateInstruction.bind(this)}
+                            state={this.state}
+                        />
+                        <AddRecipeEquipment
+                            handleAdd={this.handleAddEquipment.bind(this)}
+                            handleDelete={this.handleDeleteEquipment.bind(this)}
+                            handleContent={this.handleUpdateEquipment.bind(this)}
+                            equipment={this.props.equipment}
                             state={this.state}
                         />
                         <Grid item xs={3}>
