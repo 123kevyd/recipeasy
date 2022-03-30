@@ -6,7 +6,7 @@ import ListItemText from "@mui/material/ListItemText"
 import IconButton from "@mui/material/ListItemIcon"
 import LinearProgress from "@mui/material/LinearProgress"
 
-function DelButton({onClick, item}) {
+function DelButton({onClick, item, disabled}) {
 	
 	const handleDel = () => {
 		if(onClick){
@@ -15,34 +15,39 @@ function DelButton({onClick, item}) {
 	}
 	return (
 		<IconButton edge="end" aria-label="delete"
+			disabled={disabled ? true : undefined}
 			onClick={handleDel}
 		>
-			<DeleteIcon />
+			<DeleteIcon color={disabled ? 'disabled' : 'default'}/>
 		</IconButton>
 	)
 }
 
 export default function KitchenList(props) {
-	useEffect(() => console.log("rendering list"))
 	const listItems = (
-		props.items.map(item => 
-			<div>
-				<ListItem
-					key={`${item.title}${props.loading.has(item.title)}`}
-					secondaryAction={
-						<DelButton 
-							onClick={props.delHandler}
-							item={item}
-							/>
-					}
-				>
-					<ListItemText
-						primary={ item.title }
-					/>
-				</ListItem>
-				{ props.loading.has(item.title) && <LinearProgress sx={{marginBotton: '-4px'}} />}
-			</div>
-		)
+		props.items.map(item => {
+			var loading = props.loading.has(item.title)
+			return (
+				<div>
+					<ListItem
+						key={`${item.title}${loading}`}
+						secondaryAction={
+							<DelButton 
+								disabled={loading}
+								onClick={props.delHandler}
+								item={item}
+								/>
+						}
+					>
+						<ListItemText
+							sx={{color: loading ? 'text.disabled' : 'black'}}
+							primary={ item.title }
+						/>
+					</ListItem>
+					{ loading && <LinearProgress sx={{marginBotton: '-4px'}} />}
+				</div>
+			)
+		})
 	)
 
 	return (
