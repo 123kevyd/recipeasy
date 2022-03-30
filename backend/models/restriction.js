@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.User, { through: 'User_Restriction' })
+      //this.belongsToMany(models.user, { through: 'User_Restriction' })
     }
   }
   Restriction.init({
