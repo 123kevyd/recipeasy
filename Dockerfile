@@ -9,9 +9,6 @@ WORKDIR /usr/app
 #copying files to docker image working directory
 COPY ./ ./
 
-#delete package-lock.json
-#RUN rm package-lock.json
-
 #install dependencies
 RUN npm install
 #create .next folder
