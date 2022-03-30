@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import List from "@mui/material/List"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
