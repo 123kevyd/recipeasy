@@ -6,8 +6,9 @@ import Box from '@mui/material/Box'
 export default function Kitchen(props) {
 	const kitchen = (
 		<Box sx={{ 
-			display: 'flex',
+			display: 'inline-flex',
 			flexDirection: 'row',
+			justifyContent: 'center',
 			flexWrap: 'wrap',
 			border: '1px solid grey',
 			}}>
