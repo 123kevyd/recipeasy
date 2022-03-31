@@ -29,7 +29,7 @@ test("Passing one review", () => {
 
     render(<RecipeRatingDisplay reviews={review} />);
 
-    const description = screen.queryByText(review[0].description)
+    const description = screen.queryByText(review[0].description);console.log(review)
     const ratingStars = description.parentElement.firstChild.firstChild
     const difficultyStars = description.parentElement.firstChild.lastChild
 
@@ -131,14 +131,14 @@ test("Passing non-number difficulty", () => {
 
 test("Passing no description", () => {
     let reviews = getTestReviews()
-    delete reviews[0].rating
+    delete reviews[0].description
 
     expectToThrow(() => {render(<RecipeRatingDisplay reviews={reviews} />);});
 })
 
 test("Passing non-string description", () => {
     let reviews = getTestReviews()
-    reviews[0].rating = 123
+    reviews[0].description = 123
 
     expectToThrow(() => {render(<RecipeRatingDisplay reviews={reviews} />);});
 })

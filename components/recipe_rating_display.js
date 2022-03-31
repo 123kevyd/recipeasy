@@ -16,7 +16,7 @@ import RatingStars from './rating_stars_comp';
 class RecipeRatingDisplay extends Component {
     constructor(props) {
         super(props)
-console.log(this.props)
+        
         if (!this.props || !this.props.reviews) {
             throw new Error("Required reviews prop not found");
         } else if (typeof this.props.reviews !== "object" || !Array.isArray(this.props.reviews) ) {
@@ -39,7 +39,7 @@ console.log(this.props)
                 >
                     Reviews:
                 </Typography>
-                { this.props.reviews.map( (review) => { {console.log(review)}
+                { this.props.reviews.map( review =>
                         <Card key={review.id}>
                             <CardContent>
                                 <Box sx={{display:'grid', gridTemplateColumns: '250px auto'}}>
@@ -60,7 +60,7 @@ console.log(this.props)
                                 </Box>
                             </CardContent>
                         </Card>
-                    })
+                    )
                 }
             </Box>
             );
