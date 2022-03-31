@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';  
 import StarIcon from '@mui/icons-material/Star'
 import StarBorderIcon from '@mui/icons-material/StarBorder' 
 
@@ -14,7 +13,7 @@ class RatingStars extends Component {
         
         if (!this.props || (!this.props.stars && this.props.stars !== 0)) {
             throw new Error("required stars prop not being passed\n" + this.props + "\n" + this.props.stars + "\n");
-            
+
         } else if (typeof this.props.stars !== 'number' ) {
             throw new Error(`Stars must be a number - Is: ${this.props.stars} (${typeof this.props.stars})\n`);
         } else if (this.props.stars > 5 || this.props.stars < 0) {

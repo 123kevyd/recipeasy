@@ -2,7 +2,7 @@ import { queryAllByTestId, render, screen } from '@testing-library/react'
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import RecipeRatingDisplay from '../recipe_rating_display';
-import { ratingClasses } from '@mui/material';
+// import { ratingClasses } from '@mui/material';
 
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
