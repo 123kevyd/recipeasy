@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Button, ListItemText, TextField, Chip, Card, CardHeader, CardContent, createTheme, Select, OutlinedInput, MenuItem, InputLabel, FormControl, Stack, Grid } from '@mui/material'
+import { Box, Button, Item, TextField, Chip, Card, CardHeader, CardContent, createTheme, Select, OutlinedInput, MenuItem, InputLabel, FormControl, Stack, Grid } from '@mui/material'
 import { maxHeight } from '@mui/system';
 import { Title } from '@material-ui/icons';
 import AddRecipeDescription from './add_recipe_description_comp';
@@ -213,7 +213,7 @@ class AddRecipeDisplay extends Component {
         //console.log(this.getIngredientIds(this.state.newRecipe.ingredients));
         //console.log(this.getEquipmentIds(this.state.newRecipe.equipment));
         let formattedBody = this.formatAddRequest();
-        if(formattedBody.data.name == "" && 
+        if(formattedBody.data.name != "" && 
             formattedBody.data.time > 0 && 
             formattedBody.data.ingredients.length > 0 && 
             formattedBody.data.instructions.length > 0 &&
@@ -228,6 +228,9 @@ class AddRecipeDisplay extends Component {
                 body: JSON.stringify(formattedBody)
             });
             console.log(response);
+        }
+        else {
+            alert("Missing Fields");
         }
     }
 
@@ -264,16 +267,6 @@ class AddRecipeDisplay extends Component {
                             equipment={this.props.equipment}
                             state={this.state}
                         />
-                        <Grid item xs={3}>
-                            <Card>
-                                <CardHeader/>
-                                <CardContent>
-                                    <Grid container justify="center">
-                                        <Button variant='contained' onClick={() => this.addRecipe()}>Submit</Button>
-                                    </Grid>
-                                </CardContent>
-                            </Card>
-                        </Grid>
                     </Box>
                     <Box>
                         <AddRecipeTime
@@ -294,6 +287,14 @@ class AddRecipeDisplay extends Component {
                             state={this.state}
                             unit={this.unit}
                         />
+                        <Card>
+                            <CardHeader/>
+                            <CardContent>
+                                <Box textAlign='center'>
+                                    <Button variant='contained' onClick={() => this.addRecipe()}>Submit</Button>
+                                </Box>
+                            </CardContent>
+                        </Card>
                     </Box>
                 </Box>
             </Box>
