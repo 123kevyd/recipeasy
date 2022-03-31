@@ -24,9 +24,9 @@ class RecipeRatingDisplay extends Component {
         } else if (!this.props.reviews.every((elem) => { return typeof elem.rating === "number"})) {
             throw new Error(`Prop reviews[i].rating must be a number `);
         } else if (!this.props.reviews.every((elem) => { return typeof elem.difficulty === "number"})) {
-            throw new Error(`Prop reviews[i].rating must be a number `);
+            throw new Error(`Prop reviews[i].difficulty must be a number `);
         } else if (!this.props.reviews.every((elem) => { return typeof elem.description === "string"})) {
-            throw new Error(`Prop reviews[i].rating must be a number `);
+            throw new Error(`Prop reviews[i].description must be a number `);
         }
     }
 
