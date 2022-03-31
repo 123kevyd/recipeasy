@@ -198,20 +198,37 @@ class AddRecipeDisplay extends Component {
         }
     }
 
+    checkInstructions(body) {
+        let toReturn = true;
+        body.data.instructions.forEach(instruction => {
+            if(instruction == "")
+            {
+                toReturn = false;
+            }
+        });
+        return toReturn;
+    }
+
     async addRecipe() {
         //console.log(this.getIngredientIds(this.state.newRecipe.ingredients));
         //console.log(this.getEquipmentIds(this.state.newRecipe.equipment));
-        
-        const response = await fetch(`/api/recipes`, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            'User-Agent': '*',
-            },
-            body: JSON.stringify(this.formatAddRequest())
-        });
-        console.log(response);
-        
+        let formattedBody = this.formatAddRequest();
+        if(formattedBody.data.name == "" && 
+            formattedBody.data.time > 0 && 
+            formattedBody.data.ingredients.length > 0 && 
+            formattedBody.data.instructions.length > 0 &&
+            this.checkInstructions(formattedBody))
+        {
+            const response = await fetch(`/api/recipes`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'User-Agent': '*',
+                },
+                body: JSON.stringify(formattedBody)
+            });
+            console.log(response);
+        }
     }
 
     render() { 
