@@ -39,7 +39,7 @@ class RecipeRatingDisplay extends Component {
                 >
                     Reviews:
                 </Typography>
-                { this.props.reviews.map( review => 
+                { this.props.reviews.map( review => console.log(review.id + "|" + review.rating + "|" + review.difficulty);
                         <Card key={review.id}>
                             <CardContent>
                                 <Box sx={{display:'grid', gridTemplateColumns: '250px auto'}}>
