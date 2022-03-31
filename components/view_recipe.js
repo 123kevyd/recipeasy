@@ -8,10 +8,6 @@ import RecipeRatingSubmit from './recipe_rating_submit';
 class View_Recipe extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            stepsCompleted: [],
-            reviews: this.props.recipe.reviews
-        };
     }
 
 
