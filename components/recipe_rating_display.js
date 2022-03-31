@@ -4,7 +4,32 @@ import StarIcon from '@mui/icons-material/Star'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import RatingStars from './rating_stars_comp';
 
+/**
+ * Used to display the review for a recipe
+ * @prop {object} reviews - a review object with an array of reviews containing:
+ *  - any: id
+ *  - number: rating
+ *  - number: difficulty
+ *  - string: description
+ */
+
 class RecipeRatingDisplay extends Component {
+    constructor(props) {
+        super(props)
+
+        if (!this.props || !this.props.reviews) {
+            throw new Error("Required reviews prop not found");
+        } else if (typeof this.props.reviews !== "object" || !Array.isArray(this.props.reviews) ) {
+            throw new Error(`Prop reviews must be an array - Is ${this.props.reviews} (${typeof this.props.reviews}) `);
+        } else if (!this.props.reviews.every((elem) => { return typeof elem.rating === "number"})) {
+            throw new Error(`Prop reviews[i].rating must be a number `);
+        } else if (!this.props.reviews.every((elem) => { return typeof elem.difficulty === "number"})) {
+            throw new Error(`Prop reviews[i].rating must be a number `);
+        } else if (!this.props.reviews.every((elem) => { return typeof elem.description === "string"})) {
+            throw new Error(`Prop reviews[i].rating must be a number `);
+        }
+    }
+
     render() { 
         return (
             <Box>
@@ -14,8 +39,7 @@ class RecipeRatingDisplay extends Component {
                 >
                     Reviews:
                 </Typography>
-                { this.props.reviews ?
-                    this.props.reviews.map( review => 
+                { this.props.reviews.map( review => 
                         <Card key={review.id}>
                             <CardContent>
                                 <Box sx={{display:'grid', gridTemplateColumns: '250px auto'}}>
@@ -36,7 +60,7 @@ class RecipeRatingDisplay extends Component {
                                 </Box>
                             </CardContent>
                         </Card>
-                    ) : <></>
+                    )
                 }
             </Box>
             );
