@@ -14,11 +14,6 @@ class View_Recipe extends Component {
         };
     }
 
-    addReview = (value) => {
-        let reviewList = this.props.recipe.reviews;
-        reviewList.push(value)
-        this.setState({reviews: reviewList})
-    } 
 
     render() { 
         return (
@@ -34,7 +29,7 @@ class View_Recipe extends Component {
                         title="Recipe Viewer"
                     />
                     <RecipeDisplay recipe={this.props.recipe} />
-                    <RecipeRatingSubmit recipe={this.props.recipe} addReview={this.addReview}/>
+                    <RecipeRatingSubmit recipe={this.props.recipe} addReview={this.props.addReview}/>
                     <RecipeRatingDisplay reviews={(this.props.recipe !== undefined ? this.props.recipe.reviews : undefined)} />
                 </>
             </Dialog>
