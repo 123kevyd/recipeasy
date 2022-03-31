@@ -19,6 +19,7 @@ export default function EntryDropdown(props) {
 					<TextField
 						{...params}
 						label="Search"
+						autoFocus
 						InputProps={{
 							...params.InputProps
 						}} 
