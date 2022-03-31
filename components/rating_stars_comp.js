@@ -12,7 +12,7 @@ class RatingStars extends Component {
     constructor(props) {
         super(props);
         
-        if (!this.props || !this.props.stars && this.props.stars !== 0) {
+        if (!this.props || (!this.props.stars && this.props.stars !== 0)) {
             throw new Error("required stars prop not being passed\n");
         } else if (typeof this.props.stars !== 'number' ) {
             throw new Error(`Stars must be a number - Is: ${this.props.stars} (${typeof this.props.stars})\n`);
