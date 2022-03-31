@@ -9,8 +9,8 @@
     "migrate": "cd backend && npx sequelize-cli db:migrate",
     "down": "cd backend && npx sequelize-cli db:migrate:undo",
     "seed": "cd backend && npx sequelize-cli seed:generate --name demo-user",
-    "test111": "mocha './backend/**/*_test.js' & jest",
-    "test": "jest"
+    "test": "mocha './backend/**/*_test.js' & jest",
+    "frontend-test": "jest"
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.11",
