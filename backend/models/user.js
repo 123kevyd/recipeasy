@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-			this.belongsToMany(models.Equipment, { through: 'User_Equipment' })
-			this.belongsToMany(models.Ingredient, { through: 'User_Ingredient' })
-			this.belongsToMany(models.Recipe, { through: 'User_Recipe' })
-			this.belongsToMany(models.Restriction, { through: 'User_Restriction' })
+			//this.belongsToMany(models.equipment, { through: 'User_Equipment' })
+			//this.belongsToMany(models.ingredient, { through: 'User_Ingredient' })
+			//this.belongsToMany(models.recipe, { through: 'User_Recipe' })
+			//this.belongsToMany(models.restriction, { through: 'User_Restriction' })
     }
   }
   User.init({
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     restrictions: DataTypes.STRING
   }, {
     sequelize,
-	timestamps: false,
+	  timestamps: false,
     modelName: 'user',
     freezeTableName:  true,
     timestamps: false

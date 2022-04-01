@@ -10,14 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-			this.belongsToMany(models.User, { through: 'User_Restriction' })
+      // define association here
+      //this.belongsToMany(models.user, { through: 'User_Restriction' })
     }
   }
   Restriction.init({
-    name: DataTypes.STRING,
+    name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'restriction',
+    freezeTableName: true
   });
   return Restriction;
 };

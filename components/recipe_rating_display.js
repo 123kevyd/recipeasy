@@ -46,7 +46,7 @@ class RecipeRatingDisplay extends Component {
                                     <Box>
                                         <Stack direction='row' mb={2}>
                                             <Typography>Rating:&nbsp;&nbsp;&nbsp;</Typography>
-                                            <RatingStars stars={review.rating} />
+                                            <RatingStars stars={review.stars} />
                                         </Stack>
                                         
                                         <Stack direction='row'>
@@ -55,7 +55,7 @@ class RecipeRatingDisplay extends Component {
                                         </Stack>
                                     </Box>
                                     <Box>
-                                        {review.description}
+                                        {review.review}
                                     </Box>
                                 </Box>
                             </CardContent>

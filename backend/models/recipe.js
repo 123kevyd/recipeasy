@@ -11,21 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      //this.belongsToMany(models.user, { through: 'User_Ingredient' })
     }
   }
   recipe.init({
     name: DataTypes.STRING,
-    instructions: DataTypes.STRING,
+    time: DataTypes.INTEGER,
+    tags: DataTypes.STRING(1024),
+    instructions: DataTypes.TEXT,
     equipment: DataTypes.STRING,
-    ingredients: DataTypes.STRING,
-    servings: DataTypes.STRING,
-    details: DataTypes.STRING,
+    ingredients: DataTypes.TEXT,
+    details: DataTypes.TEXT,
     author: DataTypes.INTEGER,
-    ratings: DataTypes.STRING
+    ratings: DataTypes.TEXT 
   }, {
     sequelize,
     modelName: 'recipe',
-    freezeTableName: true,
+    freezeTableName: true
   });
   return recipe;
 };

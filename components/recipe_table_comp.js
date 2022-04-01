@@ -34,7 +34,7 @@ class RecipeTable extends Component {
     formatRecipes(recipes) {
         recipes.forEach((recipe) => {
             recipe.key = recipe.id
-            recipe.rating = this.getAverageVal(recipe.reviews, 'rating')
+            recipe.rating = this.getAverageVal(recipe.reviews, 'stars')
             recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
         })
         return recipes
