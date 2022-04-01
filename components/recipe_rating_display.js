@@ -21,16 +21,16 @@ class RecipeRatingDisplay extends Component {
             throw new Error("Required reviews prop not found");
         } else if (typeof this.props.reviews !== "object" || !Array.isArray(this.props.reviews) ) {
             throw new Error(`Prop reviews must be an array - Is ${this.props.reviews} (${typeof this.props.reviews}) `);
-        } else if (!this.props.reviews.every((elem) => { return typeof elem.rating === "number"})) {
+        } else if (!this.props.reviews.every((elem) => { return typeof elem.stars === "number"})) {
             throw new Error(`Prop reviews[i].rating must be a number `);
         } else if (!this.props.reviews.every((elem) => { return typeof elem.difficulty === "number"})) {
             throw new Error(`Prop reviews[i].difficulty must be a number `);
-        } else if (!this.props.reviews.every((elem) => { return typeof elem.description === "string"})) {
-            throw new Error(`Prop reviews[i].description must be a number `);
+        } else if (!this.props.reviews.every((elem) => { return typeof elem.review === "string"})) {
+            throw new Error(`Prop reviews[i].description must be a string `);
         }
     }
 
-    render() { 
+    render() {
         return (
             <Box>
                 <Typography

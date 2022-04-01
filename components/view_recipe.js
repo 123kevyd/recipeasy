@@ -47,22 +47,20 @@ class View_Recipe extends Component {
             throw new Error("Required reviews prop not found");
         } else if (typeof this.props.recipe.reviews !== "object" || !Array.isArray(this.props.recipe.reviews)) {
             throw new Error(`Prop recipe.reviews must be an array - Is ${this.props.recipe.reviews} (${typeof this.props.recipe.reviews}) `);
-        } else if (!this.props.recipe.reviews.every((elem) => { return typeof elem.rating === "number"})) {
-            throw new Error(`Prop recipe.reviews[i].rating must be a number `);
+        }
+
+        if (!this.props.recipe.reviews.every((elem) => { return typeof elem.stars === "number"})) {
+            throw new Error(`Prop recipe.rating[i].stars (${JSON.stringify(this.props.recipe.reviews[0])}, ${this.props.recipe.reviews[0].stars}, ${this.props.recipe.reviews[1].stars}, ${this.props.recipe.reviews[2].stars}) must be a number `);
         } else if (!this.props.recipe.reviews.every((elem) => { return typeof elem.difficulty === "number"})) {
-            throw new Error(`Prop recipe.reviews[i].rating must be a number `);
-        } else if (!this.props.recipe.reviews.every((elem) => { return typeof elem.description === "string"})) {
-            throw new Error(`Prop recipe.reviews[i].rating must be a number `);
+            throw new Error(`Prop recipe.reviews[i].difficulty must be a number `);
+        } else if (!this.props.recipe.reviews.every((elem) => { return typeof elem.review === "string"})) {
+            throw new Error(`Prop recipe.reviews[i].review must be a string `);
         } else if (typeof this.props.onToggleRecipeView !== "function") {
             throw new Error(`Prop onToggleRecipeView must be a function - Is ${this.props.onToggleRecipeView} (${typeof this.props.onToggleRecipeView}) `)
         } else if (this.props.recipeOpen === undefined || this.props.recipeOpen === null || typeof this.props.recipeOpen !== "boolean") {
             throw new Error(`Prop recipeOpen must be a boolean - Is ${this.props.recipeOpen} (${typeof this.props.recipeOpen}) `)
         }
     }
-
-    state = { 
-        stepsCompleted: []
-     };
 
     render() { 
         return (

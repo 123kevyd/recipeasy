@@ -16,9 +16,9 @@ function expectToThrow(testFunction) {
 
 function getTestReviews() {
     const testReviews = [
-        { id: "1", rating: 5, difficulty: 3, description: "Review 1" },
-        { id: "2", rating: 3, difficulty: 0, description: "Review 2" },
-        { id: "3", rating: 0, difficulty: 5, description: "Review 3" }
+        { id: "1", stars: 5, difficulty: 3, review: "Review 1" },
+        { id: "2", stars: 3, difficulty: 0, review: "Review 2" },
+        { id: "3", stars: 0, difficulty: 5, review: "Review 3" }
     ];
 
     return JSON.parse(JSON.stringify(testReviews));
@@ -29,7 +29,7 @@ test("Passing one review", () => {
 
     render(<RecipeRatingDisplay reviews={review} />);
 
-    const description = screen.queryByText(review[0].description);console.log(review)
+    const description = screen.queryByText(review[0].review);
     const ratingStars = description.parentElement.firstChild.firstChild
     const difficultyStars = description.parentElement.firstChild.lastChild
 
@@ -51,9 +51,9 @@ test("Passing many review", () => {
 
     render(<RecipeRatingDisplay reviews={reviews} />);
 
-    const description1 = screen.queryByText(reviews[0].description)
-    const description2 = screen.queryByText(reviews[1].description)
-    const description3 = screen.queryByText(reviews[2].description)
+    const description1 = screen.queryByText(reviews[0].review)
+    const description2 = screen.queryByText(reviews[1].review)
+    const description3 = screen.queryByText(reviews[2].review)
     const ratingStars1 = description1.parentElement.firstChild.firstChild
     const ratingStars2 = description2.parentElement.firstChild.firstChild
     const ratingStars3 = description3.parentElement.firstChild.firstChild
@@ -103,14 +103,14 @@ test("Passing empty object", () => {
 
 test("Passing no rating", () => {
     let reviews = getTestReviews()
-    delete reviews[0].rating
+    delete reviews[0].stars
 
     expectToThrow(() => {render(<RecipeRatingDisplay reviews={reviews} />);});
 })
 
 test("Passing non-number rating", () => {
     let reviews = getTestReviews()
-    reviews[0].rating = "123"
+    reviews[0].stars = "123"
 
     expectToThrow(() => {render(<RecipeRatingDisplay reviews={reviews} />);});
 })
@@ -131,14 +131,14 @@ test("Passing non-number difficulty", () => {
 
 test("Passing no description", () => {
     let reviews = getTestReviews()
-    delete reviews[0].description
+    delete reviews[0].review
 
     expectToThrow(() => {render(<RecipeRatingDisplay reviews={reviews} />);});
 })
 
 test("Passing non-string description", () => {
     let reviews = getTestReviews()
-    reviews[0].description = 123
+    reviews[0].review = 123
 
     expectToThrow(() => {render(<RecipeRatingDisplay reviews={reviews} />);});
 })

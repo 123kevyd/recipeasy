@@ -32,17 +32,13 @@ function getTestRecipe() {
         ],
         equipment: ["equipment 1", "equipment 2"],
         reviews: [
-            { id: "1", rating: 5, difficulty: 3, description: "Review 1" },
-            { id: "2", rating: 3, difficulty: 0, description: "Review 2" },
-            { id: "3", rating: 0, difficulty: 5, description: "Review 3" }
+            { id: "1", stars: 5, difficulty: 3, review: "Review 1" },
+            { id: "2", stars: 3, difficulty: 0, review: "Review 2" },
+            { id: "3", stars: 0, difficulty: 5, review: "Review 3" }
         ]
     };
 
     return JSON.parse(JSON.stringify(testRecipe));
-}
-
-function testFunction() {
-    return true
 }
 
 test("Passing valid recipe", () => {
@@ -64,9 +60,9 @@ test("Passing valid recipe", () => {
     const direction2 = screen.queryByText(recipe.directions[1]);
     const direction3 = screen.queryByText(recipe.directions[2]);
 
-    const description1 = screen.queryByText(recipe.reviews[0].description);
-    const description2 = screen.queryByText(recipe.reviews[1].description);
-    const description3 = screen.queryByText(recipe.reviews[2].description);
+    const description1 = screen.queryByText(recipe.reviews[0].review);
+    const description2 = screen.queryByText(recipe.reviews[1].review);
+    const description3 = screen.queryByText(recipe.reviews[2].review);
     const ratingStars1 = description1.parentElement.firstChild.firstChild;
     const ratingStars2 = description2.parentElement.firstChild.firstChild;
     const ratingStars3 = description3.parentElement.firstChild.firstChild;
@@ -104,17 +100,13 @@ test("changing recipeOpen", () => {
     let recipe = getTestRecipe();
     const { rerender } = render(<ViewRecipe onToggleRecipeView={()=>{}} recipeOpen={false} recipe={recipe} />);
 
-    // modalOpenText = screen.queryByText(recipe.title)
-    // expect(modalOpenText).toBeNull()
     expect(screen.queryByText(recipe.title)).toBeNull()
 
     rerender(<ViewRecipe onToggleRecipeView={()=>{}} recipeOpen={true} recipe={recipe} />)
-    // let modalOpenText = screen.queryByText(recipe.title)
     expect(screen.queryByText(recipe.title)).toBeVisible()
 
 
     rerender(<ViewRecipe onToggleRecipeView={()=>{}} recipeOpen={false} recipe={recipe} />)
-    // modalOpenText = screen.queryByText(recipe.title)
     expect(screen.queryByText(recipe.title)).not.toBeVisible()
 })
 
@@ -125,7 +117,6 @@ test("onToggleRecipeView is called", () => {
     render(<ViewRecipe onToggleRecipeView={toggleRecipeView} recipeOpen={true} recipe={recipe} />);
 
     const xButton = screen.queryByTestId("CloseIcon").parentElement
-    const background = xButton.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.firstChild
     const bodyElem = xButton.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
 
     expect(bodyElem).not.toBeNull()
