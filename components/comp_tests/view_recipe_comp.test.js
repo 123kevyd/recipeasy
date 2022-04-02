@@ -1,4 +1,4 @@
-/*
+
 import { fireEvent, render, screen } from '@testing-library/react'
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
@@ -231,4 +231,3 @@ test("Passing recipe with non-array reviews", () => {
     recipe["reviews"] = {};
     expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {}} recipeOpen={false} recipe={recipe} />);});
 })
-*/
