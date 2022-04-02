@@ -20,11 +20,11 @@ class RecipeTable extends Component {
         { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
             return '' + params.value + " mins"
         }},
-        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => { 
-            return <RatingStars stars={params.value} />
+        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => {
+            return <RatingStars stars={parseFloat(params.value)} />
         }},
         { field: 'rating', headerName: 'Rating', width: 140, renderCell: (params) => {
-            return <RatingStars stars={params.value} />
+            return <RatingStars stars={parseFloat(params.value)} />
         }},
         { field: 'tags', headerName: 'Tags', minWidth: 300, renderCell: (params) => {
             return this.getTags(params.value)
