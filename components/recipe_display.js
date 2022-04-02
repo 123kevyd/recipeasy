@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Box, Typography, createTheme } from '@mui/material'
+import { Box, Typography, createTheme, Button } from '@mui/material'
 import { ThemeProvider } from '@emotion/react';
 import RecipeCardList from './recipe_card_list_comp';
 import RecipeCardChip from './recipe_card_chip_comp';
 import RecipeCardText from './recipe_card_text_comp';
+import { userRecipesStore } from '../store/user_recipes';
 
 class RecipeDisplay extends Component {
 	theme = createTheme({
@@ -27,13 +28,28 @@ class RecipeDisplay extends Component {
     render() { 
         return (
             <ThemeProvider theme={this.theme}>
-                <Box>
+                <Box
+					sx={{
+						display: 'flex', 
+						flexDirection: 'row', 
+						justifyContent: 'space-between',
+						padding: '15px'
+					}}
+				>
                     <Typography
-                        align='center'
+                        align='left'
                         variant="h4"
                     >
                         {this.props.recipe.title}
                     </Typography>
+					<Button 
+						sx={{alignSelf: 'center', paddingTop: '10px'}}
+						variant="contained" color='primary'
+						onClick="userRecipesStore.addRecipe(this.props.recipe)"
+						disabled={userRecipesStore((state) => state.has(this.props.recipe.id)) ? 'true' : undefined}
+					>
+						Save Recipe
+					</Button>
                 </Box>
                 <Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
                     <Box>
