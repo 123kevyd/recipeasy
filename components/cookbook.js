@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import RecipeTable from './recipe_table_comp';
 
 class Cookbook extends Component {
-	test() { return 1 }
-
 	render() { 
 		return (
 			<>
