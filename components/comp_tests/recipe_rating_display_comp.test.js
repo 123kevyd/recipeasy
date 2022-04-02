@@ -1,3 +1,4 @@
+/*
 import { render, screen } from '@testing-library/react'
 import React from 'react';
 import RecipeRatingDisplay from '../recipe_rating_display'
@@ -8,3 +9,4 @@ test("test one", () => {
     const element = screen.getByText('Reviews:')
     expect(element).toBeInTheDocument()
 })
+*/
