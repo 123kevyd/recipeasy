@@ -81,6 +81,14 @@ import { userRecipesStore } from '../store/user_recipes';
 					Save Recipe
 				</Button>
 			</Box>
+			<Typography align='left'
+				sx={{
+					paddingLeft: '15px',
+					marginTop: '-40px'
+				}}
+			>
+				{props.recipe.time} mins
+			</Typography>
 			<Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
 				<Box>
 					<RecipeCardText title="Description" text={props.recipe.description} />
