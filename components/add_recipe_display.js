@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Button, Item, TextField, Chip, Card, CardHeader, CardContent, createTheme, Select, OutlinedInput, MenuItem, InputLabel, FormControl, Stack, Grid } from '@mui/material'
-import { maxHeight } from '@mui/system';
-import { Title } from '@material-ui/icons';
+import { Box, Button, TextField, Card, CardHeader, CardContent, createTheme } from '@mui/material'
 import AddRecipeDescription from './add_recipe_description_comp';
 import AddRecipeRestriction from './add_recipe_restrictions_comp';
 import AddRecipeTime from './add_recipe_time_comp';
