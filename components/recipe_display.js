@@ -55,7 +55,7 @@ import { userRecipesStore } from '../store/user_recipes';
         });
         return toReturn;
     }
-
+	 
 	return (
 		<ThemeProvider theme={theme}>
 			<Box
@@ -75,6 +75,8 @@ import { userRecipesStore } from '../store/user_recipes';
 				<Button 
 					sx={{alignSelf: 'center', paddingTop: '10px'}}
 					variant="contained" color='primary'
+					onClick={userRecipesStore((state => state.addRecipe(props.recipe)))}
+					disabled={userRecipesStore((state) => state.has(props.recipe.id)) ? 'true' : undefined}
 				>
 					Save Recipe
 				</Button>
