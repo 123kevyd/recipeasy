@@ -1,9 +1,10 @@
-import { Button, Chip } from '@mui/material';
+import { Button, Card, CardContent, Chip } from '@mui/material';
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
 import { DataGrid } from '@mui/x-data-grid'
-import { Box } from '@mui/system';
+import { Box, Stack } from '@mui/material';
 import RatingStars from './rating_stars_comp';
+import RecipeFilter from './recipe_filter_comp'
 
 class RecipeTable extends Component {
 	state = { 
@@ -65,18 +66,28 @@ class RecipeTable extends Component {
     render() { 
         return (
             <>
-                <Box style={{ width: '100%' }}>
-                    <DataGrid
-                        rows={this.state.shownRecipes}
-                        columns={this.cols} 
-                        autoHeight
+                <Box>
+                    <Stack direction="row">
+                        <RecipeFilter
+                            ingredients={this.props.ingredients}
+                            myIngredients={this.props.myIngredients}
+                            equipment={this.props.equipment}
+                            myEquipment={this.props.myEquipment}
+                            restrictions={this.props.restrictions}
+                            myRestrictions={this.props.myRestrictions}
                         />
+                        <DataGrid style={{ width: '100%', margin: "15px" }}
+                            rows={this.state.shownRecipes}
+                            columns={this.cols} 
+                            autoHeight
+                            />
+                    </Stack>
                 </Box>
-                <View_Recipe
-                    onToggleRecipeView={this.handleToggleRecipe}
-                    recipeOpen={this.state.recipeOpen}
-                    recipe={this.state.currRecipe}
-                />
+                            <View_Recipe
+                                onToggleRecipeView={this.handleToggleRecipe}
+                                recipeOpen={this.state.recipeOpen}
+                                recipe={this.state.currRecipe}
+                            />
             </>
         );
     }
