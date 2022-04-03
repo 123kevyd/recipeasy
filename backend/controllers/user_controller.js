@@ -2,23 +2,11 @@ const db = require("../models");
 const user = db.user;
 
 async function addToUserList(currUser, uid, listName, id) {
-	console.log("adding to list")
-	//entry = await user.update({
-		//ingredients: JSON.stringify(JSON.parse(currUser[listName]).concat([id])),
-		//where: {
-			//id: uid
-		//}
-	//})
 	currUser[listName] = JSON.stringify(JSON.parse(currUser[listName]).concat([id]))
 	currUser.save()
-	console.log("added to list")
 }
 
 async function updateUserList(currUser, listName, listString) {
-	console.log("updating user list")
-	console.log(listString)
-	const json = JSON.stringify(listString)
-	console.log(json)
 	currUser[listName] = JSON.stringify(listString)
 	currUser.save()
 }
@@ -26,7 +14,7 @@ async function updateUserList(currUser, listName, listString) {
 exports.put = async(req, res) => {
     if (req.body && req.query.user) {
         //Body fields exist - updating an existing user's informatio
-		const body = JSON.parse(req.body)
+		const body = req.body
 		const uid = req.query.user
         const thisUser = await user.findByPk(uid);
         var entry = null

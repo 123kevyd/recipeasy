@@ -20,11 +20,7 @@ describe("User Controller", function() {
     };
 
     describe("Testing Get Function", async function() {
-        var request = {
-          query: {
-              uid: 5
-          }
-        };
+        var request = 5;
         it("Should get different objects based on request input", async function() {
             var mockFind = sinon.stub(user, "findByPk");
             mockFind.withArgs(5).returns(firstUser);
@@ -34,76 +30,75 @@ describe("User Controller", function() {
             expect(toCheck.username).to.be.equal("First Guy");
             expect(toCheck.restrictions).to.be.equal("none");
 
-            request.query.uid = 1;
+            request = 1;
             toCheck = await UserController.get(request);
             expect(toCheck.username).to.be.equal("Second Girl");
             expect(toCheck.restrictions).to.be.equal("lactose");
         });
     });
 
-    describe("Testing Post Function", async function() {
+    describe("Testing Put Function", async function() {
+
+        var badRequest = {
+            query: {
+                user: 1
+            }
+        };
+
         var request = {
             query: {
-                uid: 1
+                user: 1
             },
-            body: {
-              data: {
-                  username: null,
-                  ingredients: null,
-                  equipment: null,
-                  restrictions: null,
-                  recipes: null
-              }
+            body: { 
+                username: null,
+                ingredients: null,
+                equipment: null,
+                restrictions: null,
+                recipes: null
             }
         };
 
         it("Should Call Nothing Due to Bad Request", async function() {
-            toCheck = await UserController.post(request);
+            toCheck = await UserController.put(badRequest);
             expect(toCheck).to.be.equal(undefined);
         });
       
         it("User DNE, Should Call Create Method", async function() {
-            var mockFOne = sinon.stub(user,"findOne");
-            mockFOne.returns(null);
-            request.body.data.username = "notFoundUser";
+            var mockFindOrCreate = sinon.stub(user,"findOrCreate");
+            mockFindOrCreate.returns(["Create Method was Successfully Called", true]);
+            let username = "notFoundUser";
 
-            mockFOne.returns(null);
-
-            var mockCreate = sinon.stub(user, "create");
-            mockCreate.returns("Create Method was Successfully Called");
-
-            toCheck = await UserController.post(request);
+            toCheck = await UserController.login(username);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
             sinon.restore();
         });
 
         it("User Exists, Should Not Call Create Method", async function() {
-            var mockFOne = sinon.stub(user,"findOne");
-            mockFOne.withArgs({
+            var mockFindOrCreate = sinon.stub(user,"findOrCreate");
+            mockFindOrCreate.withArgs({
                 where: {
                     username: "foundUser"
                 }
-            }).returns("User Exists");
-            request.body.data.username = "foundUser";
+            }).returns(["User Exists", false]);
+            let username = "foundUser";
 
-            toCheck = await UserController.post(request);
+            toCheck = await UserController.login(username);
             expect(toCheck).to.be.equal("User Exists");
             sinon.restore();
         });
 
         it("Should Call Update Method", async function() {
-            request.body.data.ingredients = "what";
-            request.body.data.restrictions = "when";
-            request.body.data.equipment = "who";
-            request.body.data.recipes = "why";
+            request.body.ingredients = "what";
+            request.body.restrictions = "when";
+            request.body.equipment = "who";
+            request.body.recipes = "why";
 
-            var mockUpdate = sinon.stub(user, "update");
-            mockUpdate.returns("Update Method was Successfully Called");
+            var mockUpdate = sinon.stub(user.prototype, "save");
             
 
-            toCheck = await UserController.post(request);
+            toCheck = await UserController.put(request);
             sinon.assert.callCount(mockUpdate, 4);
-            expect(toCheck).to.be.equal("Update Method was Successfully Called");
+            expect(toCheck).to.be.equal(true);
         });
     });
 });
