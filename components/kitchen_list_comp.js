@@ -1,26 +1,8 @@
 import List from "@mui/material/List"
-import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
-import IconButton from "@mui/material/ListItemIcon"
 import LinearProgress from "@mui/material/LinearProgress"
-
-function DelButton({onClick, item, disabled}) {
-	
-	const handleDel = () => {
-		if(onClick){
-			onClick(item)
-		}
-	}
-	return (
-		<IconButton edge="end" aria-label="delete"
-			disabled={disabled ? true : undefined}
-			onClick={handleDel}
-		>
-			<DeleteIcon color={disabled ? 'disabled' : 'default'}/>
-		</IconButton>
-	)
-}
+import DelButton from "./delete_button"
 
 export default function KitchenList(props) {
 	const listItems = (

@@ -46,7 +46,7 @@ test("Passing full recipe", () => {
 
     const title = screen.queryByText(recipe.title);
     const description = screen.queryByText(recipe.description);
-    const time = screen.queryByText(`Time - ${recipe.time} mins`);
+    const time = screen.queryByText(`${recipe.time} mins`);
     const tag1 = screen.queryByText(recipe.tags[0]);
     const tag2 = screen.queryByText(recipe.tags[1]);
     const tag3 = screen.queryByText(recipe.tags[2]);

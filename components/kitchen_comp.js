@@ -39,12 +39,7 @@ export default function Kitchen(props) {
 				field="restrictions"
 				endpoint="restrictions"
 			/>
-			<MyRecipes
-				recipes={props.recipes}
-				myRecipes={props.myRecipes}
-				setItems={props.setIngredients}
-				setMyItems={props.setMyIngredients}
-			/>
+			<MyRecipes />
 		</Box>
 	)
 	return kitchen
