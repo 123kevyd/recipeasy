@@ -9,7 +9,7 @@
     "migrate": "cd backend && npx sequelize-cli db:migrate",
     "down": "cd backend && npx sequelize-cli db:migrate:undo",
     "seed": "cd backend && npx sequelize-cli seed:generate --name demo-user",
-    "test": "jest",
+    "test": "mocha './backend/**/*_test.js' & jest",
     "frontend-test": "jest"
   },
   "dependencies": {
