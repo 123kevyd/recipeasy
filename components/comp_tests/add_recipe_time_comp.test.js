@@ -27,7 +27,6 @@ test("Check Inputting String", () => {
     render(<AddRecipeTime handleChange={handle}/>);
     const getArray = screen.queryAllByText("Total Minutes").filter((element) => { return element.tagName == "LABEL" })
     const textField = getArray[0].parentElement.lastChild.firstChild
-    console.log(textField.type)
     fireEvent.change(textField, {target: {value: 'yo'}})
     expect(textField).toHaveValue(null)
     expect(handle).toBeCalledTimes(0)

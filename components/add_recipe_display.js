@@ -45,6 +45,23 @@ class AddRecipeDisplay extends Component {
         }
     }
 
+    getTagIds(tags) {
+        let toReturn = [];
+        for(let i = 0; i < tags.length; i++)
+        {
+            for(let j = 0; j < this.props.restrictions.length; j++)
+            {
+                if(this.props.restrictions[j].title == tags[i])
+                {
+                    toReturn.push(this.props.restrictions[j].id);
+                    break
+                }
+            }
+            
+        }
+        return toReturn;
+    }
+
     getEquipmentIds(equipment) {
         let toReturn = [];
         for(let i = 0; i < equipment.length; i++)
@@ -70,7 +87,11 @@ class AddRecipeDisplay extends Component {
             {
                 if(this.props.ingredients[j].title == ingredients[i].name)
                 {
-                    toReturn.push(this.props.ingredients[j].id);
+                    toReturn.push({
+                        id: this.props.ingredients[j].id,
+                        quantity: ingredients[i].quantity,
+                        unit: ingredients[i].name
+                    });
                     break
                 }
             }
@@ -190,7 +211,7 @@ class AddRecipeDisplay extends Component {
                 "ingredients": this.getIngredientIds(this.state.newRecipe.ingredients),
                 "equipment": this.getEquipmentIds(this.state.newRecipe.equipment),
                 "details": recipe.description,
-                "tags": JSON.stringify(recipe.tags),
+                "tags": this.getTagIds(this.state.newRecipe.tags),
                 "time": recipe.time
             }
             
@@ -209,7 +230,10 @@ class AddRecipeDisplay extends Component {
     }
 
     async addRecipe() {
-        /*
+        //console.log(this.props.restrictions);
+        //console.log(this.state.newRecipe.tags);
+        //console.log(this.getTagIds(this.state.newRecipe.tags));
+        
         let formattedBody = this.formatAddRequest();
         if(formattedBody.data.name != "" && 
             formattedBody.data.time > 0 && 
@@ -229,9 +253,8 @@ class AddRecipeDisplay extends Component {
         }
         else {
             alert("Missing Fields");
+            console.log(formattedBody)
         }
-        */
-       console.log(this.props);
     }
 
     render() { 
