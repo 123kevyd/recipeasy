@@ -7,7 +7,7 @@ class AddRecipeInstructions extends Component {
             <Card>
                 <CardHeader title="Directions"/>
                 <CardContent>
-                    {this.props.state.newRecipe.directions.map((direction, index)=>{
+                    {this.props.directions.map((direction, index)=>{
                         return (
                             <Box key={index}>
                                 <TextField
@@ -15,11 +15,15 @@ class AddRecipeInstructions extends Component {
                                     fullWidth
                                     onChange={(event) => this.props.handleContent(event.target.value, index)}
                                 />
-                                {this.props.state.newRecipe.directions.length > 1 && (
-                                    <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
+                                {this.props.directions.length > 1 && (
+                                    <Box sx={{ mx: "auto" }}>
+                                        <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
+                                    </Box>
                                 )}
-                                {this.props.state.newRecipe.directions.length - 1 === index && (
-                                    <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Direction</Button>
+                                {this.props.directions.length - 1 === index && (
+                                    <Box sx={{ mx: "auto" }}>
+                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Direction</Button>
+                                    </Box>
                                 )}
                             </Box>
                         );

@@ -8,7 +8,7 @@ class AddRecipeIngredient extends Component {
             <Card>
                 <CardHeader title="Ingredients"/>
                 <CardContent>
-                    {this.props.state.newRecipe.ingredients.map((ingredient, index)=>{
+                    {this.props.currIngredient.map((ingredient, index)=>{
                         return (
                             <Box key={index}>
                                 <Stack direction="row" spacing={3}>
@@ -47,11 +47,11 @@ class AddRecipeIngredient extends Component {
                                         type="number"
                                         onChange={(event) => this.props.handleQuantity(event.target.value, index)}
                                     />
-                                    {this.props.state.newRecipe.ingredients.length > 1 && (
+                                    {this.props.currIngredient.length > 1 && (
                                         <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
                                     )}
                                 </Stack>
-                                {this.props.state.newRecipe.ingredients.length - 1 === index && (
+                                {this.props.currIngredient.length - 1 === index && (
                                     <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Ingredient</Button>
                                 )}
                             </Box>
