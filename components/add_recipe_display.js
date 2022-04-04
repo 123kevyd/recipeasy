@@ -204,6 +204,7 @@ class AddRecipeDisplay extends Component {
 
     formatAddRequest() {
         let recipe =  JSON.parse(JSON.stringify(this.state.newRecipe));
+        //"tags": this.getTagIds(this.state.newRecipe.tags), replace when mapping is made
         return {
             "data": {
                 "name": recipe.title,
@@ -211,7 +212,7 @@ class AddRecipeDisplay extends Component {
                 "ingredients": this.getIngredientIds(this.state.newRecipe.ingredients),
                 "equipment": this.getEquipmentIds(this.state.newRecipe.equipment),
                 "details": recipe.description,
-                "tags": this.getTagIds(this.state.newRecipe.tags),
+                "tags": this.state.newRecipe.tags,
                 "time": recipe.time
             }
             
@@ -230,10 +231,6 @@ class AddRecipeDisplay extends Component {
     }
 
     async addRecipe() {
-        //console.log(this.props.restrictions);
-        //console.log(this.state.newRecipe.tags);
-        //console.log(this.getTagIds(this.state.newRecipe.tags));
-        
         let formattedBody = this.formatAddRequest();
         if(formattedBody.data.name != "" && 
             formattedBody.data.time > 0 && 

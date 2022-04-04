@@ -47,7 +47,10 @@ class RecipeTable extends Component {
         reviews.forEach( review => {
             sum += review[colName];
         })
-        return ((sum / reviews.length).toFixed(1))
+        if (reviews.length)
+            return ((sum / reviews.length).toFixed(1))
+        else
+            return 0
     }
 
     getTags(tags) {
