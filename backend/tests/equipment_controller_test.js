@@ -40,7 +40,7 @@ describe("Equipment Controller", function() {
         it("Should Call Create Method", async function() {
             const mockMethod = sinon.stub(equipment, "create");
             mockMethod.returns("Create Method was Successfully Called");
-            request.body.data.name = "username";
+            request.body.name = "username";
 
             toCheck = await EquipmentController.post(request);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
