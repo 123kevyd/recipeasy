@@ -219,7 +219,7 @@ class AddRecipeDisplay extends Component {
         }
     }
 
-    checkIngredients(array, func) {
+    checkIngredients() {
         let toCheck = this.state.newRecipe.ingredients;
         let toReturn = true;
         toCheck.forEach(ing => {
@@ -230,9 +230,10 @@ class AddRecipeDisplay extends Component {
         return toReturn;
     }
 
-    checkInstructions(body) {
+    checkInstructions() {
+        let toCheck = this.state.newRecipe.ingredients;
         let toReturn = true;
-        body.data.instructions.forEach(instruction => {
+        toCheck.forEach(instruction => {
             if(instruction == "") {
                 toReturn = false;
             }
@@ -247,7 +248,7 @@ class AddRecipeDisplay extends Component {
             formattedBody.data.time > 0 && 
             formattedBody.data.ingredients.length > 0 && 
             formattedBody.data.instructions.length > 0 &&
-            this.checkInstructions(formattedBody) &&
+            this.checkInstructions() &&
             this.checkIngredients())
         {
             const response = await fetch(`/api/recipes`, {
