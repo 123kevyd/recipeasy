@@ -1,4 +1,5 @@
 import { Button, Card, CardContent, CardHeader, MenuItem, Select, Stack, TextField } from '@mui/material';
+import { Box } from '@mui/system';
 import React, { Component } from 'react';
 
 class AddRecipeIngredient extends Component {
@@ -9,7 +10,7 @@ class AddRecipeIngredient extends Component {
                 <CardContent>
                     {this.props.state.newRecipe.ingredients.map((ingredient, index)=>{
                         return (
-                            <>
+                            <Box key={index}>
                                 <Stack direction="row" spacing={3}>
                                     <Select
                                         label="Ingredient"
@@ -53,7 +54,7 @@ class AddRecipeIngredient extends Component {
                                 {this.props.state.newRecipe.ingredients.length - 1 === index && (
                                     <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Ingredient</Button>
                                 )}
-                            </>
+                            </Box>
                         );
                     })}
                 </CardContent>

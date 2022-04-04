@@ -8,6 +8,7 @@ import AddRecipeInstructions from './add_recipe_instructions_comp';
 import AddRecipeEquipment from './add_recipe_equipment_comp';
 
 class AddRecipeDisplay extends Component {
+    
 	theme = createTheme({
 		overrides: {
 			Card: {
@@ -208,8 +209,7 @@ class AddRecipeDisplay extends Component {
     }
 
     async addRecipe() {
-        //console.log(this.getIngredientIds(this.state.newRecipe.ingredients));
-        //console.log(this.getEquipmentIds(this.state.newRecipe.equipment));
+        /*
         let formattedBody = this.formatAddRequest();
         if(formattedBody.data.name != "" && 
             formattedBody.data.time > 0 && 
@@ -230,6 +230,8 @@ class AddRecipeDisplay extends Component {
         else {
             alert("Missing Fields");
         }
+        */
+       console.log(this.props);
     }
 
     render() { 

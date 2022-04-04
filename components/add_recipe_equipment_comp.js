@@ -1,4 +1,5 @@
 import { Button, Card, CardContent, CardHeader, MenuItem, Select, Stack, TextField } from '@mui/material';
+import { Box } from '@mui/system';
 import React, { Component } from 'react';
 
 class AddRecipeEquipment extends Component {
@@ -9,7 +10,7 @@ class AddRecipeEquipment extends Component {
                 <CardContent>
                     {this.props.state.newRecipe.equipment.map((equipment, index)=>{
                         return (
-                            <>
+                            <Box key={index}>
                                 <Stack direction="row" spacing={3}>
                                     <Select
                                         defaultValue = ""
@@ -34,8 +35,8 @@ class AddRecipeEquipment extends Component {
                                 {this.props.state.newRecipe.equipment.length - 1 === index && (
                                     <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Equipement</Button>
                                 )}
-                            </>
-                        );
+                            </Box>
+                            );
                     })}
                 </CardContent>
             </Card>

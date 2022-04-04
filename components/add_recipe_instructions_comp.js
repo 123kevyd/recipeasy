@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, CardHeader, TextField } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, TextField } from '@mui/material';
 import React, { Component } from 'react';
 
 class AddRecipeInstructions extends Component {
@@ -9,7 +9,7 @@ class AddRecipeInstructions extends Component {
                 <CardContent>
                     {this.props.state.newRecipe.directions.map((direction, index)=>{
                         return (
-                            <>
+                            <Box key={index}>
                                 <TextField
                                     label="Content"
                                     fullWidth
@@ -21,7 +21,7 @@ class AddRecipeInstructions extends Component {
                                 {this.props.state.newRecipe.directions.length - 1 === index && (
                                     <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Direction</Button>
                                 )}
-                            </>
+                            </Box>
                         );
                     })}
                 </CardContent>

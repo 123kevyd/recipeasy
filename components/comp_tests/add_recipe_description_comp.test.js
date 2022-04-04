@@ -1,13 +1,36 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react';
 import AddRecipeDescription from '../add_recipe_description_comp'
 import '@testing-library/jest-dom/extend-expect';
 
-test("Passing empty title", () => {
-    const handle = jest.fn()
+// required to prevent jest from flooding the terminal with the intended error messages
+function expectToThrow(testFunction) {
+    const spy = jest.spyOn(console, 'error');
+    spy.mockImplementation(() => {});
 
-    const x = render(<AddRecipeDescription handleChange={handle} />);
-    console.log(x);
-    //fireEvent.click(closeButton)
-    //expect(handleClick).toHaveBeenCalledTimes(1)
+    expect(testFunction).toThrow()
+
+    spy.mockRestore();
+}
+
+test("Passing no props", () => {
+    expectToThrow(() => {render(<AddRecipeDescription />);});
+})
+
+test("Checking Element Exists", () => {
+    const handle = jest.fn()
+    render(<AddRecipeDescription handleChange={handle}/>);
+    const getArray = screen.queryAllByText("Description").filter((element) => { return element.tagName == "LABEL" })
+    const textField = getArray[0].parentElement.lastChild.firstChild
+    expect(textField).toBeEmptyDOMElement()
+})
+
+test("Checking Method Is called On Change", () => {
+    const handle = jest.fn();
+    render(<AddRecipeDescription handleChange={handle}/>);
+    const getArray = screen.queryAllByText("Description").filter((element) => { return element.tagName == "LABEL" })
+    const textField = getArray[0].parentElement.lastChild.firstChild
+    fireEvent.change(textField, {target: {value: '23'}})
+    expect(textField).toHaveValue("23")
+    expect(handle).toBeCalledTimes(1)
 })

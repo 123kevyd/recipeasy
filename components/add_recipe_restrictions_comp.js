@@ -33,10 +33,10 @@ class AddRecipeRestriction extends Component {
                             )}>
                             {this.props.restrictions.map((restriction) => (
                                 <MenuItem
-                                key={restriction}
-                                value={restriction}
+                                key={restriction.value}
+                                value={restriction.title}
                                 >
-                                    {restriction}
+                                    {restriction.title}
                                 </MenuItem>
                             ))}        
                         </Select>
