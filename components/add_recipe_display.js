@@ -219,7 +219,7 @@ class AddRecipeDisplay extends Component {
         }
     }
 
-    checkIngredients() {
+    checkIngredients(array, func) {
         let toCheck = this.state.newRecipe.ingredients;
         let toReturn = true;
         toCheck.forEach(ing => {
@@ -271,18 +271,18 @@ class AddRecipeDisplay extends Component {
             <Box
             classes="wide-text"
             >
+                <Card>
+                    <CardHeader title="Recipe Name"/>
+                    <CardContent>
+                        <TextField
+                            label="Title" 
+                            fullWidth
+                            onChange={(event) => this.handleUpdateTitle(event.target.value)}
+                        />
+                    </CardContent>
+                </Card>
                 <Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
                     <Box>
-                        <Card>
-                            <CardHeader title="Recipe Name"/>
-                            <CardContent>
-                                <TextField
-                                    label="Title" 
-                                    fullWidth
-                                    onChange={(event) => this.handleUpdateTitle(event.target.value)}
-                                />
-                            </CardContent>
-                        </Card>
                         <AddRecipeDescription
                             handleChange={this.handleUpdateDescription.bind(this)}
                         />
@@ -301,14 +301,6 @@ class AddRecipeDisplay extends Component {
                         />
                     </Box>
                     <Box>
-                        <Card>
-                            <CardHeader/>
-                            <CardContent>
-                                <Box textAlign='center'>
-                                    <Button variant='contained' onClick={() => this.addRecipe()}>Submit</Button>
-                                </Box>
-                            </CardContent>
-                        </Card>
                         <AddRecipeTime
                             handleChange={this.handleUpdateTime.bind(this)}
                         />
@@ -327,6 +319,14 @@ class AddRecipeDisplay extends Component {
                             currIngredient={this.state.newRecipe.ingredients}
                             unit={this.unit}
                         />
+                        <Card>
+                            <CardHeader/>
+                            <CardContent>
+                                <Box textAlign='center'>
+                                    <Button variant='contained' onClick={() => this.addRecipe()}>Submit</Button>
+                                </Box>
+                            </CardContent>
+                        </Card>
                     </Box>
                 </Box>
             </Box>

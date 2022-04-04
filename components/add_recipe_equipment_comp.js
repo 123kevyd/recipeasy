@@ -8,16 +8,16 @@ class AddRecipeEquipment extends Component {
             <Card>
                 <CardHeader title="Equipement"/>
                 <CardContent>
-                    {this.props.currEquipment.map((equipment, index)=>{
+                    {this.props.currEquipment.map((equip, index)=>{
                         return (
                             <Box key={index}>
-                                <Stack direction="row" spacing={3}>
+                                <Stack direction="row" spacing={3} >
                                     <Select
                                         defaultValue = ""
                                         label="Equipment"
                                         fullWidth
                                         onChange={(event) => this.props.handleContent(event.target.value,index)}
-                                        value={equipment.name}
+                                        value={equip}
                                         >
                                         {this.props.equipment.map(({ title } = equipment) => (
                                             <MenuItem
@@ -33,7 +33,9 @@ class AddRecipeEquipment extends Component {
                                     )}
                                 </Stack>
                                 {this.props.currEquipment.length - 1 === index && (
-                                    <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Equipement</Button>
+                                    <Box mt={2}>
+                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Equipement</Button>
+                                    </Box>
                                 )}
                             </Box>
                             );

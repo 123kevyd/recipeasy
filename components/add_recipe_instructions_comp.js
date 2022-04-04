@@ -12,8 +12,10 @@ class AddRecipeInstructions extends Component {
                             <Box key={index}>
                                 <TextField
                                     label="Content"
+                                    margin='normal'
                                     fullWidth
                                     onChange={(event) => this.props.handleContent(event.target.value, index)}
+                                    value={direction}
                                 />
                                 {this.props.directions.length > 1 && (
                                     <Box sx={{ mx: "auto" }}>

@@ -10,7 +10,7 @@ class AddRecipeIngredient extends Component {
                 <CardContent>
                     {this.props.currIngredient.map((ingredient, index)=>{
                         return (
-                            <Box key={index}>
+                            <Box key={index} mt={2}>
                                 <Stack direction="row" spacing={3}>
                                     <Select
                                         label="Ingredient"
@@ -43,6 +43,7 @@ class AddRecipeIngredient extends Component {
                                         ))}         
                                     </Select>
                                     <TextField
+                                        value={ingredient.quantity}
                                         label="Qnty"
                                         type="number"
                                         onChange={(event) => this.props.handleQuantity(event.target.value, index)}
@@ -52,7 +53,9 @@ class AddRecipeIngredient extends Component {
                                     )}
                                 </Stack>
                                 {this.props.currIngredient.length - 1 === index && (
-                                    <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Ingredient</Button>
+                                    <Box mt={2}>
+                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Ingredient</Button>
+                                    </Box>
                                 )}
                             </Box>
                         );
