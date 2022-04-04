@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Tabs, Tab, Box } from '@mui/material/'
 import Cookbook from '../../components/cookbook'
 import Kitchen from '../../components/kitchen_comp'
-import { userRecipesStore } from "/store/user_recipes"
+import { userStore } from "/store/user_store"
 
 function filterToUserData(items, idString){
 	if(idString){
@@ -135,10 +135,20 @@ function App(props) {
 	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
 	const [equipment, setEquipment] = useState(props.equipment)
 	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
-	if(! userRecipesStore((state) => state.isInitialized())){
-		userRecipesStore((state) => state.init(router.query.uid, props.myRecipes))
+	console.log("rendering app")
+
+	if(typeof window !== 'undefined'){
+		if(! userStore((state) => state.isInitialized())){
+			console.log("initializing store")
+			userStore((state) => state.init({
+				uid: router.query.uid,
+				recipes: props.myRecipes,
+				ingredients: props.myIngredients,
+				equipment: props.myEquipment,
+				restrictions: props.myEquipment
+			}))
+		}
 	}
-	
 
 	const handleChange = (event, newValue) => {
 		setTab(newValue)

@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { Typography, Stack, List, ListItem, ListItemButton, LinearProgress } from '@mui/material/'
-import { userRecipesStore } from "../store/user_recipes"
+import { userStore } from "../store/user_store"
 import DelButton from "./delete_button"
 import View_Recipe from "./view_recipe"
+console.log("running my recipes")
 
 export default function Recipes(props) {
 	return (
@@ -22,7 +23,7 @@ function RecipeListItem(props) {
 			secondaryAction={
 				<DelButton 
 					disabled={isLoading}
-					onClick={userRecipesStore((state) => state.delRecipe(recipe))}
+					onClick={userStore((state) => state.del("recipes", recipe))}
 					item={recipe}
 					/>
 			}
@@ -38,8 +39,8 @@ function RecipeListItem(props) {
 }
 
 function KitchenRecipeList(props) {
-	const items = userRecipesStore((state) => state.recipes)
-	const loadingRecipes = userRecipesStore((state) => state.loadingRecipes)
+	const items = userStore((state) => {console.log(state); return state.recipes})
+	const loading = userStore((state) => state.loading)
 	const [currRecipe, setCurrRecipe] = useState(items[0])
 	const [viewingRecipe, setViewingRecipe] = useState(false)
 	const toggleViewingRecipe = () => {
@@ -52,7 +53,8 @@ function KitchenRecipeList(props) {
 
 	const listItems = (
 		items.map(item => {
-			var isLoading = loadingRecipes.includes(item.id)
+			const loadingElement = `recipes${item.id}`
+			var isLoading = loading.has(loadingElement)
 			return (
 				<div key={`${item.title}${isLoading}`}>
 					<RecipeListItem
