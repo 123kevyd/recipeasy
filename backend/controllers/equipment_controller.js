@@ -12,8 +12,9 @@ exports.getAll = async() => {
 }
 
 exports.post = async(req, res) => {
-    if(req.body.data.name) {
-        const result = await equipment.create({name: req.body.data.name});
+	const body = req.body
+    if(body.name) {
+        const result = await equipment.create({name: body.name});
         return result;
     } else {
         //Missing the new equipment's name in body
