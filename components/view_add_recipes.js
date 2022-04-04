@@ -3,7 +3,7 @@ import { Dialog } from '@mui/material';
 import RecipeModalHeader from './recipe_modal_header';
 import AddRecipeDisplay from './add_recipe_display';
 
-class View_Recipe extends Component {
+class ViewAddRecipe extends Component {
     state = { 
      };
 
@@ -32,4 +32,4 @@ class View_Recipe extends Component {
     }
 }
  
-export default View_Recipe;
+export default ViewAddRecipe;

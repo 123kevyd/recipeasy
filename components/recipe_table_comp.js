@@ -77,7 +77,6 @@ class RecipeTable extends Component {
     render() { 
         return (
             <>
-                <Button variant='contained' onClick={() => this.handleToggleAdd()}>Add</Button>
                 <Box style={{ width: '100%' }}>
                     <DataGrid
                         rows={this.state.shownRecipes}
@@ -90,15 +89,6 @@ class RecipeTable extends Component {
                     recipeOpen={this.state.recipeOpen}
                     recipe={this.state.currRecipe}
                 />
-                <View_Add_Recipe
-                    addRecipeOpen={this.state.addRecipeOpen}
-                    onToggleAddRecipeView={this.handleToggleAdd}
-                    recipes={this.props.recipes}
-					ingredients={this.props.ingredients}
-				    equipment={this.props.equipment}
-					restrictions={this.props.restrictions}
-                />
-                    
             </>
         );
     }
