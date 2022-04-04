@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     ingredients: DataTypes.STRING,
     equipment: DataTypes.STRING,
-    restrictions: DataTypes.STRING
+    restrictions: DataTypes.STRING,
+    recipes: DataTypes.STRING
   }, {
     sequelize,
 	  timestamps: false,
