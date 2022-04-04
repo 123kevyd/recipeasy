@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
-import Typography from '@mui/material/Typography'
+import { Typography, Stack } from '@mui/material/'
 import { useRouter } from 'next/router'
 import EntryDropdown from "./entry_dropdown_comp"
 import KitchenList from "./kitchen_list_comp"
-import Stack from "@mui/material/Stack"
 
 export default function KitchenCategory(props) {
 

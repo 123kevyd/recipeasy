@@ -15,10 +15,6 @@ async function addToUserList(currUser, uid, listName, id) {
 }
 
 async function updateUserList(currUser, listName, listString) {
-	console.log("updating user list")
-	console.log(listString)
-	const json = JSON.stringify(listString)
-	console.log(json)
 	currUser[listName] = JSON.stringify(listString)
 	currUser.save()
 }
