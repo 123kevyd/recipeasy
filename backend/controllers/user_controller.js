@@ -2,16 +2,8 @@ const db = require("../models");
 const user = db.user;
 
 async function addToUserList(currUser, uid, listName, id) {
-	console.log("adding to list")
-	//entry = await user.update({
-		//ingredients: JSON.stringify(JSON.parse(currUser[listName]).concat([id])),
-		//where: {
-			//id: uid
-		//}
-	//})
 	currUser[listName] = JSON.stringify(JSON.parse(currUser[listName]).concat([id]))
 	currUser.save()
-	console.log("added to list")
 }
 
 async function updateUserList(currUser, listName, listString) {

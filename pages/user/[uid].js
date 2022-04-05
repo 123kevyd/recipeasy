@@ -184,6 +184,9 @@ function App(props) {
 			<TabPanel value={tab} index={1}>
 				<Cookbook
 					recipes={props.recipes}
+					ingredients={props.ingredients}
+					equipment={props.equipment}
+					restrictions={props.restrictions}
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={0}>
