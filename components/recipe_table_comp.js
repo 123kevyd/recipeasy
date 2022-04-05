@@ -1,6 +1,7 @@
 import { Button, Card, CardContent, Chip } from '@mui/material';
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
+import View_Add_Recipe from "./view_add_recipes"
 import { DataGrid } from '@mui/x-data-grid'
 import { Box, Stack } from '@mui/material';
 import RatingStars from './rating_stars_comp';
@@ -9,6 +10,7 @@ import RecipeFilter from './recipe_filter_comp'
 class RecipeTable extends Component {
 	state = { 
         recipeOpen: false,
+        addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
         shownRecipes: this.formatRecipes(this.props.recipes)
     }
@@ -46,7 +48,10 @@ class RecipeTable extends Component {
         reviews.forEach( review => {
             sum += review[colName];
         })
-        return ((sum / reviews.length).toFixed(1))
+        if (reviews.length)
+            return ((sum / reviews.length).toFixed(1))
+        else
+            return 0
     }
 
     getTags(tags) {
@@ -62,6 +67,13 @@ class RecipeTable extends Component {
         }
         this.setState({recipeOpen: recipeOpen})
 	}
+
+    handleToggleAdd = () => {
+		let addRecipeOpen = this.state.addRecipeOpen
+		addRecipeOpen = !addRecipeOpen
+        this.setState({addRecipeOpen: addRecipeOpen})
+	}
+
 
     render() { 
         return (
