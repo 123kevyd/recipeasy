@@ -63,7 +63,7 @@ class RecipeRatingSubmit extends Component {
                                     <Typography>Rating:&nbsp;&nbsp;&nbsp;</Typography>
                                     <StyledRating
                                         icon={<StarIcon fontSize="inherit"></StarIcon>}
-                                        emptyIcon={<StarBorderIcon fontsize="inherit"></StarBorderIcon>}
+                                        emptyIcon={<StarBorderIcon fontSize="inherit"></StarBorderIcon>}
                                         value={this.state.rating}
                                         onChange={(event, newValue) => this.setState({rating: newValue})}>
                                     </StyledRating>
@@ -72,7 +72,7 @@ class RecipeRatingSubmit extends Component {
                                     <Typography>Difficulty:&nbsp;</Typography>
                                     <StyledRating
                                         icon={<StarIcon fontSize="inherit"></StarIcon>}
-                                        emptyIcon={<StarBorderIcon fontsize="inherit"></StarBorderIcon>}
+                                        emptyIcon={<StarBorderIcon fontSize="inherit"></StarBorderIcon>}
                                         value={this.state.difficulty}
                                         onChange={(event, newValue) => this.setState({difficulty: newValue})}>
                                     </StyledRating>
