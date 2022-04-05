@@ -26,7 +26,6 @@ class RecipeRatingSubmit extends Component {
 
     handleSubmit = () => {
         if (this.props.recipe.id && this.state.rating && this.state.difficulty) {
-
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
@@ -35,14 +34,18 @@ class RecipeRatingSubmit extends Component {
                                             difficulty: this.state.difficulty,
                                             review: this.state.review}})
             }
-
+            
             fetch('/api/rating', requestOptions)
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({rating: null, difficulty: null, review: ''})
-                    this.props.addReview(data[0])
+                .then(response => {
+                    if(response.status === 200) {
+                        return response.json()
+                    }
+                }).then(data => {
+                    if (data) {
+                        this.setState({rating: null, difficulty: null, review: ''})
+                        this.props.addReview(data[0])
+                    }
                 })
-
         } else {
             alert('Error: Both difficulty and stars are required');
         }
