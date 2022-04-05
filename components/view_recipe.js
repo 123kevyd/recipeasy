@@ -3,6 +3,7 @@ import { Dialog } from '@mui/material';
 import RecipeModalHeader from './recipe_modal_header';
 import RecipeDisplay from './recipe_display';
 import RecipeRatingDisplay from './recipe_rating_display';
+import RecipeRatingSubmit from './recipe_rating_submit';
 
 /**
  * Used to display a recipe for viewing
@@ -76,6 +77,7 @@ class View_Recipe extends Component {
                         title="Recipe Viewer"
                     />
                     <RecipeDisplay recipe={this.props.recipe} />
+                    <RecipeRatingSubmit recipe={this.props.recipe} addReview={this.props.addReview}/>
                     <RecipeRatingDisplay reviews={(this.props.recipe !== undefined ? this.props.recipe.reviews : undefined)} />
                 </>
             </Dialog>

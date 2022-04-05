@@ -33,6 +33,17 @@ class RecipeTable extends Component {
         }}
     ]
 
+    addReview = (value) => {
+        let newReviewRecipe = this.state.currRecipe;
+        let shownRecipeUpdate = this.props.recipes.map(recipe => {
+            if (recipe.id == newReviewRecipe.id) {
+                recipe.reviews.push(value);
+            }
+            return recipe
+        })
+        this.setState({shownRecipes: this.formatRecipes(shownRecipeUpdate)})
+    }
+
     formatRecipes(recipes) {
         recipes.forEach((recipe) => {
             recipe.key = recipe.id
@@ -88,6 +99,7 @@ class RecipeTable extends Component {
                     onToggleRecipeView={this.handleToggleRecipe}
                     recipeOpen={this.state.recipeOpen}
                     recipe={this.state.currRecipe}
+                    addReview={this.addReview}
                 />
             </>
         );
