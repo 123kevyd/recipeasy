@@ -6,7 +6,7 @@ import ViewAddRecipe from './view_add_recipes';
 class Cookbook extends Component {
 
 	state = { 
-        addRecipeOpen: false,
+        addRecipeOpen: false
     }
 
 	handleToggleAdd = () => {
@@ -18,6 +18,10 @@ class Cookbook extends Component {
 	render() { 
 		return (
 			<>
+				<p>{this.state.useIngredientFilter}</p>
+				<p>{this.state.useEquipmentFilter}</p>
+				<p>{this.state.useRestrictionFilter}</p>
+				<p>{this.state.useRecipesFilter}</p>
 				<Typography variant='h4' align='center'>My Cookbook <Button variant='contained' onClick={() => this.handleToggleAdd()}>Add</Button></Typography>
 				<Box margin='100px'>
 					<Box>

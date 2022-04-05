@@ -7,14 +7,27 @@ import { Box, Stack } from '@mui/material';
 import RatingStars from './rating_stars_comp';
 import RecipeFilter from './recipe_filter_comp'
 
+// recipes=recipes.forEach((recipe)=>{if((useIngredientFilter&&myIngredients.forEach((ingredient)=>{return recipe.ingredients.indexOf(ingredient.title)>=0}))&&(useEquipmentFilter&&myIngredients.forEach((equipment)=>{return recipe.equipment.indexOf(equipment.title)>=0}))&&(useIngredientFilter&&myIngredients.forEach((restriction)=>{returnrecipe.tags.indexOf(restriction.title)>=0}))&&(useRestrictionFilter&&myIngredients.forEach((filterRecipe)=>{returnrecipe.recipes.indexOf(filterRecipe.title)>=0}))){recipe.key=recipe.id;recipe.rating=this.getAverageVal(recipe.reviews,'stars');recipe.difficulty=this.getAverageVal(recipe.reviews,'difficulty');}else{toRemove.push(recipes.title)}}).filter((recipe)=>{returntoRemove.indexOf(recipe.title)<-1});
+
 class RecipeTable extends Component {
 	state = { 
         recipeOpen: false,
         addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
-        shownRecipes: this.formatRecipes(this.props.recipes)
+        shownRecipes: this.formatRecipes(this.props.recipes, false, false, false, false),
+		filters: {
+			useIngredientFilter: false,
+			useEquipmentFilter: false,
+			useRestrictionFilter: false,
+			useRecipesFilter: false
+		}
     }
 
+    myIngredients = [{id: 2, title: "Eggs"}, {id: 3, title: "Flour"}]
+    myEquipment = [{id:1, title: "Wok"}]
+    myRestrictions = [{id: 1, title: "A new tag "}, {id:2, title: "Fish Free"}]
+    myRecipes = [{id:5, title:"first test recipe"}]
+    
     cols = [
         { field: 'key', headerName: 'View Recipe', width: 100, renderCell: (params) => {
             return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
@@ -34,13 +47,63 @@ class RecipeTable extends Component {
         }}
     ]
 
-    formatRecipes(recipes) {
-        recipes.forEach((recipe) => {
+	handleToggleFilter = (modalName) => {
+		let newFilters = {...this.state.filters}
+		newFilters[modalName] = !newFilters[modalName]
+		this.setState({ filters: newFilters })
+
+        let shownRecipes = this.formatRecipes(this.props.recipes, newFilters.useIngredientFilter, newFilters.useEquipmentFilter, newFilters.useRestrictionFilter, newFilters.useRecipesFilter);
+        this.setState({shownRecipes: shownRecipes})
+	}
+
+    formatRecipes(recipes, useIngredientFilter, useEquipmentFilter, useRestrictionFilter, useRecipesFilter) {
+        let toRemove = []
+        let shownRecipes = [...recipes]
+
+        function checkRecipeArray(filterBool, filterList, recipe, fieldName, compFunc) {
+            let toRemoveTitle = null
+            if (filterBool) {
+                filterList.forEach( (elem) => {
+                    if ( !toRemoveTitle && !recipe[fieldName].find((item) => { return compFunc(item, elem) })) {
+                        toRemoveTitle = recipe.title
+                    }
+                })
+            }
+            return toRemoveTitle
+        }
+
+        function checkRecipeTitle(recipe, myRecipes) {
+            let toRemoveTitle = null
+            if (useRecipesFilter) {
+                myRecipes.forEach( (elem) => {
+                    if ( !toRemoveTitle && recipe.title !== elem.title) {
+                        toRemoveTitle = recipe.title
+                    }
+                })
+            }
+            return toRemoveTitle
+        }
+
+        shownRecipes.forEach((recipe) => {
+            let toRemoveTitle = null
             recipe.key = recipe.id
             recipe.rating = this.getAverageVal(recipe.reviews, 'stars')
             recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
+
+            toRemoveTitle = checkRecipeArray(useIngredientFilter, this.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
+            if (!toRemoveTitle) {
+                toRemoveTitle = checkRecipeArray(useEquipmentFilter, this.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
+            } if (!toRemoveTitle) {
+            toRemoveTitle = checkRecipeArray(useRestrictionFilter, this.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
+            } if (!toRemoveTitle) {
+                toRemoveTitle = checkRecipeTitle(recipe, this.myRecipes)
+            }
+
+            if (toRemoveTitle) {
+                toRemove.push(toRemoveTitle)
+            }
         })
-        return recipes
+        return shownRecipes.filter((recipe) => { return toRemove.indexOf(recipe.title) < 0})
     }
 
     getAverageVal(reviews, colName) {
@@ -75,7 +138,7 @@ class RecipeTable extends Component {
 	}
 
 
-    render() { 
+    render() {
         return (
             <>
                 <Box>
@@ -87,6 +150,8 @@ class RecipeTable extends Component {
                             myEquipment={this.props.myEquipment}
                             restrictions={this.props.restrictions}
                             myRestrictions={this.props.myRestrictions}
+							filters={this.state.filters}
+							onToggleFilter={this.handleToggleFilter}
                         />
                         <DataGrid style={{ width: '100%', margin: "15px" }}
                             rows={this.state.shownRecipes}
@@ -95,11 +160,11 @@ class RecipeTable extends Component {
                             />
                     </Stack>
                 </Box>
-                            <View_Recipe
-                                onToggleRecipeView={this.handleToggleRecipe}
-                                recipeOpen={this.state.recipeOpen}
-                                recipe={this.state.currRecipe}
-                            />
+               <View_Recipe
+                   onToggleRecipeView={this.handleToggleRecipe}
+                   recipeOpen={this.state.recipeOpen}
+                   recipe={this.state.currRecipe}
+               />
             </>
         );
     }

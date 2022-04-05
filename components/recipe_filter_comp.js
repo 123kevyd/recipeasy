@@ -7,7 +7,8 @@ class RecipeFilter extends Component {
     state = {
         restrictionModalOpen: false,
         ingredientModalOpen: false,
-        equipmentModalOpen: false
+        equipmentModalOpen: false,
+        recipeModalOpen: false
     }
 
     onToggleModal(modalStr) {
@@ -17,16 +18,18 @@ class RecipeFilter extends Component {
         this.setState(newState)
     }
 
-
-    render() { 
+    render() {
         return (
             <>
-                <Card sx={{width: "200px", height:"215px"}}>
+                <Card sx={{width: "200px", height:"260px"}}>
                     <CardHeader title='Filters' />
                     <CardContent>
                         <Grid container>
                             <Grid item xs={10}>
-                                <FormControlLabel control={<Checkbox />} label="Restrictions" />
+                                <FormControlLabel
+                                    control={<Checkbox onClick={() => { this.props.onToggleFilter("useRestrictionFilter") }} />}
+                                    label="Restrictions"
+                                />
                             </Grid>
                             <Grid item xs={2}>
                                 <IconButton
@@ -36,7 +39,10 @@ class RecipeFilter extends Component {
                                 </IconButton>
                             </Grid>
                             <Grid item xs={10}>
-                                <FormControlLabel control={<Checkbox />} label="Equipment" />
+                                <FormControlLabel
+                                    control={<Checkbox onClick={() => { this.props.onToggleFilter("useEquipmentFilter") }} />}
+                                    label="Equipment"
+                                />
                             </Grid>
                             <Grid item xs={2}>
                                 <IconButton
@@ -46,11 +52,27 @@ class RecipeFilter extends Component {
                                 </IconButton>
                             </Grid>
                             <Grid item xs={10}>
-                                <FormControlLabel control={<Checkbox />} label="Ingredient" />
+                                <FormControlLabel
+                                    control={<Checkbox onClick={() => { this.props.onToggleFilter("useIngredientFilter") }} />}
+                                    label="Ingredient"
+                                />
                             </Grid>
                             <Grid item xs={2}>
                                 <IconButton
                                     onClick={() => { this.onToggleModal("ingredientModalOpen")} }
+                                >
+                                    <EditIcon />
+                                </IconButton>
+                            </Grid>
+                            <Grid item xs={10}>
+                                <FormControlLabel
+                                    control={<Checkbox onClick={() => { this.props.onToggleFilter("useRecipesFilter") }} />}
+                                    label="Recipes"
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <IconButton
+                                    onClick={() => { this.onToggleModal("recipeModalOpen")} }
                                 >
                                     <EditIcon />
                                 </IconButton>
@@ -71,11 +93,11 @@ class RecipeFilter extends Component {
                     title="My Ingredients"
                     options={this.props.ingredients}
                     myOptions={this.props.myIngredients}
-                />
+                /> {/* TODO switch to recipe modal and state */}
                 <RecipeFilterModal
-                    isOpen={this.state.equipmentModalOpen}
-                    onToggleModal={() => { this.onToggleModal("equipmentModalOpen") }}
-                    title="My Equipment"
+                    isOpen={this.state.recipeModalOpen}
+                    onToggleModal={() => { this.onToggleModal("recipeModalOpen") }}
+                    title="My Recipes"
                     options={this.props.equipment}
                     myOptions={this.props.myEquipment}
                 />
