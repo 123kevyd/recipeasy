@@ -99,7 +99,7 @@ class RecipeTable extends Component {
                     onToggleRecipeView={this.handleToggleRecipe}
                     recipeOpen={this.state.recipeOpen}
                     recipe={this.state.currRecipe}
-                    addReview ={this.addReview}
+                    addReview={this.addReview}
                 />
             </>
         );

@@ -13,7 +13,6 @@ export default async function handler(req, res) {
     }
     else if (req.method === 'GET') {
         const result = await rating.get(req);
-        console.log(typeof(result.dataValues));
 	    res.status(200).json([{ 
             id: result.dataValues.id,
             stars: result.dataValues.stars,

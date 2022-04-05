@@ -1,7 +1,6 @@
 import React, { Component, useState } from 'react';
-import { Typography, Card, CardContent, CardHeader, Box, Stack, Divider, TextField, Rating, Button, TextareaAutosize } from '@mui/material'
-import StarIcon from '@mui/icons-material/Star'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
+import { Typography, Card, CardContent, CardHeader, Box, Stack,TextField, Rating, Button } from '@mui/material'
+import { Star, StarBorder } from '@mui/icons-material'
 import { styled } from '@mui/material/styles';
 
 
@@ -62,8 +61,8 @@ class RecipeRatingSubmit extends Component {
                                 <Stack direction='row' mb={2}>
                                     <Typography>Rating:&nbsp;&nbsp;&nbsp;</Typography>
                                     <StyledRating
-                                        icon={<StarIcon fontSize="inherit"></StarIcon>}
-                                        emptyIcon={<StarBorderIcon fontSize="inherit"></StarBorderIcon>}
+                                        icon={<Star fontSize="inherit"></Star>}
+                                        emptyIcon={<StarBorder fontSize="inherit"></StarBorder>}
                                         value={this.state.rating}
                                         onChange={(event, newValue) => this.setState({rating: newValue})}>
                                     </StyledRating>
@@ -71,8 +70,8 @@ class RecipeRatingSubmit extends Component {
                                 <Stack direction='row'>
                                     <Typography>Difficulty:&nbsp;</Typography>
                                     <StyledRating
-                                        icon={<StarIcon fontSize="inherit"></StarIcon>}
-                                        emptyIcon={<StarBorderIcon fontSize="inherit"></StarBorderIcon>}
+                                        icon={<Star fontSize="inherit"></Star>}
+                                        emptyIcon={<StarBorder fontSize="inherit"></StarBorder>}
                                         value={this.state.difficulty}
                                         onChange={(event, newValue) => this.setState({difficulty: newValue})}>
                                     </StyledRating>
@@ -86,6 +85,7 @@ class RecipeRatingSubmit extends Component {
                                         rows={4}
                                         style={{width: '100%'}}
                                         value={this.state.review}
+                                        inputProps={{maxLength: 500}}
                                         onChange={(event) => this.setState({review: event.target.value})}/>
                                     </Stack>
                                     <Stack direction='row'>
