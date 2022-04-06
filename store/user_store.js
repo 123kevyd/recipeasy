@@ -1,5 +1,4 @@
 import create from 'zustand'
-console.log("importing zustand")
 
 async function update(uid, field, ids){
 	return fetch(`/api/user/${uid}/`, 
@@ -9,15 +8,26 @@ async function update(uid, field, ids){
 		})
 }
 
-function toggleLoading(field, id, setter, getter) {
-	const item = `${field}${id}`
-	const loadingSet = getter().loading
+async function postNewItem(field, title) {
+	const res = await fetch(`/api/${field}/`, {method: 'POST', body: JSON.stringify({price: 0, name: title})})
+	const data = await res.json()
+	return data[0]
+}
+
+function toggleLoading(item, setter, getter) {
+	const loadingSet = new Set(getter().loading)
 	if(loadingSet.has(item)){
-		loadingSet.add(item)
-	}else{
 		loadingSet.delete(item)
+	}else{
+		loadingSet.add(item)
 	}
-	setter((state) => ({ loading: new Set(loadingSet) }))
+	setter((state) => ({ loading: loadingSet }))
+}
+
+function appendItemAndSet(field, items, item, setter) {
+	var ids = state[field].map(datum => datum.id)
+	ids.push(data.id)
+	set((state) => ({ [field]: state[field].concat([data]) }))
 }
 
 export const userStore = create((set, get) => ({
@@ -37,28 +47,34 @@ export const userStore = create((set, get) => ({
 	})),
 	isInitialized: () => get().uid > -1,
 
-	add: (field, data) => async() => {
-		const state = get()
-		toggleLoading(field, data.id, set, get)
-		set((state) => ({ [field]: state[field].concat([data]) }))
-		var ids = state[field].map(datum => datum.id)
-
-		const res = await update(state.uid, field, ids)
-		toggleLoading(field, data.id, set, get)
+	add: async(field, data) => {
+		// careful, future calls to set() will not change the value of this 'state' variable
+		const state = get() 
+		const currItems = state[field]
+		if(!data.id){
+			// new item, send to category db
+			const newItem = {title: data}
+			toggleLoading(newItem, set, get)
+			set((state) => ({ [field]: state[field].concat([newItem]) }))
+			data = await postNewItem(field, data)
+			toggleLoading(newItem, set, get)
+		}
+		toggleLoading(data, set, get)
+		var ids = currItems.map(datum => datum.id)
+		ids.push(data.id)
+		set((state) => ({ [field]: currItems.concat([data]) }))
+		var res = await update(state.uid, field, ids)
+		toggleLoading(data, set, get)
 		if(!res.ok){
 			set((state) => ({ 
-				[field]: state[field].filter((data2) => data != data2),
+				[field]: currItems.filter((data2) => data != data2),
 			}))
 		}
 	},
 
-	del: (field, data) => async() => {
-		console.log(field)
-		console.log(data)
-		toggleLoading(field, data.id, set, get)
-
+	del: async(field, data) => {
+		toggleLoading(data, set, get)
 		const state = get()
-		console.log(state)
 		var ids = state[field].map(datum => datum.id)
 		ids.splice(ids.findIndex((id) => id == data.id), 1)
 		ids = ids.filter((id) => id != null)
@@ -68,8 +84,9 @@ export const userStore = create((set, get) => ({
 				[field]: state[field].filter((data2) => data.id != data2.id),
 			}))
 		}
-		toggleLoading(field, data.id, set, get)
+		toggleLoading(data, set, get)
 
 	},
-	has: (field, id) => get()[field].some((data) => data.id == id)
+	has: (field, id) => get()[field].some((data) => data.id == id),
+	isLoading: (item) => get().loading.has(item),
 }))

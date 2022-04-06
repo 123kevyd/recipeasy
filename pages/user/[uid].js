@@ -129,23 +129,19 @@ function App(props) {
 	const [tab, setTab] = useState(0)
 	const router = useRouter()
 	const [ingredients, setIngredients] = useState(props.ingredients)
-	const [myIngredients, setMyIngredients] = useState(props.myIngredients)
 	const [recipes, setRecipes] = useState(props.recipes)
 	const [restrictions, setRestrictions] = useState(props.restrictions)
-	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
 	const [equipment, setEquipment] = useState(props.equipment)
-	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
-	console.log("rendering app")
 
 	if(typeof window !== 'undefined'){
+		// ie. is this code running in the frontend
 		if(! userStore((state) => state.isInitialized())){
-			console.log("initializing store")
 			userStore((state) => state.init({
 				uid: router.query.uid,
 				recipes: props.myRecipes,
 				ingredients: props.myIngredients,
 				equipment: props.myEquipment,
-				restrictions: props.myEquipment
+				restrictions: props.myRestrictions
 			}))
 		}
 	}
@@ -166,17 +162,11 @@ function App(props) {
 			<TabPanel value={tab} index={0}>
 				<Kitchen 
 					ingredients={props.ingredients}
-					myIngredients={props.myIngredients}
 					equipment={props.equipment}
-					myEquipment={props.myEquipment}
 					recipes={props.recipes}
 					restrictions={props.restrictions}
-					myRestrictions={props.myRestrictions}
 					setRestrictions={setRestrictions}
-					setMyRestrictions={setMyRestrictions}
-					setMyIngredients={setMyIngredients}
 					setIngredients={setIngredients}
-					setMyEquipment={setMyEquipment}
 					setEquipment={setEquipment}
 					setRecipes={setRecipes}
 				/>

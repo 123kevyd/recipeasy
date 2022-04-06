@@ -38,6 +38,9 @@ import { userStore } from '../store/user_store';
 		throw new Error(`Prop recipe.equipment must be an array - Is ${props.recipe.directions} (${typeof props.recipe.directions}) `);
 	}
 
+	const save = userStore(state => state.add)
+	const isSaved = userStore(state => state.has)
+
 	const theme = createTheme({
 		overrides: {
 			Card: {
@@ -75,8 +78,8 @@ import { userStore } from '../store/user_store';
 				<Button 
 					sx={{alignSelf: 'center', paddingTop: '10px'}}
 					variant="contained" color='primary'
-					onClick={userStore((state => state.add("recipes", props.recipe)))}
-					disabled={userStore((state) => state.has("recipes", props.recipe.id)) ? 'true' : undefined}
+					onClick={() => save("recipes", props.recipe)}
+					disabled={() => isSaved("recipes", props.recipe.id) ? 'true' : undefined}
 				>
 					Save Recipe
 				</Button>

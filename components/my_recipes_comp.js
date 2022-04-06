@@ -3,7 +3,6 @@ import { Typography, Stack, List, ListItem, ListItemButton, LinearProgress } fro
 import { userStore } from "../store/user_store"
 import DelButton from "./delete_button"
 import View_Recipe from "./view_recipe"
-console.log("running my recipes")
 
 export default function Recipes(props) {
 	return (
@@ -18,12 +17,13 @@ export default function Recipes(props) {
 function RecipeListItem(props) {
 	const recipe = props.recipe
 	const isLoading = props.isLoading
+	const del = userStore(state => state.del)
 	return (
 		<ListItem
 			secondaryAction={
 				<DelButton 
 					disabled={isLoading}
-					onClick={userStore((state) => state.del("recipes", recipe))}
+					onClick={() => del("recipes", recipe)}
 					item={recipe}
 					/>
 			}
@@ -39,7 +39,7 @@ function RecipeListItem(props) {
 }
 
 function KitchenRecipeList(props) {
-	const items = userStore((state) => {console.log(state); return state.recipes})
+	const items = userStore((state) => state.recipes)
 	const loading = userStore((state) => state.loading)
 	const [currRecipe, setCurrRecipe] = useState(items[0])
 	const [viewingRecipe, setViewingRecipe] = useState(false)
@@ -53,7 +53,7 @@ function KitchenRecipeList(props) {
 
 	const listItems = (
 		items.map(item => {
-			const loadingElement = `recipes${item.id}`
+			const loadingElement = item
 			var isLoading = loading.has(loadingElement)
 			return (
 				<div key={`${item.title}${isLoading}`}>
