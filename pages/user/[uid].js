@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Tabs, Tab, Box } from '@mui/material/'
 import Cookbook from '../../components/cookbook'
 import Kitchen from '../../components/kitchen_comp'
