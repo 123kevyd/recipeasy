@@ -132,17 +132,19 @@ function App(props) {
 	const [recipes, setRecipes] = useState(props.recipes)
 	const [restrictions, setRestrictions] = useState(props.restrictions)
 	const [equipment, setEquipment] = useState(props.equipment)
+	const isInitialized = userStore(state => state.isInitialized)
+	const init = userStore(state => state.init)
 
 	if(typeof window !== 'undefined'){
 		// ie. is this code running in the frontend
-		if(! userStore((state) => state.isInitialized())){
-			userStore((state) => state.init({
+		if(! isInitialized()){
+			init({
 				uid: router.query.uid,
 				recipes: props.myRecipes,
 				ingredients: props.myIngredients,
 				equipment: props.myEquipment,
 				restrictions: props.myRestrictions
-			}))
+			})
 		}
 	}
 
