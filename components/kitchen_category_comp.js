@@ -1,9 +1,8 @@
 import { useState } from "react"
-import { Typography, Stack, List } from '@mui/material/'
+import { Typography, Stack, List, ListItem, ListItemText, LinearProgress } from '@mui/material/'
 import EntryDropdown from "./entry_dropdown_comp"
-import { userStore } from "/store/user_store"
-import { ListItem, ListItemText, LinearProgress } from "@mui/material/"
 import DelButton from "./delete_button"
+import { userStore } from "/store/user_store"
 
 function KitchenListItem(props) {
 	const item = props.item
