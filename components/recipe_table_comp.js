@@ -15,10 +15,10 @@ class RecipeTable extends Component {
     }
 
     cols = [
-        { field: 'key', headerName: 'View Recipe', width: 100, renderCell: (params) => {
+        { field: 'key', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
             return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
         }},
-        { field: 'title', headerName: 'Recipe Name', width: 300},
+        { field: 'title', headerName: 'Recipe Name', width: 280},
         { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
             return '' + params.value + " mins"
         }},
@@ -90,6 +90,9 @@ class RecipeTable extends Component {
             <>
                 <Box style={{ width: '100%' }}>
                     <DataGrid
+                        disableColumnFilter
+                        disableSelectionOnClick
+                        disableColumnMenu
                         rows={this.state.shownRecipes}
                         columns={this.cols} 
                         autoHeight
