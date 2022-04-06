@@ -9,6 +9,7 @@ async function update(uid, field, ids){
 }
 
 async function postNewItem(field, title) {
+	// this should possibly be in a file with wider design scope, this file is about users, this method is about items
 	const res = await fetch(`/api/${field}/`, {method: 'POST', body: JSON.stringify({price: 0, name: title})})
 	const data = await res.json()
 	return data[0]
@@ -22,12 +23,6 @@ function toggleLoading(item, setter, getter) {
 		loadingSet.add(item)
 	}
 	setter((state) => ({ loading: loadingSet }))
-}
-
-function appendItemAndSet(field, items, item, setter) {
-	var ids = state[field].map(datum => datum.id)
-	ids.push(data.id)
-	set((state) => ({ [field]: state[field].concat([data]) }))
 }
 
 export const userStore = create((set, get) => ({
