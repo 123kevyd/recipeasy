@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import KitchenCategory from './kitchen_category_comp'
 import MyRecipes from './my_recipes_comp'
 import Box from '@mui/material/Box'

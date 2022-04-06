@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Typography, Stack, List } from '@mui/material/'
 import EntryDropdown from "./entry_dropdown_comp"
 import { userStore } from "/store/user_store"
