@@ -44,6 +44,7 @@ export const userStore = create((set, get) => ({
 
 	add: async(field, data) => {
 		// careful, future calls to set() will not change the value of this 'state' variable
+		// to do so you must call get() again
 		const state = get() 
 		const currItems = state[field]
 		if(!data.id){

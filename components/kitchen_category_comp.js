@@ -70,7 +70,7 @@ export default function KitchenCategory(props) {
 			var isLoading = loadingItems.has(item)
 			return (
 				<KitchenListItem
-					key={`${item.id}${isLoading}`}
+					key={`${item.id}`}
 					item={item}
 					loading={isLoading}
 					field={props.field}
