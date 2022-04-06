@@ -39,7 +39,7 @@ import { userStore } from '../store/user_store';
 	}
 
 	const save = userStore(state => state.add)
-	const isSaved = userStore(state => state.has)
+	const isSaved = userStore(state => state.has("recipes", props.recipe.id))
 
 	const theme = createTheme({
 		overrides: {
@@ -79,7 +79,7 @@ import { userStore } from '../store/user_store';
 					sx={{alignSelf: 'center', paddingTop: '10px'}}
 					variant="contained" color='primary'
 					onClick={() => save("recipes", props.recipe)}
-					disabled={() => isSaved("recipes", props.recipe.id) ? 'true' : undefined}
+					disabled={isSaved ? 'true' : undefined}
 				>
 					Save Recipe
 				</Button>
