@@ -1,9 +1,9 @@
-import { Button, Card, CardContent, CardHeader, Dialog } from '@mui/material';
+import { Button, Dialog } from '@mui/material';
 import React, { Component } from 'react';
-import KitchenCategory from './kitchen_category_comp';
+import MyRecipes from './my_recipes_comp';
 import RecipeModalHeader from './recipe_modal_header';
 
-class RecipeFilterModal extends Component {
+class RecipeRecipeFilterModal extends Component {
     state = {  } 
     render() {
         return ( 
@@ -15,11 +15,7 @@ class RecipeFilterModal extends Component {
                     title={this.props.title}
                     onToggleModal={this.props.onToggleModal}
                 />
-                <KitchenCategory
-                    items={this.props.options}
-                    title={this.props.title}
-                    field={this.props.field}
-                />
+                <MyRecipes />
                 <Button
                     sx={{margin:2}}
                     variant='contained'
@@ -31,4 +27,4 @@ class RecipeFilterModal extends Component {
     }
 }
  
-export default RecipeFilterModal;
+export default RecipeRecipeFilterModal;

@@ -177,11 +177,8 @@ function App(props) {
 				<Cookbook
 					recipes={props.recipes}
 					ingredients={props.ingredients}
-					myIngredients={props.myIngredients}
 					equipment={props.equipment}
-					myEquipment={props.myEquipment}
 					restrictions={props.restrictions}
-					myRestrictions={props.myRestrictions}
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={0}>

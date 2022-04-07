@@ -1,7 +1,9 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { Button, Card, CardContent, CardHeader, Checkbox, FormControlLabel, Grid, IconButton } from '@mui/material';
+import { Card, CardContent, CardHeader, Checkbox, FormControlLabel, Grid, IconButton } from '@mui/material';
 import React, { Component } from 'react';
+import AddRecipeRestriction from './add_recipe_restrictions_comp';
 import RecipeFilterModal from './recipe_filter_modal_comp';
+import RecipeRecipeFilterModal from './recipe_recipe_filter_modal_comp';
 
 class RecipeFilter extends Component {
     state = {
@@ -84,22 +86,28 @@ class RecipeFilter extends Component {
                     isOpen={this.state.restrictionModalOpen}
                     onToggleModal={() => { this.onToggleModal("restrictionModalOpen") }}
                     title="My Restrictions"
+                    field="restrictions"
                     options={this.props.restrictions}
-                    myOptions={this.props.myRestrictions}
+                />
+                <RecipeFilterModal
+                    isOpen={this.state.equipmentModalOpen}
+                    onToggleModal={() => { this.onToggleModal("equipmentModalOpen") }}
+                    title="My Equipment"
+                    field="equipment"
+                    options={this.props.equipment}
                 />
                 <RecipeFilterModal
                     isOpen={this.state.ingredientModalOpen}
                     onToggleModal={() => { this.onToggleModal("ingredientModalOpen") }}
                     title="My Ingredients"
+                    field="ingredients"
                     options={this.props.ingredients}
-                    myOptions={this.props.myIngredients}
                 /> {/* TODO switch to recipe modal and state */}
-                <RecipeFilterModal
+                <RecipeRecipeFilterModal
                     isOpen={this.state.recipeModalOpen}
                     onToggleModal={() => { this.onToggleModal("recipeModalOpen") }}
                     title="My Recipes"
-                    options={this.props.equipment}
-                    myOptions={this.props.myEquipment}
+                    // options={this.props.equipment}
                 />
             </>
         );
