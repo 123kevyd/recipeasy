@@ -7,20 +7,24 @@ import { Box, Stack } from '@mui/material';
 import RatingStars from './rating_stars_comp';
 import RecipeFilter from './recipe_filter_comp'
 
-// recipes=recipes.forEach((recipe)=>{if((useIngredientFilter&&myIngredients.forEach((ingredient)=>{return recipe.ingredients.indexOf(ingredient.title)>=0}))&&(useEquipmentFilter&&myIngredients.forEach((equipment)=>{return recipe.equipment.indexOf(equipment.title)>=0}))&&(useIngredientFilter&&myIngredients.forEach((restriction)=>{returnrecipe.tags.indexOf(restriction.title)>=0}))&&(useRestrictionFilter&&myIngredients.forEach((filterRecipe)=>{returnrecipe.recipes.indexOf(filterRecipe.title)>=0}))){recipe.key=recipe.id;recipe.rating=this.getAverageVal(recipe.reviews,'stars');recipe.difficulty=this.getAverageVal(recipe.reviews,'difficulty');}else{toRemove.push(recipes.title)}}).filter((recipe)=>{returntoRemove.indexOf(recipe.title)<-1});
-
 class RecipeTable extends Component {
 	state = { 
         recipeOpen: false,
         addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
         shownRecipes: this.formatRecipes(this.props.recipes, false, false, false, false),
-		filters: {
+		filterActive: {
 			useIngredientFilter: false,
 			useEquipmentFilter: false,
 			useRestrictionFilter: false,
 			useRecipesFilter: false
 		}
+        // filterLists: {
+        //     ingredientFilterList: [],
+        //     equipmentFilterList: [],
+        //     restrictionFilterList: [],
+        //     recipesFilterList: [],
+        // }
     }
 
     myIngredients = [{id: 2, title: "Eggs"}, {id: 3, title: "Flour"}]
@@ -48,9 +52,11 @@ class RecipeTable extends Component {
     ]
 
 	handleToggleFilter = (modalName) => {
-		let newFilters = {...this.state.filters}
+		let newFilters = {...this.state.filterActive}
 		newFilters[modalName] = !newFilters[modalName]
-		this.setState({ filters: newFilters })
+		this.setState({ filterActive: newFilters })
+
+        // updateFilterParams();
 
         let shownRecipes = this.formatRecipes(this.props.recipes, newFilters.useIngredientFilter, newFilters.useEquipmentFilter, newFilters.useRestrictionFilter, newFilters.useRecipesFilter);
         this.setState({shownRecipes: shownRecipes})
@@ -90,13 +96,13 @@ class RecipeTable extends Component {
             recipe.rating = this.getAverageVal(recipe.reviews, 'stars')
             recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
 
-            toRemoveTitle = checkRecipeArray(useIngredientFilter, this.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
+            toRemoveTitle = checkRecipeArray(useIngredientFilter, this.props.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
             if (!toRemoveTitle) {
-                toRemoveTitle = checkRecipeArray(useEquipmentFilter, this.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
+                toRemoveTitle = checkRecipeArray(useEquipmentFilter, this.props.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
             } if (!toRemoveTitle) {
-            toRemoveTitle = checkRecipeArray(useRestrictionFilter, this.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
+            toRemoveTitle = checkRecipeArray(useRestrictionFilter, this.props.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
             } if (!toRemoveTitle) {
-                toRemoveTitle = checkRecipeTitle(recipe, this.myRecipes)
+                toRemoveTitle = checkRecipeTitle(recipe, this.props.myRecipes)
             }
 
             if (toRemoveTitle) {
@@ -161,11 +167,10 @@ class RecipeTable extends Component {
                             myEquipment={this.props.myEquipment}
                             restrictions={this.props.restrictions}
                             myRestrictions={this.props.myRestrictions}
-							filters={this.state.filters}
+							filters={this.state.filterActive}
 							onToggleFilter={this.handleToggleFilter}
                         />
                         <DataGrid style={{ width: '100%', margin: "15px" }}
-                            disableColumnFilter
                             disableSelectionOnClick
                             disableColumnMenu
                             rows={this.state.shownRecipes}
