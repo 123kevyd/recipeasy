@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Tabs, Tab, Box } from '@mui/material/'
 import Cookbook from '../../components/cookbook'
 import Kitchen from '../../components/kitchen_comp'
-import { userRecipesStore } from "/store/user_recipes"
+import { userStore } from "/store/user_store"
 
 function filterToUserData(items, idString){
 	if(idString){
@@ -129,16 +129,24 @@ function App(props) {
 	const [tab, setTab] = useState(0)
 	const router = useRouter()
 	const [ingredients, setIngredients] = useState(props.ingredients)
-	const [myIngredients, setMyIngredients] = useState(props.myIngredients)
 	const [recipes, setRecipes] = useState(props.recipes)
 	const [restrictions, setRestrictions] = useState(props.restrictions)
-	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
 	const [equipment, setEquipment] = useState(props.equipment)
-	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
-	if(! userRecipesStore((state) => state.isInitialized())){
-		userRecipesStore((state) => state.init(router.query.uid, props.myRecipes))
+	const isInitialized = userStore(state => state.isInitialized)
+	const init = userStore(state => state.init)
+
+	if(typeof window !== 'undefined'){
+		// ie. is this code running in the frontend
+		if(! isInitialized()){
+			init({
+				uid: router.query.uid,
+				recipes: props.myRecipes,
+				ingredients: props.myIngredients,
+				equipment: props.myEquipment,
+				restrictions: props.myRestrictions
+			})
+		}
 	}
-	
 
 	const handleChange = (event, newValue) => {
 		setTab(newValue)
@@ -156,17 +164,11 @@ function App(props) {
 			<TabPanel value={tab} index={0}>
 				<Kitchen 
 					ingredients={props.ingredients}
-					myIngredients={props.myIngredients}
 					equipment={props.equipment}
-					myEquipment={props.myEquipment}
 					recipes={props.recipes}
 					restrictions={props.restrictions}
-					myRestrictions={props.myRestrictions}
 					setRestrictions={setRestrictions}
-					setMyRestrictions={setMyRestrictions}
-					setMyIngredients={setMyIngredients}
 					setIngredients={setIngredients}
-					setMyEquipment={setMyEquipment}
 					setEquipment={setEquipment}
 					setRecipes={setRecipes}
 				/>

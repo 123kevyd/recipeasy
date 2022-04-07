@@ -4,7 +4,7 @@ import { ThemeProvider } from '@emotion/react';
 import RecipeCardList from './recipe_card_list_comp';
 import RecipeCardChip from './recipe_card_chip_comp';
 import RecipeCardText from './recipe_card_text_comp';
-import { userRecipesStore } from '../store/user_recipes';
+import { userStore } from '../store/user_store';
 
 /**
  * Used to display a recipe for viewing
@@ -37,6 +37,9 @@ import { userRecipesStore } from '../store/user_recipes';
 	} else if (!props.recipe.directions || typeof props.recipe.directions !== "object" && Array.isArray(props.recipe.directions)) {
 		throw new Error(`Prop recipe.equipment must be an array - Is ${props.recipe.directions} (${typeof props.recipe.directions}) `);
 	}
+
+	const save = userStore(state => state.add)
+	const isSaved = userStore(state => state.has("recipes", props.recipe.id))
 
 	const theme = createTheme({
 		overrides: {
@@ -75,8 +78,8 @@ import { userRecipesStore } from '../store/user_recipes';
 				<Button 
 					sx={{alignSelf: 'center', paddingTop: '10px'}}
 					variant="contained" color='primary'
-					onClick={userRecipesStore((state => state.addRecipe(props.recipe)))}
-					disabled={userRecipesStore((state) => state.has(props.recipe.id)) ? 'true' : undefined}
+					onClick={() => save("recipes", props.recipe)}
+					disabled={isSaved ? 'true' : undefined}
 				>
 					Save Recipe
 				</Button>
