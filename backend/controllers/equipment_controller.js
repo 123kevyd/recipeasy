@@ -12,7 +12,8 @@ exports.getAll = async() => {
 }
 
 exports.post = async(req, res) => {
-	const body = req.body
+	const body = JSON.parse(req.body)
+	console.log(body)
     if(body.name) {
         const result = await equipment.create({name: body.name});
         return result;
