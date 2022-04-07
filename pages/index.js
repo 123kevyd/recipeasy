@@ -28,7 +28,8 @@ export default function Login(props) {
 				.then((res) => {
 					if(res.ok){
 						const data = res.json().then((data) => {
-							router.push(`/user/${data.id}`)
+							//router.push(`/user/${data.id}`) // should work, but appears to contain a bug
+							window.location.href = `/user/${data.id}`
 						})
 					}else{
 						setLoading(false)

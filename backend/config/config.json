@@ -16,7 +16,7 @@
   "production": {
     "username": "dataentry",
     "password": "comp4350",
-    "database": "comp4350",
+    "database": "comp4350-prod",
     "host": "waxbill.cs.umanitoba.ca",
     "dialect": "postgres"
   }

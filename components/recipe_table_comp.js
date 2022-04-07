@@ -29,10 +29,10 @@ class RecipeTable extends Component {
     myRecipes = [{id:5, title:"first test recipe"}]
     
     cols = [
-        { field: 'key', headerName: 'View Recipe', width: 100, renderCell: (params) => {
+        { field: 'key', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
             return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
         }},
-        { field: 'title', headerName: 'Recipe Name', width: 300},
+        { field: 'title', headerName: 'Recipe Name', width: 280},
         { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
             return '' + params.value + " mins"
         }},
@@ -105,6 +105,17 @@ class RecipeTable extends Component {
         })
         return shownRecipes.filter((recipe) => { return toRemove.indexOf(recipe.title) < 0})
     }
+    
+    addReview = (value) => {
+        let newReviewRecipe = this.state.currRecipe;
+        let shownRecipeUpdate = this.props.recipes.map(recipe => {
+            if (recipe.id == newReviewRecipe.id) {
+                recipe.reviews.push(value);
+            }
+            return recipe
+        })
+        this.setState({shownRecipes: this.formatRecipes(shownRecipeUpdate)})
+    }
 
     getAverageVal(reviews, colName) {
         let sum = 0
@@ -141,7 +152,7 @@ class RecipeTable extends Component {
     render() {
         return (
             <>
-                <Box>
+                <Box style={{ width: '100%' }}>
                     <Stack direction="row">
                         <RecipeFilter
                             ingredients={this.props.ingredients}
@@ -154,17 +165,21 @@ class RecipeTable extends Component {
 							onToggleFilter={this.handleToggleFilter}
                         />
                         <DataGrid style={{ width: '100%', margin: "15px" }}
+                            disableColumnFilter
+                            disableSelectionOnClick
+                            disableColumnMenu
                             rows={this.state.shownRecipes}
                             columns={this.cols} 
                             autoHeight
-                            />
+                        />
                     </Stack>
                 </Box>
-               <View_Recipe
-                   onToggleRecipeView={this.handleToggleRecipe}
-                   recipeOpen={this.state.recipeOpen}
-                   recipe={this.state.currRecipe}
-               />
+                <View_Recipe
+                    onToggleRecipeView={this.handleToggleRecipe}
+                    recipeOpen={this.state.recipeOpen}
+                    recipe={this.state.currRecipe}
+                    addReview={this.addReview}
+                />
             </>
         );
     }
