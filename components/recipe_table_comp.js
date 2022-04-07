@@ -1,9 +1,7 @@
-import { Button, Card, CardContent, Chip } from '@mui/material';
+import { Button, Box, Stack, Chip } from '@mui/material';
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
-import View_Add_Recipe from "./view_add_recipes"
 import { DataGrid } from '@mui/x-data-grid'
-import { Box, Stack } from '@mui/material';
 import RatingStars from './rating_stars_comp';
 import RecipeFilter from './recipe_filter_comp'
 
@@ -19,21 +17,10 @@ class RecipeTable extends Component {
 			useRestrictionFilter: false,
 			useRecipesFilter: false
 		}
-        // filterLists: {
-        //     ingredientFilterList: [],
-        //     equipmentFilterList: [],
-        //     restrictionFilterList: [],
-        //     recipesFilterList: [],
-        // }
     }
-
-    myIngredients = [{id: 2, title: "Eggs"}, {id: 3, title: "Flour"}]
-    myEquipment = [{id:1, title: "Wok"}]
-    myRestrictions = [{id: 1, title: "A new tag "}, {id:2, title: "Fish Free"}]
-    myRecipes = [{id:5, title:"first test recipe"}]
     
     cols = [
-        { field: 'key', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
+        { field: 'id', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
             return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
         }},
         { field: 'title', headerName: 'Recipe Name', width: 280},
@@ -62,54 +49,53 @@ class RecipeTable extends Component {
         this.setState({shownRecipes: shownRecipes})
 	}
 
+    checkRecipeArray(filterList, recipe, fieldName, compareFunc) {
+        let toRemoveId = null
+
+        filterList.forEach( (elem) => {
+            if ( !toRemoveId && !recipe[fieldName].find((item) => { return compareFunc(item, elem) })) {
+                toRemoveId = recipe.id
+            }
+        })
+
+        return toRemoveId
+    }
+
+    checkRecipeTitle(recipe, myRecipes) {
+        let toRemoveId = null
+        myRecipes.forEach( (elem) => {
+            if ( !toRemoveId && recipe.title !== elem.title) {
+                toRemoveId = recipe.id
+            }
+        })
+        return toRemoveId
+    }
+
     formatRecipes(recipes, useIngredientFilter, useEquipmentFilter, useRestrictionFilter, useRecipesFilter) {
         let toRemove = []
         let shownRecipes = [...recipes]
 
-        function checkRecipeArray(filterBool, filterList, recipe, fieldName, compFunc) {
-            let toRemoveTitle = null
-            if (filterBool) {
-                filterList.forEach( (elem) => {
-                    if ( !toRemoveTitle && !recipe[fieldName].find((item) => { return compFunc(item, elem) })) {
-                        toRemoveTitle = recipe.title
-                    }
-                })
-            }
-            return toRemoveTitle
-        }
-
-        function checkRecipeTitle(recipe, myRecipes) {
-            let toRemoveTitle = null
-            if (useRecipesFilter) {
-                myRecipes.forEach( (elem) => {
-                    if ( !toRemoveTitle && recipe.title !== elem.title) {
-                        toRemoveTitle = recipe.title
-                    }
-                })
-            }
-            return toRemoveTitle
-        }
 
         shownRecipes.forEach((recipe) => {
-            let toRemoveTitle = null
-            recipe.key = recipe.id
+            let toRemoveId = null
             recipe.rating = this.getAverageVal(recipe.reviews, 'stars')
             recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
 
-            toRemoveTitle = checkRecipeArray(useIngredientFilter, this.props.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
-            if (!toRemoveTitle) {
-                toRemoveTitle = checkRecipeArray(useEquipmentFilter, this.props.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
-            } if (!toRemoveTitle) {
-            toRemoveTitle = checkRecipeArray(useRestrictionFilter, this.props.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
-            } if (!toRemoveTitle) {
-                toRemoveTitle = checkRecipeTitle(recipe, this.props.myRecipes)
+            if (useIngredientFilter) {
+                toRemoveId = this.checkRecipeArray(this.props.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
+            } if (!toRemoveId && useEquipmentFilter) {
+                toRemoveId = this.checkRecipeArray(this.props.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
+            } if (!toRemoveId && useRestrictionFilter) {
+                toRemoveId = this.checkRecipeArray(this.props.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
+            } if (!toRemoveId && useRecipesFilter) {
+                toRemoveId = this.checkRecipeTitle(recipe, this.props.myRecipes)
             }
 
-            if (toRemoveTitle) {
-                toRemove.push(toRemoveTitle)
+            if (toRemoveId) {
+                toRemove.push(toRemoveId)
             }
         })
-        return shownRecipes.filter((recipe) => { return toRemove.indexOf(recipe.title) < 0})
+        return shownRecipes.filter((recipe) => { return toRemove.indexOf(recipe.id) < 0})
     }
     
     addReview = (value) => {
