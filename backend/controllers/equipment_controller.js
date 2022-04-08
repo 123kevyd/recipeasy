@@ -14,11 +14,10 @@ exports.getAll = async() => {
 exports.post = async(req, res) => {
 	const body = JSON.parse(req.body)
 	console.log(body)
-    if(body.name) {
+    if(body.name && body.name != null) {
         const result = await equipment.create({name: body.name});
         return result;
     } else {
-        //Missing the new equipment's name in body
+        // bad request
     }
 }
-

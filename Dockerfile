@@ -11,8 +11,12 @@ COPY ./ ./
 
 #install dependencies
 RUN npm install
+#ci
+RUN npm ci
 #create .next folder
-RUN npm run build 
+RUN npm run build
+#testing
+RUN npm test
 
 EXPOSE 3000
 CMD ["npm", "start"]
