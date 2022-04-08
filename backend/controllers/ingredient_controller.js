@@ -18,7 +18,7 @@ exports.getAll = async() => {
 
 // adds an ingredient to the db
 exports.post = async(req,res) => {
-	const body = JSON.parse(req.body);
+	const body = req.body;
     if(body.name && body.price != undefined) {
         const result = await ingredients.create({ 
             name: body.name, 
