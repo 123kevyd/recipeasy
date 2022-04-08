@@ -12,7 +12,7 @@ exports.get = async(req,res) => {
 }
 
 exports.post = async(req,res) => {
-    if(req.body.data.review && req.body.data.stars && req.body.data.recipeId && req.body.data.difficulty) {
+    if(req.body.data.review != null && req.body.data.stars && req.body.data.recipeId && req.body.data.difficulty) {
         recipeReq = {
             body: {
                 data: {

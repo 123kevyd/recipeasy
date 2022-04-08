@@ -4,7 +4,7 @@ const equipment = require ("../../backend/controllers/equipment_controller.js");
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         const result = await equipment.post(req, res);
-        res.status(200).json([{id: result.dataValues.id, name: result.dataValues.name}]);
+        res.status(200).json([{id: result.dataValues.id, title: result.dataValues.name}]);
     }
     else if (req.method === 'GET') {
         const result = await equipment.get(req, res);

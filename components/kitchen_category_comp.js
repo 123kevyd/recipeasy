@@ -1,21 +1,41 @@
-import { useState, useEffect } from "react"
-import Typography from '@mui/material/Typography'
-import { useRouter } from 'next/router'
+import { useState } from "react"
+import { Typography, Stack, List, ListItem, ListItemText, LinearProgress } from '@mui/material/'
 import EntryDropdown from "./entry_dropdown_comp"
-import KitchenList from "./kitchen_list_comp"
-import Stack from "@mui/material/Stack"
+import DelButton from "./delete_button"
+import { userStore } from "/store/user_store"
+
+function KitchenListItem(props) {
+	const item = props.item
+	return (
+		<div>
+			<ListItem
+				secondaryAction={
+					<DelButton 
+						disabled={props.loading}
+						onClick={props.delHandler}
+						item={item}
+						/>
+				}
+			>
+				<ListItemText
+					sx={{color: props.loading ? 'text.disabled' : 'black'}}
+					primary={ item.title }
+				/>
+			</ListItem>
+			{ props.loading && <LinearProgress sx={{marginBotton: '-4px'}} />}
+		</div>
+	)
+}
+
 
 export default function KitchenCategory(props) {
 
-	// using the drilled-down props and setters
-	// causes an issue where the dropdown and item list doesn't update
-	// later will need to replace items and myItems getters and setters with the drilled-down versions
-	const [myItems, setMyItems] = useState(props.myItems)
+	const myItems = userStore(state => state[props.field])
 	const [items, setItems] = useState(props.items)
-
-
-	const router = useRouter()
-	const uid = router.query.uid
+	const [clearText, setClearText] = useState(true)
+	const addItem = userStore(state => state.add)
+	const delItem = userStore(state => state.del)
+	const loadingItems = userStore(state => state.loading)
 
 	const getDropdownList = () => {
 		return items.filter( item1 => {
@@ -25,67 +45,40 @@ export default function KitchenCategory(props) {
 			return ! found
 		})
 	}
-
 	const [ dropdownList, setDropdownList ] = useState(getDropdownList())
+	const refreshDropdownList = () => {
+		setDropdownList(getDropdownList())
+	}
+
 
 	const itemSelected = async (event, value) => {
+		setClearText(!clearText)
 		if(value == null){
 			return false
 		}
-		if(typeof value == 'string'){
-			// save to items and to user
-			await fetch(`/api/${props.endpoint}/`, {method: 'POST', body: JSON.stringify({price: 0, name: value})})
-				.then((res) => res.json())
-				.then((data) => {
-					const id = data[0].id
-					var itemIds = myItems.map(item => item.id)
-					itemIds = itemIds.filter(item => item != null)
-					itemIds.push(id)
-					fetch(`/api/user/${uid}/`, 
-						{
-							method: 'PUT',
-							body: JSON.stringify({[props.field]: itemIds})
-						}
-					).then(() =>
-						{
-							const newItem = {id: id, title: value}
-							setItems(items.concat([newItem]))
-							setMyItems(myItems.concat([newItem]))
-							setDropdownList(getDropdownList())
-						}
-					)
-				})
-		}else{
-			var itemIds = myItems.map(item => item.id)
-			itemIds = itemIds.filter(item => item != null)
-			itemIds.push(value.id)
-			await fetch(`/api/user/${uid}/`, 
-				{
-					method: 'PUT',
-					body: JSON.stringify({[props.field]: itemIds})
-				}
-			)
-			setMyItems(myItems.concat([value]))
-			setDropdownList(getDropdownList())
-		}
-		// todo: check if the request was successful
+		await addItem(props.field, value)
+		refreshDropdownList()
 	}
 
 	const deleteItem = async (item1) => {
-		var itemIds = myItems.map(item => item.id)
-		itemIds.splice(itemIds.findIndex((id) => id == item1.id), 1)
-		itemIds = itemIds.filter((id) => id != null)
-		await fetch(`/api/user/${uid}/`, 
-			{
-				method: 'PUT',
-				body: JSON.stringify({[props.field]: itemIds})
-			}
-		)
-		setMyItems(myItems.filter(item2 => {
-			return item1.title !== item2.title
-		}))
-		setDropdownList(getDropdownList())
+		await delItem(props.field, item1)
+		refreshDropdownList()
 	}
+
+	const kitchenList = (
+		myItems.map(item => {
+			var isLoading = loadingItems.has(item)
+			return (
+				<KitchenListItem
+					key={`${item.id}`}
+					item={item}
+					loading={isLoading}
+					field={props.field}
+					delHandler={deleteItem}
+				/>
+			)
+		})
+	)
 
 	return (
 		<Stack spacing={2} sx={{ width: 300, padding: 3, border: '1px blue solid', margin: 3 }}>
@@ -93,8 +86,11 @@ export default function KitchenCategory(props) {
 			<EntryDropdown
 				items={getDropdownList()}
 				handler={itemSelected}
+				key={clearText}
 			/>
-			<KitchenList items={myItems} delHandler={deleteItem}/>
+			<List dense={true}>
+				{kitchenList}
+			</List>
 		</Stack>
 	)
 			

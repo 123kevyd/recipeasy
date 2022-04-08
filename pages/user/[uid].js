@@ -1,15 +1,18 @@
-
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import Kitchen from '../../components/kitchen_comp'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Box from '@mui/material/Box'
+import { Tabs, Tab, Box } from '@mui/material/'
 import Cookbook from '../../components/cookbook'
+import Kitchen from '../../components/kitchen_comp'
+import { userStore } from "/store/user_store"
 
 function filterToUserData(items, idString){
-	const ids = new Set(JSON.parse(idString))
-	return items.filter((item) => ids.has(item.id))
+	if(idString){
+		const ids = new Set(JSON.parse(idString))
+		return items.filter((item) => ids.has(item.id))
+	}else{
+		return []
+	}
+
 }
 
 export async function getServerSideProps(context) 
@@ -18,21 +21,25 @@ export async function getServerSideProps(context)
 	const equipmentCont = require("../../backend/controllers/equipment_controller")
 	const ingredientCont = require("../../backend/controllers/ingredient_controller")
 	const recipeCont = require("../../backend/controllers/recipe_controller")
-	//const restriction = require("../../backend/controllers/restriction_controller")
+	const restrictionCont = require("../../backend/controllers/restriction_controller")
 	const uid = context.params.uid
 	const userProm = userCont.get(uid)
 	const ingredientsProm = ingredientCont.getAll()
-	//const restrictions = restriction.getAll()
-	const recipesProm = recipeCont.getAll()
+	const restrictionsProm = restrictionCont.getAll()
 	const equipmentProm = equipmentCont.getAll()
+ 	const recipesProm = recipeCont.getAll()
 
-	var [user, ingredients, equipment, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, recipesProm])
+	var [user, ingredients, equipment, restrictions, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, restrictionsProm, recipesProm])
+
 	ingredients = ingredients.map(function(ingredient) {
 		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
 	})
 
 	equipment = equipment.map(function(equipment) {
 		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
+	})
+	restrictions = restrictions.map(function(restrictions) {
+		return {id: restrictions.dataValues.id, title: restrictions.dataValues.name}
 	})
 
 	recipes = recipes.map(function(recipes) {
@@ -81,13 +88,8 @@ export async function getServerSideProps(context)
 
 	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
 	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)
-	//const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
-	
-	//const myRestrictions = filterToUserData(restrictions, user.restrictions)
-
-	let restrictions = []
-	let myRestrictions = []
-	let myRecipes = []
+	const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
+	const myRestrictions = filterToUserData(restrictions, user.restrictions)
 
 	const result = {
 		props: {
@@ -127,14 +129,24 @@ function App(props) {
 	const [tab, setTab] = useState(0)
 	const router = useRouter()
 	const [ingredients, setIngredients] = useState(props.ingredients)
-	const [myIngredients, setMyIngredients] = useState(props.myIngredients)
 	const [recipes, setRecipes] = useState(props.recipes)
-	const [myRecipes, setMyRecipes] = useState(props.myRecipes)
 	const [restrictions, setRestrictions] = useState(props.restrictions)
-	const [myRestrictions, setMyRestrictions] = useState(props.myRestrictions)
 	const [equipment, setEquipment] = useState(props.equipment)
-	const [myEquipment, setMyEquipment] = useState(props.myEquipment)
-	const uid = router.query.uid
+	const isInitialized = userStore(state => state.isInitialized)
+	const init = userStore(state => state.init)
+
+	if(typeof window !== 'undefined'){
+		// ie. is this code running in the frontend
+		if(! isInitialized()){
+			init({
+				uid: router.query.uid,
+				recipes: props.myRecipes,
+				ingredients: props.myIngredients,
+				equipment: props.myEquipment,
+				restrictions: props.myRestrictions
+			})
+		}
+	}
 
 	const handleChange = (event, newValue) => {
 		setTab(newValue)
@@ -152,26 +164,21 @@ function App(props) {
 			<TabPanel value={tab} index={0}>
 				<Kitchen 
 					ingredients={props.ingredients}
-					myIngredients={props.myIngredients}
 					equipment={props.equipment}
-					myEquipment={props.myEquipment}
 					recipes={props.recipes}
-					myRecipes={props.myRecipes}
 					restrictions={props.restrictions}
-					myRestrictions={props.myRestrictions}
 					setRestrictions={setRestrictions}
-					setMyRestrictions={setMyRestrictions}
-					setMyIngredients={setMyIngredients}
 					setIngredients={setIngredients}
-					setMyEquipment={setMyEquipment}
 					setEquipment={setEquipment}
-					setMyRecipes={setMyRecipes}
 					setRecipes={setRecipes}
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={1}>
 				<Cookbook
 					recipes={props.recipes}
+					ingredients={props.ingredients}
+					equipment={props.equipment}
+					restrictions={props.restrictions}
 				/>
 			</TabPanel>
 			<TabPanel value={tab} index={0}>

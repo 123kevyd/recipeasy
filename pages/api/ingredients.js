@@ -1,6 +1,4 @@
-console.log("searching for ingredient dependencies")
 const ingredient = require ("../../backend/controllers/ingredient_controller.js");
-console.log("dependency found")
 
 export default async function handler(req, res)
 {

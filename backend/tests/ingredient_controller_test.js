@@ -5,7 +5,7 @@ const expect = chai.expect;
 const ingredient = db.ingredient;
 const IngredientController = require("../controllers/ingredient_controller");
 
-describe("Equipment Controller", function() {
+describe("Ingredient Controller", function() {
     describe("Testing Get Function", async function() {
         var request = {
             body: {
@@ -46,8 +46,8 @@ describe("Equipment Controller", function() {
         });
     
         it("Should Call Create Method", async function() {
-            request.body.data.name = "username";
-            request.body.data.price = 5;
+            request.body.name = "username";
+            request.body.price = 5;
 
             const mockCreate = sinon.stub(ingredient, "create");
             mockCreate.returns("Create Method was Successfully Called");
