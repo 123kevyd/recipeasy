@@ -6,7 +6,7 @@ class AddRecipeEquipment extends Component {
     render() { 
         return (
             <Card>
-                <CardHeader title="Equipement"/>
+                <CardHeader title="Equipment"/>
                 <CardContent>
                     {this.props.currEquipment.map((equip, index)=>{
                         return (
@@ -34,7 +34,7 @@ class AddRecipeEquipment extends Component {
                                 </Stack>
                                 {this.props.currEquipment.length - 1 === index && (
                                     <Box mt={2}>
-                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Equipement</Button>
+                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Equipment</Button>
                                     </Box>
                                 )}
                             </Box>

@@ -259,11 +259,11 @@ class AddRecipeDisplay extends Component {
                 },
                 body: JSON.stringify(formattedBody)
             });
+            this.props.onToggleModal();
             console.log(response);
         }
         else {
             alert("Missing Fields");
-            //console.log(formattedBody)
         }
     }
 

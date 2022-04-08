@@ -1,12 +1,11 @@
 import { Typography, Box, Button, Stack, Card, CardHeader, CardContent } from '@mui/material';
 import React, { Component } from 'react';
-import RecipeTable from './recipe_table_comp';
+import RecipeTableHOC from './recipe_table_comp_HOC';
 import ViewAddRecipe from './view_add_recipes';
 
 class Cookbook extends Component {
-
 	state = { 
-        addRecipeOpen: false,
+        addRecipeOpen: false
     }
 
 	handleToggleAdd = () => {
@@ -16,12 +15,18 @@ class Cookbook extends Component {
 	}
 
 	render() { 
+		console.log(ViewAddRecipe)
+		console.log(RecipeTableHOC)
 		return (
 			<>
+				<p>{this.state.useIngredientFilter}</p>
+				<p>{this.state.useEquipmentFilter}</p>
+				<p>{this.state.useRestrictionFilter}</p>
+				<p>{this.state.useRecipesFilter}</p>
 				<Typography variant='h4' align='center'>My Cookbook <Button variant='contained' onClick={() => this.handleToggleAdd()}>Add</Button></Typography>
-				<Box margin='100px'>
+				<Box marginLeft='100px' marginRight='100px'>
 					<Box>
-						<RecipeTable 
+						<RecipeTableHOC
 							recipes={this.props.recipes}
 							ingredients={this.props.ingredients}
 							equipment={this.props.equipment}

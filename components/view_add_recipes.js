@@ -25,6 +25,7 @@ class ViewAddRecipe extends Component {
                         ingredients={this.props.ingredients}
                         equipment={this.props.equipment}
                         restrictions={this.props.restrictions}
+                        onToggleModal={this.props.onToggleAddRecipeView}
                     />
                 </>
             </Dialog>

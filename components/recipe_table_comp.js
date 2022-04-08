@@ -1,24 +1,29 @@
-import { Button, Chip } from '@mui/material';
+import { Button, Box, Stack, Chip } from '@mui/material';
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
-import View_Add_Recipe from "./view_add_recipes"
 import { DataGrid } from '@mui/x-data-grid'
-import { Box } from '@mui/system';
 import RatingStars from './rating_stars_comp';
+import RecipeFilter from './recipe_filter_comp'
 
 class RecipeTable extends Component {
 	state = { 
         recipeOpen: false,
         addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
-        shownRecipes: this.formatRecipes(this.props.recipes)
+        shownRecipes: this.formatRecipes(this.props.recipes, false, false, false, false),
+		filterActive: {
+			useIngredientFilter: false,
+			useEquipmentFilter: false,
+			useRestrictionFilter: false,
+			useRecipesFilter: false
+		}
     }
-
+    
     cols = [
-        { field: 'key', headerName: 'View Recipe', width: 100, renderCell: (params) => {
+        { field: 'id', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
             return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
         }},
-        { field: 'title', headerName: 'Recipe Name', width: 300},
+        { field: 'title', headerName: 'Recipe Name', width: 280},
         { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
             return '' + params.value + " mins"
         }},
@@ -33,6 +38,66 @@ class RecipeTable extends Component {
         }}
     ]
 
+	handleToggleFilter = (modalName) => {
+		let newFilters = {...this.state.filterActive}
+		newFilters[modalName] = !newFilters[modalName]
+		this.setState({ filterActive: newFilters })
+
+        // updateFilterParams();
+
+        let shownRecipes = this.formatRecipes(this.props.recipes, newFilters.useIngredientFilter, newFilters.useEquipmentFilter, newFilters.useRestrictionFilter, newFilters.useRecipesFilter);
+        this.setState({shownRecipes: shownRecipes})
+	}
+
+    checkRecipeArray(filterList, recipe, fieldName, compareFunc) {
+        let toRemoveId = null
+
+        filterList.forEach( (elem) => {
+            if ( !toRemoveId && !recipe[fieldName].find((item) => { return compareFunc(item, elem) })) {
+                toRemoveId = recipe.id
+            }
+        })
+
+        return toRemoveId
+    }
+
+    checkRecipeTitle(recipe, myRecipes) {
+        let toRemoveId = null
+        myRecipes.forEach( (elem) => {
+            if ( !toRemoveId && recipe.title !== elem.title) {
+                toRemoveId = recipe.id
+            }
+        })
+        return toRemoveId
+    }
+
+    formatRecipes(recipes, useIngredientFilter, useEquipmentFilter, useRestrictionFilter, useRecipesFilter) {
+        let toRemove = []
+        let shownRecipes = [...recipes]
+
+
+        shownRecipes.forEach((recipe) => {
+            let toRemoveId = null
+            recipe.rating = this.getAverageVal(recipe.reviews, 'stars')
+            recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
+
+            if (useIngredientFilter) {
+                toRemoveId = this.checkRecipeArray(this.props.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
+            } if (!toRemoveId && useEquipmentFilter) {
+                toRemoveId = this.checkRecipeArray(this.props.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
+            } if (!toRemoveId && useRestrictionFilter) {
+                toRemoveId = this.checkRecipeArray(this.props.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
+            } if (!toRemoveId && useRecipesFilter) {
+                toRemoveId = this.checkRecipeTitle(recipe, this.props.myRecipes)
+            }
+
+            if (toRemoveId) {
+                toRemove.push(toRemoveId)
+            }
+        })
+        return shownRecipes.filter((recipe) => { return toRemove.indexOf(recipe.id) < 0})
+    }
+    
     addReview = (value) => {
         let newReviewRecipe = this.state.currRecipe;
         let shownRecipeUpdate = this.props.recipes.map(recipe => {
@@ -42,15 +107,6 @@ class RecipeTable extends Component {
             return recipe
         })
         this.setState({shownRecipes: this.formatRecipes(shownRecipeUpdate)})
-    }
-
-    formatRecipes(recipes) {
-        recipes.forEach((recipe) => {
-            recipe.key = recipe.id
-            recipe.rating = this.getAverageVal(recipe.reviews, 'stars')
-            recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
-        })
-        return recipes
     }
 
     getAverageVal(reviews, colName) {
@@ -85,15 +141,29 @@ class RecipeTable extends Component {
 	}
 
 
-    render() { 
+    render() {
         return (
             <>
                 <Box style={{ width: '100%' }}>
-                    <DataGrid
-                        rows={this.state.shownRecipes}
-                        columns={this.cols} 
-                        autoHeight
+                    <Stack direction="row">
+                        <RecipeFilter
+                            ingredients={this.props.ingredients}
+                            myIngredients={this.props.myIngredients}
+                            equipment={this.props.equipment}
+                            myEquipment={this.props.myEquipment}
+                            restrictions={this.props.restrictions}
+                            myRestrictions={this.props.myRestrictions}
+							filters={this.state.filterActive}
+							onToggleFilter={this.handleToggleFilter}
                         />
+                        <DataGrid style={{ width: '100%', margin: "15px" }}
+                            disableSelectionOnClick
+                            disableColumnMenu
+                            rows={this.state.shownRecipes}
+                            columns={this.cols} 
+                            autoHeight
+                        />
+                    </Stack>
                 </Box>
                 <View_Recipe
                     onToggleRecipeView={this.handleToggleRecipe}
