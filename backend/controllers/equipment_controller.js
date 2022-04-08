@@ -18,6 +18,6 @@ exports.post = async(req, res) => {
         const result = await equipment.create({name: body.name});
         return result;
     } else {
-        return {};
+        // bad request
     }
 }
