@@ -1,6 +1,7 @@
 import { Button, Chip } from '@mui/material';
 import React, { Component } from 'react';
 import View_Recipe from "./view_recipe"
+import View_Add_Recipe from "./view_add_recipes"
 import { DataGrid } from '@mui/x-data-grid'
 import { Box } from '@mui/system';
 import RatingStars from './rating_stars_comp';
@@ -8,6 +9,7 @@ import RatingStars from './rating_stars_comp';
 class RecipeTable extends Component {
 	state = { 
         recipeOpen: false,
+        addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
         shownRecipes: this.formatRecipes(this.props.recipes)
     }
@@ -20,16 +22,27 @@ class RecipeTable extends Component {
         { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
             return '' + params.value + " mins"
         }},
-        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => { 
-            return <RatingStars stars={params.value} />
+        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => {
+            return <RatingStars stars={parseFloat(params.value)} />
         }},
         { field: 'rating', headerName: 'Rating', width: 140, renderCell: (params) => {
-            return <RatingStars stars={params.value} />
+            return <RatingStars stars={parseFloat(params.value)} />
         }},
         { field: 'tags', headerName: 'Tags', minWidth: 300, renderCell: (params) => {
             return this.getTags(params.value)
         }}
     ]
+
+    addReview = (value) => {
+        let newReviewRecipe = this.state.currRecipe;
+        let shownRecipeUpdate = this.props.recipes.map(recipe => {
+            if (recipe.id == newReviewRecipe.id) {
+                recipe.reviews.push(value);
+            }
+            return recipe
+        })
+        this.setState({shownRecipes: this.formatRecipes(shownRecipeUpdate)})
+    }
 
     formatRecipes(recipes) {
         recipes.forEach((recipe) => {
@@ -45,7 +58,10 @@ class RecipeTable extends Component {
         reviews.forEach( review => {
             sum += review[colName];
         })
-        return ((sum / reviews.length).toFixed(1))
+        if (reviews.length)
+            return ((sum / reviews.length).toFixed(1))
+        else
+            return 0
     }
 
     getTags(tags) {
@@ -62,6 +78,13 @@ class RecipeTable extends Component {
         this.setState({recipeOpen: recipeOpen})
 	}
 
+    handleToggleAdd = () => {
+		let addRecipeOpen = this.state.addRecipeOpen
+		addRecipeOpen = !addRecipeOpen
+        this.setState({addRecipeOpen: addRecipeOpen})
+	}
+
+
     render() { 
         return (
             <>
@@ -76,6 +99,7 @@ class RecipeTable extends Component {
                     onToggleRecipeView={this.handleToggleRecipe}
                     recipeOpen={this.state.recipeOpen}
                     recipe={this.state.currRecipe}
+                    addReview={this.addReview}
                 />
             </>
         );

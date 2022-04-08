@@ -1,42 +1,33 @@
 import List from "@mui/material/List"
-import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
-import IconButton from "@mui/material/ListItemIcon"
-
-function DelButton({onClick, item}) {
-	
-	const handleDel = () => {
-		if(onClick){
-			onClick(item)
-		}
-	}
-	return (
-		<IconButton edge="end" aria-label="delete"
-			onClick={handleDel}
-		>
-			<DeleteIcon />
-		</IconButton>
-	)
-}
+import LinearProgress from "@mui/material/LinearProgress"
+import DelButton from "./delete_button"
 
 export default function KitchenList(props) {
 	const listItems = (
-		props.items.map(item => 
-			<ListItem
-				key={item.title}
-				secondaryAction={
-					<DelButton 
-						onClick={props.delHandler}
-						item={item}
+		props.items.map(item => {
+			var loading = props.loading.has(item.title)
+			return (
+				<div key={`${item.title}${loading}`}>
+					<ListItem
+						secondaryAction={
+							<DelButton 
+								disabled={loading}
+								onClick={props.delHandler}
+								item={item}
+								/>
+						}
+					>
+						<ListItemText
+							sx={{color: loading ? 'text.disabled' : 'black'}}
+							primary={ item.title }
 						/>
-				}
-			>
-				<ListItemText
-					primary={ item.title }
-				/>
-			</ListItem>
-		)
+					</ListItem>
+					{ loading && <LinearProgress sx={{marginBotton: '-4px'}} />}
+				</div>
+			)
+		})
 	)
 
 	return (

@@ -12,7 +12,7 @@ exports.getAll = async() => {
 }
 
 exports.post = async(req, res) => {
-	const body = JSON.parse(req.body)
+	const body = req.body
     if(body.name) {
         const result = await equipment.create({name: body.name});
         return result;

@@ -6,15 +6,19 @@ exports.get = async(req,res) => {
     if(req.body.data.primaryKey) {
         var result = await recipe.findByPk(req.body.data.primaryKey);
         //Grab ratings - will be replaced by association fetch in future
-        let ratingsList = JSON.parse(result.dataValues.ratings);
-        let ratingObjects = [];
-        for (ratingIndex in ratingsList) {
-            let returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
-            if (returnedRating) {
-                ratingObjects.push(returnedRating.dataValues);
+        if (result.dataValues.ratings) {
+            let ratingsList = JSON.parse(result.dataValues.ratings);
+            let ratingObjects = [];
+            for (ratingIndex in ratingsList) {
+                let returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
+                if (returnedRating) {
+                    ratingObjects.push(returnedRating.dataValues);
+                }
             }
+            result.dataValues.ratings = ratingObjects;
+        } else {
+            result.dataValues.ratings = [];
         }
-        result.dataValues.ratings = ratingObjects;
         return result;
     } else {
         //do nothing
@@ -26,15 +30,19 @@ exports.getAll = async() => {
 	var result = await recipe.findAll()
     for (recipeIndex in result) {
         //Grab ratings - will be replaced by association fetch in future
-        let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
-        let ratingObjects = [];
-        for (ratingIndex in ratingsList) {
-            const returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
-            if (returnedRating) {
-                ratingObjects.push(returnedRating.dataValues);
+        if (result[recipeIndex].dataValues.ratings) {
+            let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
+            let ratingObjects = [];
+            for (ratingIndex in ratingsList) {
+                const returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
+                if (returnedRating) {
+                    ratingObjects.push(returnedRating.dataValues);
+                }
             }
+            result[recipeIndex].dataValues.ratings = ratingObjects;
+        } else {
+            result[recipeIndex].dataValues.ratings = [];
         }
-        result[recipeIndex].dataValues.ratings = ratingObjects;
     }
 	return result
 }
@@ -45,8 +53,8 @@ exports.post = async(req,res) => {
         const entry = await recipe.create({ 
             name: req.body.data.name,
             time: req.body.data.time,
-            tags: req.body.data.tags, 
-            instructions: req.body.data.instructions,
+            tags: JSON.stringify(req.body.data.tags), 
+            instructions: JSON.stringify(req.body.data.instructions),
             equipment: JSON.stringify(req.body.data.equipment),
             ingredients: JSON.stringify(req.body.data.ingredients),
             details: req.body.data.details,
