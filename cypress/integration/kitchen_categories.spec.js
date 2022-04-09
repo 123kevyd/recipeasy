@@ -20,7 +20,7 @@ for(let i = 0; i < 3; i++){
 
 			// look at assertions
 			// https://docs.cypress.io/guides/references/assertions#TDD-Assertions
-			cy.get(`.${categories[i]}__${item}`).should('exist')
+			cy.get(`#${item}`).should('exist')
 		})
 	})
 }
