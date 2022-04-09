@@ -59,12 +59,8 @@ export const userStore = create((set, get) => ({
 				return null
 			}
 			data = (await res.json())[0]
-			console.log('posted data')
-			console.log(data)
 			toggleLoading(newItem, set, get)
 		}
-		console.log("putting to user")
-		toggleLoading(data, set, get)
 		var ids = currItems.map(datum => datum.id)
 		ids.push(data.id)
 		set((state) => ({ [field]: currItems.concat([data]) }))
