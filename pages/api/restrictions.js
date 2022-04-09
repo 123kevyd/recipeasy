@@ -7,7 +7,8 @@ export default async function handler(req, res)
         try {
             const result = await restriction.post(req);
             res.status(200).json([{
-                id: result.dataValues.id
+                id: result.dataValues.id,
+                title: result.dataValues.name
             }]);
         } catch (error) {
             console.log(error);

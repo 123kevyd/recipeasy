@@ -63,6 +63,11 @@ export async function getServerSideProps(context)
 			}
 	})
 
+	// TODO:
+	//
+	// test cumbersome for loops, maybe implement a getAll
+	//
+	//
 	for (recipeIndex in recipes) {
 		let equipmentList = recipes[recipeIndex].equipment;
 		let ingredientList = recipes[recipeIndex].ingredients
