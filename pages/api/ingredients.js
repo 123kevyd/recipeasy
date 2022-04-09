@@ -10,7 +10,7 @@ export default async function handler(req, res)
             if (result != undefined) {
                 res.status(200).json([{
                     id: result.dataValues.id,
-                    name : result.dataValues.name
+                    title : result.dataValues.name
                 }]);
             } else {
                 throw error
