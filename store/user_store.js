@@ -1,7 +1,7 @@
 import create from 'zustand'
 
 async function update(uid, field, ids){
-	return fetch(`/api/user/${uid}/`, 
+	return fetch(`/api/user/${uid}`, 
 		{
 			method: 'PUT',
 			body: JSON.stringify({[field]: ids})
@@ -10,9 +10,7 @@ async function update(uid, field, ids){
 
 async function postNewItem(field, title) {
 	// this should possibly be in a file with wider design scope, this file is about users, this method is about items
-	const res = await fetch(`/api/${field}/`, {method: 'POST', body: JSON.stringify({price: 0, name: title})})
-	const data = await res.json()
-	return data[0]
+	return fetch(`/api/${field}`, {method: 'POST', body: JSON.stringify({price: 0, name: title})})
 }
 
 function toggleLoading(item, setter, getter) {
@@ -52,7 +50,15 @@ export const userStore = create((set, get) => ({
 			const newItem = {title: data}
 			toggleLoading(newItem, set, get)
 			set((state) => ({ [field]: state[field].concat([newItem]) }))
-			data = await postNewItem(field, data)
+			const res = await postNewItem(field, data)
+			if(!res.ok){
+				set((state) => ({ 
+					[field]: currItems
+				}))
+				toggleLoading(newItem, set, get)
+				return null
+			}
+			data = await res.json()[0]
 			toggleLoading(newItem, set, get)
 		}
 		toggleLoading(data, set, get)
