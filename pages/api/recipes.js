@@ -1,4 +1,4 @@
-//this is for testing, ratings api prob shouldnt exist
+
 const recipe = require ("../../backend/controllers/recipe_controller.js");
 
 export default async function handler(req, res) {
