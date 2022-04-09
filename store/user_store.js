@@ -8,8 +8,8 @@ async function update(uid, field, ids){
 		})
 }
 
+// this should possibly be in a file with wider design scope, this file is about users, this method is about items
 async function postNewItem(field, title) {
-	// this should possibly be in a file with wider design scope, this file is about users, this method is about items
 	return fetch(`/api/${field}`, {method: 'POST', body: JSON.stringify({price: 0, name: title})})
 }
 

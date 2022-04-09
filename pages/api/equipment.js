@@ -1,4 +1,4 @@
-console.log("searching for dependencies")
+
 const equipment = require ("../../backend/controllers/equipment_controller.js");
 
 export default async function handler(req, res) {
