@@ -33,7 +33,12 @@ describe(`Add A Recipe`, () => {
         //time
         cy.get('#mui-30').type(10)
 
-        //cy.get('[role="button"]')
+        cy.get('[role="button"]').eq(3).click()
+        cy.get('li').eq(0).click()
+        //var y = x[0]
+        //y.click()
+        //expect().equal(null)
+
         
         //cy.get('select').select('user-1')
 
