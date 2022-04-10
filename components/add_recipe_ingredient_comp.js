@@ -13,6 +13,8 @@ class AddRecipeIngredient extends Component {
                             <Box key={index} mt={2}>
                                 <Stack direction="row" spacing={3}>
                                     <Select
+                                        id="select-ig-name"
+                                        labelId="select-ig-name"
                                         label="Ingredient"
                                         fullWidth
                                         onChange={(event) => this.props.handleName(event.target.value,index)}

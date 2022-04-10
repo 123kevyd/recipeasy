@@ -23,7 +23,7 @@ class Cookbook extends Component {
 				<p>{this.state.useEquipmentFilter}</p>
 				<p>{this.state.useRestrictionFilter}</p>
 				<p>{this.state.useRecipesFilter}</p>
-				<Typography variant='h4' align='center'>My Cookbook <Button variant='contained' onClick={() => this.handleToggleAdd()}>Add</Button></Typography>
+				<Typography variant='h4' align='center'>My Cookbook <Button id='addRecipeButton' variant='contained' onClick={() => this.handleToggleAdd()}>Add</Button></Typography>
 				<Box marginLeft='100px' marginRight='100px'>
 					<Box>
 						<RecipeTableHOC
