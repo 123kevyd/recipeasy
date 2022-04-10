@@ -15,17 +15,15 @@ describe(`Add A Recipe`, () => {
     })
 
     it(`Should Add A Recipe`, () => {
+        const rnd = Math.floor(Math.random() * 100000)
         cy.intercept(`/api/recipes`).as('postAttempt')
         cy.visit('http://localhost:3199/user/8', {timeout: 30000})
-        var recipeTab = cy.get(`button`, {timeout: 10000}).contains('Recipes')
-        recipeTab.click()
-        var addButton = cy.get(`button`, {timeout: 10000}).contains('Add')
-        addButton.click()
-        var submit = cy.get(`button`, {timeout: 10000}).contains('Submit')
+        cy.get(`button`, {timeout: 10000}).contains('Recipes').click()
+        cy.get(`button`, {timeout: 10000}).contains('Add').click()
 
         //inserting data
         //name
-        cy.get('#mui-27').type('Name')
+        cy.get('#mui-27').type(`${rnd}`)
         //description
         cy.get('#mui-28').type('Description')
         //direction
@@ -35,25 +33,14 @@ describe(`Add A Recipe`, () => {
 
         cy.get('[role="button"]').eq(3).click()
         cy.get('li').eq(0).click()
-        //var y = x[0]
-        //y.click()
-        //expect().equal(null)
+        cy.get('[role="button"]').eq(4).click()
+        cy.get('li').eq(0).click()
+        cy.get('#mui-31').type(10)
 
+        cy.get(`button`, {timeout: 10000}).contains('Submit').click()
         
-        //cy.get('select').select('user-1')
-
-        /*
-        cy.wait('@postItem', {timeout: 10000}).then((interception) => {
-            // check out interceptions
-            // https://docs.cypress.io/guides/guides/network-requests#Waiting
-            // https://docs.cypress.io/api/commands/intercept#Intercepted-responses
-            // https://docs.cypress.io/api/commands/intercept#Interception-lifecycle
-            assert.equal(interception.response.statusCode, 200, `${titles[i]} post successful`)
+        cy.wait('@postAttempt', {timeout: 10000}).then((interception) => {
+            assert.equal(interception.response.statusCode, 200, `post successful`)
         })
-
-        // look at assertions
-        // https://docs.cypress.io/guides/references/assertions#TDD-Assertions
-        cy.get(`#${item}`).should('exist')
-        */
     })
 })

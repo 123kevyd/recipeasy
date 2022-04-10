@@ -1,4 +1,4 @@
-/*
+
 const categories = ['ingredients', 'equipment', 'restrictions']
 const titles = ['Ingredients', 'Equipment', 'Restrictions']
 for(let i = 0; i < 3; i++){
@@ -25,4 +25,3 @@ for(let i = 0; i < 3; i++){
 	})
 }
 
-*/
