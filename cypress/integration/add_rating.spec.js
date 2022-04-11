@@ -1,6 +1,5 @@
 describe(`Add A Rating`, () => {
     it(`Should Fail Due to Missing Fields`, () => {
-        // // should reseed the db instead of randomly generating a name
         cy.visit('http://localhost:3199/user/8', {timeout: 30000})
         cy.get(`button`, {timeout: 10000}).contains('Recipes').click()
         cy.get(`button`, {timeout: 10000}).contains('View').click()
