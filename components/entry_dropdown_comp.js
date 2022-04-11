@@ -14,6 +14,7 @@ export default function EntryDropdown(props) {
 				filterSelectedOptions
 				onChange={props.handler}
 				autoHighlight
+				id={props.textFieldId}
 				renderInput={(params) => (
 					<TextField
 						{...params}

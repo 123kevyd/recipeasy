@@ -18,6 +18,7 @@ export default async function handler(req, res)
 
         } catch (error) {
             console.log(error);
+			res.status(500).send({error: 'failed to post ingredient'})
         }
     }
     // retrieving an ingredient
