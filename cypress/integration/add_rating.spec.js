@@ -3,7 +3,7 @@ describe(`Add A Rating`, () => {
         cy.visit('http://localhost:3199/user/8', {timeout: 30000})
         cy.get(`button`, {timeout: 10000}).contains('Recipes').click()
         cy.get(`button`, {timeout: 10000}).contains('View').click()
-        cy.get(`button`, {timeout: 10000}).contains('Submit').click()
+        cy.get(`#submitRating`, {timeout: 10000}).click()
         cy.on('window:alert', (text) => {
             expect(text).to.contains('Error: Both difficulty and stars are required');
         });
