@@ -61,6 +61,7 @@ class RecipeRatingSubmit extends Component {
                                 <Stack direction='row' mb={2}>
                                     <Typography>Rating:&nbsp;&nbsp;&nbsp;</Typography>
                                     <StyledRating
+                                        id="ratingStars"
                                         icon={<Star fontSize="inherit"></Star>}
                                         emptyIcon={<StarBorder fontSize="inherit"></StarBorder>}
                                         value={this.state.rating}
@@ -70,6 +71,7 @@ class RecipeRatingSubmit extends Component {
                                 <Stack direction='row'>
                                     <Typography>Difficulty:&nbsp;</Typography>
                                     <StyledRating
+                                        id="difficultyStars"
                                         icon={<Star fontSize="inherit"></Star>}
                                         emptyIcon={<StarBorder fontSize="inherit"></StarBorder>}
                                         value={this.state.difficulty}
@@ -81,6 +83,7 @@ class RecipeRatingSubmit extends Component {
                                 <Box>
                                     <Stack direction='row' mb={2}>
                                         <TextField
+                                        id="reviewText"
                                         multiline
                                         rows={4}
                                         style={{width: '100%'}}
@@ -89,7 +92,7 @@ class RecipeRatingSubmit extends Component {
                                         onChange={(event) => this.setState({review: event.target.value})}/>
                                     </Stack>
                                     <Stack direction='row'>
-                                        <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>
+                                        <Button variant="contained" onClick={this.handleSubmit} id="submitRating">Submit</Button>
                                     </Stack>
                                 </Box>
                             </Box>
