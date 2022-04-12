@@ -56,7 +56,7 @@ function closeCurrOpenRecipe() {
 
 describe("View/filter recipes", () => {
     before(() => {
-        cy.visit('http://localhost:3197/user/9', {timeout: 30000})
+        cy.visit('http://localhost:3199/user/9', {timeout: 30000})
         cy.get(`button`, { timeout: 1000 }).contains('Recipes').click()
     })
 
