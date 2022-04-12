@@ -61,6 +61,7 @@ export const userStore = create((set, get) => ({
 			data = (await res.json())[0]
 			toggleLoading(newItem, set, get)
 		}
+		toggleLoading(data, set, get)
 		var ids = currItems.map(datum => datum.id)
 		ids.push(data.id)
 		set((state) => ({ [field]: currItems.concat([data]) }))
