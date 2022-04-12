@@ -87,10 +87,6 @@ describe("View/filter recipes", () => {
         })
     })
 
-    it("Should view and save recipes", () => {
-        openFirstRecipe()
-    })
-
     it("Should filter recipes", () => {
         cy.get('div#recipeFilter div#restrictionModalBtn').click()
         cy.get('input#autocomplete-restrictions').type("Vegan").wait(500)
@@ -159,5 +155,9 @@ describe("View/filter recipes", () => {
                 })
             })
         })
+    })
+
+    it("Should view and save recipes", () => {
+        openFirstRecipe()
     })
 })
