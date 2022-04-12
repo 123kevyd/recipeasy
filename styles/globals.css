@@ -27,3 +27,7 @@ a {
 .wide-text {
   margin: 30px;
 }
+
+#recipeTable {
+  width: 100%;
+}

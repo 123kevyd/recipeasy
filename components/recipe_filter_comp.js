@@ -22,7 +22,7 @@ class RecipeFilter extends Component {
 
     render() {
         return (
-            <>
+            <div id="recipeFilter">
                 <Card sx={{width: "200px", height:"260px"}}>
                     <CardHeader title='Filters' />
                     <CardContent>
@@ -34,11 +34,13 @@ class RecipeFilter extends Component {
                                 />
                             </Grid>
                             <Grid item xs={2}>
-                                <IconButton
-                                    onClick={() => { this.onToggleModal("restrictionModalOpen")} }
-                                >
-                                    <EditIcon />
-                                </IconButton>
+                                <div id="restrictionModalBtn">
+                                    <IconButton
+                                        onClick={() => { this.onToggleModal("restrictionModalOpen")} }
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </div>
                             </Grid>
                             <Grid item xs={10}>
                                 <FormControlLabel
@@ -47,11 +49,13 @@ class RecipeFilter extends Component {
                                 />
                             </Grid>
                             <Grid item xs={2}>
-                                <IconButton
-                                    onClick={() => { this.onToggleModal("equipmentModalOpen")} }
-                                >
-                                    <EditIcon />
-                                </IconButton>
+                                <div id="equipmentModalBtn">
+                                    <IconButton
+                                        onClick={() => { this.onToggleModal("equipmentModalOpen")} }
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </div>
                             </Grid>
                             <Grid item xs={10}>
                                 <FormControlLabel
@@ -60,11 +64,13 @@ class RecipeFilter extends Component {
                                 />
                             </Grid>
                             <Grid item xs={2}>
-                                <IconButton
-                                    onClick={() => { this.onToggleModal("ingredientModalOpen")} }
-                                >
-                                    <EditIcon />
-                                </IconButton>
+                                <div id="ingredientModalBtn">
+                                    <IconButton
+                                        onClick={() => { this.onToggleModal("ingredientModalOpen")} }
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </div>
                             </Grid>
                             <Grid item xs={10}>
                                 <FormControlLabel
@@ -73,11 +79,13 @@ class RecipeFilter extends Component {
                                 />
                             </Grid>
                             <Grid item xs={2}>
-                                <IconButton
-                                    onClick={() => { this.onToggleModal("recipeModalOpen")} }
-                                >
-                                    <EditIcon />
-                                </IconButton>
+                                <div id="recipeModalBtn">
+                                    <IconButton
+                                        onClick={() => { this.onToggleModal("recipeModalOpen")} }
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </div>
                             </Grid>
                         </Grid>
                     </CardContent> 
@@ -102,14 +110,13 @@ class RecipeFilter extends Component {
                     title="My Ingredients"
                     field="ingredients"
                     options={this.props.ingredients}
-                /> {/* TODO switch to recipe modal and state */}
+                />
                 <RecipeRecipeFilterModal
                     isOpen={this.state.recipeModalOpen}
                     onToggleModal={() => { this.onToggleModal("recipeModalOpen") }}
                     title="My Recipes"
-                    // options={this.props.equipment}
                 />
-            </>
+            </div>
         );
     }
 }
