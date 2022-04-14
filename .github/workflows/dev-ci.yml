@@ -19,3 +19,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm test
       - run: npm run e2e:headless
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

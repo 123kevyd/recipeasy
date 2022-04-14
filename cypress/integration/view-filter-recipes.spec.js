@@ -60,7 +60,7 @@ describe("View/filter recipes", () => {
         cy.get(`button`, { timeout: 1000 }).contains('Recipes').click()
     })
 
-    it("Should sort Recipes", () => {
+    it.only("Should sort Recipes", () => {
         cy.get('div#recipeTable div.MuiDataGrid-row div.MuiDataGrid-cell[data-field="time"] div.MuiDataGrid-cellContent', { timeout: 1000 }).then((initTimes) => {
             cy.get('div#recipeTable div.MuiDataGrid-columnHeader--sortable').contains('Time').click()
             cy.get('div#recipeTable div.MuiDataGrid-row div.MuiDataGrid-cell[data-field="time"] div.MuiDataGrid-cellContent', { timeout: 1000 }).then((sort1Times) => {
@@ -157,7 +157,7 @@ describe("View/filter recipes", () => {
         })
     })
 
-    it("Should view and save recipes", () => {
+    it.only("Should view and save recipes", () => {
         openFirstRecipe()
     })
 })
