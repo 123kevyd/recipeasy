@@ -1,6 +1,7 @@
 const db = require("../models");
 const recipe = db.recipe;
 const rating = db.rating;
+const {performance} = require('perf_hooks')
 
 exports.get = async(req,res) => {
     if(req.body.data.primaryKey) {
@@ -27,23 +28,24 @@ exports.get = async(req,res) => {
 
 
 exports.getAll = async() => {
+	const t1 = performance.now()
 	var result = await recipe.findAll()
-    for (recipeIndex in result) {
+    for (recipeRes of result) {
+		const recipe = recipeRes.dataValues
+
         //Grab ratings - will be replaced by association fetch in future
-        if (result[recipeIndex].dataValues.ratings) {
-            let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
-            let ratingObjects = [];
-            for (ratingIndex in ratingsList) {
-                const returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
-                if (returnedRating) {
-                    ratingObjects.push(returnedRating.dataValues);
-                }
-            }
-            result[recipeIndex].dataValues.ratings = ratingObjects;
+        if (recipe.ratings) {
+            recipe.ratings = (await rating.findAll({
+				where: {
+					id: JSON.parse(recipe.ratings)
+				}
+			})).map(ratingRes => ratingRes.dataValues)
         } else {
-            result[recipeIndex].dataValues.ratings = [];
+            recipe.ratings = [];
         }
     }
+	console.log("recipe getall time")
+	console.log(performance.now() - t1)
 	return result
 }
 	
