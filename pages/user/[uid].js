@@ -63,33 +63,29 @@ export async function getServerSideProps(context)
 			}
 	})
 
-	// TODO:
-	//
-	// test cumbersome for loops, maybe implement a getAll
-	//
-	//
-	for (recipeIndex in recipes) {
-		let equipmentList = recipes[recipeIndex].equipment;
-		let ingredientList = recipes[recipeIndex].ingredients
-		recipes[recipeIndex].equipment = [];
-		recipes[recipeIndex].ingredients = [];
+	const ingredientSet = new Map()
+	ingredients.forEach(ingredient => ingredientSet.set(ingredient.id, ingredient))
+	for (let recipe of recipes) {
+		let equipmentList = recipe.equipment;
+		let ingredientList = recipe.ingredients
+		recipe.equipment = [];
+		recipe.ingredients = [];
 
-		for (let equipmentIndex in equipmentList) {
-			let equipEntry = equipment.find(equip => equip.id === equipmentList[equipmentIndex]);
+		for (let equipmentId of equipmentList) {
+			let equipEntry = equipment.find(equip => equip.id === equipmentId);
 			if (equipEntry) {
-				recipes[recipeIndex].equipment.push(equipEntry.title);
+				recipe.equipment.push(equipEntry.title);
 			}
 		}
 
-		for (let ingredientIndex in ingredientList) {
-			let ingredientEntry = ingredients.find(ingredient => ingredient.id === ingredientList[ingredientIndex].id);
+		for (let ingredient1 of ingredientList) {
+			let ingredientEntry = ingredientSet.get(ingredient1.id)
 			if (ingredientEntry) {
-				let formatEntry = {id: ingredientEntry.id, quantity: ingredientList[ingredientIndex].quantity, name: ingredientEntry.title, unit: ingredientList[ingredientIndex].unit};
-				recipes[recipeIndex].ingredients.push(formatEntry);
+				let formatEntry = {id: ingredientEntry.id, quantity: ingredient1.quantity, name: ingredientEntry.title, unit: ingredient1.unit};
+				recipe.ingredients.push(formatEntry);
 			}
 		}
 	}
-
 
 	const myIngredients = filterToUserData(ingredients, user.dataValues.ingredients)
 	const myEquipment = filterToUserData(equipment, user.dataValues.equipment)

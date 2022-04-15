@@ -34,7 +34,7 @@ exports.getAll = async() => {
     for (let recipe of result) {
 		const ratings = JSON.parse(recipe.dataValues.ratings)
 		if(ratings){
-			ratingIds = ratingIds.concat(ratings)
+			ratingIds.push(ratings)
 			for(id of ratings){
 				ratingIdToRecipeMap.set(id, recipe)
 			}
@@ -43,6 +43,7 @@ exports.getAll = async() => {
 			recipe.dataValues.ratings = []
 		}
 	}
+	ratingIds = [].concat(...ratingIds)
 	var ratings = await rating.findAll({
 		where: {
 			id: ratingIds
