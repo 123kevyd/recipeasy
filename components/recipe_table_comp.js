@@ -156,13 +156,15 @@ class RecipeTable extends Component {
 							filters={this.state.filterActive}
 							onToggleFilter={this.handleToggleFilter}
                         />
-                        <DataGrid style={{ width: '100%', margin: "15px" }}
-                            disableSelectionOnClick
-                            disableColumnMenu
-                            rows={this.state.shownRecipes}
-                            columns={this.cols} 
-                            autoHeight
-                        />
+                        <div id="recipeTable">
+                            <DataGrid style={{ width: '100%', margin: "15px" }}
+                                disableSelectionOnClick
+                                disableColumnMenu
+                                rows={this.state.shownRecipes}
+                                columns={this.cols} 
+                                autoHeight
+                            />
+                        </div>
                     </Stack>
                 </Box>
                 <View_Recipe

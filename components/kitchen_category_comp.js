@@ -18,6 +18,7 @@ function KitchenListItem(props) {
 				}
 			>
 				<ListItemText
+					id={item.title}
 					sx={{color: props.loading ? 'text.disabled' : 'black'}}
 					primary={ item.title }
 				/>
@@ -82,8 +83,8 @@ export default function KitchenCategory(props) {
 
 	return (
 		<Stack spacing={2} sx={{ width: 300, padding: 3, border: '1px blue solid', margin: 3 }}>
-			<Typography align="center" variant="h5" component="div">{props.title}</Typography>
-			<EntryDropdown
+			<Typography  align="center" variant="h5" component="div">{props.title}</Typography>
+			<EntryDropdown textFieldId={`autocomplete-${props.field}`}
 				items={getDropdownList()}
 				handler={itemSelected}
 				key={clearText}

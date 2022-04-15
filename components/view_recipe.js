@@ -72,10 +72,12 @@ class View_Recipe extends Component {
                 onClose={this.props.onToggleRecipeView}
             >
                 <>
-                    <RecipeModalHeader
-                        onToggleModal={this.props.onToggleRecipeView}
-                        title="Recipe Viewer"
-                    />
+                    <div id="viewRecipeModalHeader">
+                        <RecipeModalHeader
+                            onToggleModal={this.props.onToggleRecipeView}
+                            title="Recipe Viewer"
+                        />
+                    </div>
                     <RecipeDisplay recipe={this.props.recipe} />
                     <RecipeRatingSubmit recipe={this.props.recipe} addReview={this.props.addReview}/>
                     <RecipeRatingDisplay reviews={(this.props.recipe !== undefined ? this.props.recipe.reviews : undefined)} />

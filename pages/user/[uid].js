@@ -63,6 +63,11 @@ export async function getServerSideProps(context)
 			}
 	})
 
+	// TODO:
+	//
+	// test cumbersome for loops, maybe implement a getAll
+	//
+	//
 	for (recipeIndex in recipes) {
 		let equipmentList = recipes[recipeIndex].equipment;
 		let ingredientList = recipes[recipeIndex].ingredients
@@ -158,7 +163,7 @@ function App(props) {
 				<Tabs value={tab} onChange={handleChange} centered>
 					<Tab label="Kitchen" />
 					<Tab label="Recipes" />
-					<Tab label="Meal Planner" disabled />
+					<Tab sx={{display: 'none'}} label="Meal Planner" disabled />
 				</Tabs>
 			</Box>
 			<TabPanel value={tab} index={0}>
@@ -181,7 +186,7 @@ function App(props) {
 					restrictions={props.restrictions}
 				/>
 			</TabPanel>
-			<TabPanel value={tab} index={0}>
+			<TabPanel value={tab} index={2}>
 			</TabPanel>
 		</Box>
 	)

@@ -11,6 +11,9 @@
 # next.js
 /.next/
 /out/
+/cypress_examples/
+/cypress/screenshots/
+/cypress/videos/
 
 # production
 /build
