@@ -15,7 +15,7 @@
     "migrate-prod": "cd backend && npx sequelize-cli db:migrate --env production",
     "down": "cd backend && npx sequelize-cli db:migrate:undo",
     "seed": "cd backend && npx sequelize-cli seed:generate --name demo-user",
-    "test": "mocha './backend/**/*_test.js' & jest",
+    "test": "mocha './backend/**/*_test.js'",
     "frontend-test": "jest"
   },
   "dependencies": {

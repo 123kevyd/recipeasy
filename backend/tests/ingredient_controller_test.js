@@ -32,12 +32,10 @@ describe("Ingredient Controller", function() {
 
     describe("Testing Post Function", async function() {
         var request = {
-            body: {
-                data: {
-                    name: null,
-                    price: null
-                }
-            }
+            body: JSON.stringify({
+                name: null,
+                price: null
+            })
         };
 
         it("Should Call Nothing Due to Bad Request", async function() {
@@ -46,8 +44,10 @@ describe("Ingredient Controller", function() {
         });
     
         it("Should Call Create Method", async function() {
-            request.body.name = "username";
-            request.body.price = 5;
+            request.body = JSON.stringify({
+                name: "username",
+                price: 5
+            })
 
             const mockCreate = sinon.stub(ingredient, "create");
             mockCreate.returns("Create Method was Successfully Called");
