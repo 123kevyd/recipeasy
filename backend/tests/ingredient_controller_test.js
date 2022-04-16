@@ -19,13 +19,13 @@ describe("Ingredient Controller", function() {
             const mockFind = sinon.stub(ingredient, "findByPk");
             mockFind.returns("Method Find By Pk was Successfully Called");
 
-            toCheck = await IngredientController.get(request);
+            let toCheck = await IngredientController.get(request);
             expect(toCheck).to.be.equal("Method Find By Pk was Successfully Called");
         });
 
         it("Should Get Nothing Due to Invalid Input", async function() {
             request.body.data.primaryKey = null;
-            toCheck = await IngredientController.get(request);
+            let toCheck = await IngredientController.get(request);
             expect(toCheck).to.be.equal(undefined);
         });
     });
@@ -41,7 +41,7 @@ describe("Ingredient Controller", function() {
         };
 
         it("Should Call Nothing Due to Bad Request", async function() {
-            toCheck = await IngredientController.post(request);
+            let toCheck = await IngredientController.post(request);
             expect(toCheck).to.be.equal(undefined);
         });
     
@@ -52,7 +52,7 @@ describe("Ingredient Controller", function() {
             const mockCreate = sinon.stub(ingredient, "create");
             mockCreate.returns("Create Method was Successfully Called");
 
-            toCheck = await IngredientController.post(request);
+            let toCheck = await IngredientController.post(request);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
         });
     });

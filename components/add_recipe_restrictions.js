@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardHeader, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import React, { Component } from 'react';
 
 class AddRecipeRestriction extends Component {

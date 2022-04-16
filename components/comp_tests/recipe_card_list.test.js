@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react';
-import RecipeCardList from '../recipe_card_list_comp'
+import RecipeCardList from '../recipe_card_list'
 import '@testing-library/jest-dom/extend-expect';
 
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
     const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => {});
+    spy.mockImplementation(() => { /* Intentionally left blank */ });
 
     expect(testFunction).toThrow()
 

@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { Typography, Stack, List, ListItem, ListItemButton, LinearProgress } from '@mui/material/'
 import { userStore } from "../store/user_store"
-import DelButton from "./delete_button"
-import View_Recipe from "./view_recipe"
+import DelButton from "./del_button"
+import ViewRecipe from "./view_recipe"
 
-export default function Recipes(props) {
+export default function Recipes(_props) {
 	return (
 		<Stack spacing={2} sx={{ width: 300, padding: 3, border: '1px blue solid', margin: 3 }}>
 			<Typography align="center" variant="h5" component="div">Saved Recipes</Typography>
@@ -38,7 +38,7 @@ function RecipeListItem(props) {
 	)
 }
 
-function KitchenRecipeList(props) {
+function KitchenRecipeList(_props) {
 	const items = userStore((state) => state.recipes)
 	const loading = userStore((state) => state.loading)
 	const [currRecipe, setCurrRecipe] = useState(items[0])
@@ -74,7 +74,7 @@ function KitchenRecipeList(props) {
 				<List dense={true}>
 					{listItems}
 				</List>
-				<View_Recipe
+				<ViewRecipe
 						onToggleRecipeView={toggleViewingRecipe}
 						recipeOpen={viewingRecipe}
 						recipe={currRecipe}

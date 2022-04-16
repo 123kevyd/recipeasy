@@ -1,12 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react';
-import AddRecipeDescription from '../add_recipe_description_comp'
+import AddRecipeDescription from '../add_recipe_description'
 import '@testing-library/jest-dom/extend-expect';
 
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
     const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => {});
+    spy.mockImplementation(() => { /* Intentionally left blank */ });
 
     expect(testFunction).toThrow()
 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Typography, Card, CardContent, Box, Stack, Divider } from '@mui/material'
-import StarIcon from '@mui/icons-material/Star'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
-import RatingStars from './rating_stars_comp';
+import { Typography, Card, CardContent, Box, Stack } from '@mui/material'
+import RatingStars from './rating_stars';
 
 /**
  * Used to display the review for a recipe

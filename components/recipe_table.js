@@ -1,9 +1,9 @@
 import { Button, Box, Stack, Chip } from '@mui/material';
 import React, { Component } from 'react';
-import View_Recipe from "./view_recipe"
+import ViewRecipe from "./view_recipe"
 import { DataGrid } from '@mui/x-data-grid'
-import RatingStars from './rating_stars_comp';
-import RecipeFilter from './recipe_filter_comp'
+import RatingStars from './rating_stars';
+import RecipeFilter from './recipe_filter'
 
 class RecipeTable extends Component {
 	state = { 
@@ -43,8 +43,6 @@ class RecipeTable extends Component {
 		newFilters[modalName] = !newFilters[modalName]
 		this.setState({ filterActive: newFilters })
 
-        // updateFilterParams();
-
         let shownRecipes = this.formatRecipes(this.props.recipes, newFilters.useIngredientFilter, newFilters.useEquipmentFilter, newFilters.useRestrictionFilter, newFilters.useRecipesFilter);
         this.setState({shownRecipes: shownRecipes})
 	}
@@ -83,11 +81,14 @@ class RecipeTable extends Component {
 
             if (useIngredientFilter) {
                 toRemoveId = this.checkRecipeArray(this.props.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
-            } if (!toRemoveId && useEquipmentFilter) {
+            }
+            if (!toRemoveId && useEquipmentFilter) {
                 toRemoveId = this.checkRecipeArray(this.props.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
-            } if (!toRemoveId && useRestrictionFilter) {
+            }
+            if (!toRemoveId && useRestrictionFilter) {
                 toRemoveId = this.checkRecipeArray(this.props.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
-            } if (!toRemoveId && useRecipesFilter) {
+            }
+            if (!toRemoveId && useRecipesFilter) {
                 toRemoveId = this.checkRecipeTitle(recipe, this.props.myRecipes)
             }
 
@@ -117,7 +118,7 @@ class RecipeTable extends Component {
         if (reviews.length)
             return ((sum / reviews.length).toFixed(1))
         else
-            return 0
+            return "0"
     }
 
     getTags(tags) {
@@ -167,7 +168,7 @@ class RecipeTable extends Component {
                         </div>
                     </Stack>
                 </Box>
-                <View_Recipe
+                <ViewRecipe
                     onToggleRecipeView={this.handleToggleRecipe}
                     recipeOpen={this.state.recipeOpen}
                     recipe={this.state.currRecipe}

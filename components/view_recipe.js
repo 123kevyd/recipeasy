@@ -22,10 +22,16 @@ import RecipeRatingSubmit from './recipe_rating_submit';
  *      - string: description
  */
 
-class View_Recipe extends Component {
+class ViewRecipe extends Component {
     constructor(props) {
         super(props)
 
+        this.validateRecipeValues()
+        this.validateRecipeLists()
+        this.validateRecipeReviews()
+    }
+
+    validateRecipeValues() {
         if (!this.props || !this.props.recipe) {
             throw new Error("Required recipe prop not found");
         } else if (typeof this.props.recipe !== "object" ) {
@@ -36,7 +42,11 @@ class View_Recipe extends Component {
             throw new Error(`Prop recipe.description must be a string - Is ${this.props.recipe.description} (${typeof this.props.recipe.description}) `);
         } else if (!this.props.recipe.time || typeof this.props.recipe.time !== "number") {
             throw new Error(`Prop recipe.description must be a string - Is ${this.props.recipe.time} (${typeof this.props.recipe.time}) `);
-        } else if (!this.props.recipe.tags || typeof this.props.recipe.tags !== "object" || !Array.isArray(this.props.recipe.tags)) {
+        }
+    }
+
+    validateRecipeLists() {
+        if (!this.props.recipe.tags || typeof this.props.recipe.tags !== "object" || !Array.isArray(this.props.recipe.tags)) {
             throw new Error(`Prop recipe.tags must be an array - Is ${this.props.recipe.tags} (${typeof this.props.recipe.tags}) `);
         } else if (!this.props.recipe.ingredients || typeof this.props.recipe.ingredients !== "object" || !Array.isArray(this.props.recipe.ingredients)) {
             throw new Error(`Prop recipe.ingredients must be an array - Is ${this.props.recipe.ingredients} (${typeof this.props.recipe.ingredients}) `);
@@ -44,13 +54,15 @@ class View_Recipe extends Component {
             throw new Error(`Prop recipe.equipment must be an array - Is ${this.props.recipe.equipment} (${typeof this.props.recipe.equipment}) `);
         } else if (!this.props.recipe.directions || typeof this.props.recipe.directions !== "object" || !Array.isArray(this.props.recipe.directions)) {
             throw new Error(`Prop recipe.equipment must be an array - Is ${this.props.recipe.directions} (${typeof this.props.recipe.directions}) `);
-        } else if (!this.props.recipe.reviews) {
+        }
+    }
+
+    validateRecipeReviews() {
+        if (!this.props.recipe.reviews) {
             throw new Error("Required reviews prop not found");
         } else if (typeof this.props.recipe.reviews !== "object" || !Array.isArray(this.props.recipe.reviews)) {
             throw new Error(`Prop recipe.reviews must be an array - Is ${this.props.recipe.reviews} (${typeof this.props.recipe.reviews}) `);
-        }
-
-        if (!this.props.recipe.reviews.every((elem) => { return typeof elem.stars === "number"})) {
+        } else if (!this.props.recipe.reviews.every((elem) => { return typeof elem.stars === "number"})) {
             throw new Error(`Prop recipe.rating[i].stars (${JSON.stringify(this.props.recipe.reviews[0])}, ${this.props.recipe.reviews[0].stars}, ${this.props.recipe.reviews[1].stars}, ${this.props.recipe.reviews[2].stars}) must be a number `);
         } else if (!this.props.recipe.reviews.every((elem) => { return typeof elem.difficulty === "number"})) {
             throw new Error(`Prop recipe.reviews[i].difficulty must be a number `);
@@ -87,4 +99,4 @@ class View_Recipe extends Component {
     }
 }
  
-export default View_Recipe;
+export default ViewRecipe;

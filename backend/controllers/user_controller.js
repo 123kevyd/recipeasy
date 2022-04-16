@@ -1,23 +1,18 @@
 const db = require("../models");
 const user = db.user;
 
-async function addToUserList(currUser, uid, listName, id) {
-	currUser[listName] = JSON.stringify(JSON.parse(currUser[listName]).concat([id]))
-	currUser.save()
-}
-
 async function updateUserList(currUser, listName, listString) {
 	currUser[listName] = JSON.stringify(listString)
 	currUser.save()
 }
 
-exports.put = async(req, res) => {
+exports.put = async(req, _res) => {
     if (req.body && req.query.user) {
         //Body fields exist - updating an existing user's informatio
 		const body = JSON.parse(req.body)
 		const uid = req.query.user
         const thisUser = await user.findByPk(uid);
-        var entry = null
+        
         if (body.ingredients) {
 			updateUserList(thisUser, "ingredients", body.ingredients)
         }
@@ -37,21 +32,19 @@ exports.put = async(req, res) => {
     
 }
 
-exports.delete = async(req, res) => {
-    const result = await user.destroy({
+exports.delete = async(req, _res) => {
+    return await user.destroy({
         where: {
             id: req.query.uid
         }
     });
-    return result;
 }
 
 exports.get = async(uid) => {
-    const result = await user.findByPk(uid);
-    return result;
+    return await user.findByPk(uid);
 }
 
 exports.login = async(username) => {
-	const [result, created] = await user.findOrCreate({where: {username: username}});
+	const [result, _created] = await user.findOrCreate({where: {username: username}});
 	return result
 }

@@ -1,6 +1,6 @@
-import { Typography, Box, Button, Stack, Card, CardHeader, CardContent } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import React, { Component } from 'react';
-import RecipeTableHOC from './recipe_table_comp_HOC';
+import RecipeTableHOC from './recipe_table_HOC';
 import ViewAddRecipe from './view_add_recipes';
 
 class Cookbook extends Component {

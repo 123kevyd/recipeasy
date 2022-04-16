@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Box, Button, TextField, Card, CardHeader, CardContent, createTheme } from '@mui/material'
-import AddRecipeDescription from './add_recipe_description_comp';
-import AddRecipeRestriction from './add_recipe_restrictions_comp';
-import AddRecipeTime from './add_recipe_time_comp';
-import AddRecipeIngredient from './add_recipe_ingredient_comp';
-import AddRecipeInstructions from './add_recipe_instructions_comp';
-import AddRecipeEquipment from './add_recipe_equipment_comp';
+import AddRecipeDescription from './add_recipe_description';
+import AddRecipeRestriction from './add_recipe_restrictions';
+import AddRecipeTime from './add_recipe_time';
+import AddRecipeIngredient from './add_recipe_ingredient';
+import AddRecipeInstructions from './add_recipe_instructions';
+import AddRecipeEquipment from './add_recipe_equipment';
 
 class AddRecipeDisplay extends Component {
     
@@ -47,56 +47,53 @@ class AddRecipeDisplay extends Component {
 
     getTagIds(tags) {
         let toReturn = [];
-        for(let i = 0; i < tags.length; i++)
-        {
-            for(let j = 0; j < this.props.restrictions.length; j++)
-            {
-                if(this.props.restrictions[j].title == tags[i])
-                {
-                    toReturn.push(this.props.restrictions[j].id);
+
+        for(let tag of tags) {
+            for (let restriction of this.props.restrictions) {
+                if (restriction.title == tag) {
+                    toReturn.push(restriction.id)
                     break
                 }
             }
             
         }
+
         return toReturn;
     }
 
     getEquipmentIds(equipment) {
         let toReturn = [];
-        for(let i = 0; i < equipment.length; i++)
-        {
-            for(let j = 0; j < this.props.equipment.length; j++)
-            {
-                if(this.props.equipment[j].title == equipment[i])
-                {
-                    toReturn.push(this.props.equipment[j].id);
+
+        for (let paramEquipment of equipment) {
+            for (let propEquipment of this.props.equipment) {
+                if (propEquipment.title == paramEquipment) {
+                    toReturn.push(propEquipment.id);
                     break
                 }
             }
             
         }
+
         return toReturn;
     }
 
     getIngredientIds(ingredients) {
         let toReturn = [];
-        for(let i = 0; i < ingredients.length; i++)
-        {
-            for(let j = 0; j < this.props.ingredients.length; j++)
-            {
-                if(this.props.ingredients[j].title == ingredients[i].name)
-                {
+
+        for (let paramIngredient of ingredients) {
+            for (let propIngredient of this.props.ingredients) {
+                if(propIngredient.title == paramIngredient.name) {
                     toReturn.push({
-                        id: this.props.ingredients[j].id,
-                        quantity: ingredients[i].quantity,
-                        unit: ingredients[i].name
+                        id: propIngredient.id,
+                        quantity: paramIngredient.quantity,
+                        unit: paramIngredient.name
                     });
                     break
                 }
             }
             
         }
+
         return toReturn;
     }
 
@@ -147,7 +144,6 @@ class AddRecipeDisplay extends Component {
     }
 
     handleDeleteInstruction(index) {
-        //let delInst = JSON.parse(JSON.stringify(this.state.newRecipe));
         let delInst = {...this.state.newRecipe};
         if (index > -1) {
             delInst.directions.splice(index, 1); // 2nd parameter means remove one item only

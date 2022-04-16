@@ -2,29 +2,26 @@ const db = require("../models");
 const restriction = db.restriction;
 
 // retrieves restriction by primary key
-exports.get = async(req,res) => {
+exports.get = async(req,_res) => {
     if(req.body.data.primaryKey) {
-        const result = await restriction.findByPk(req.body.data.primaryKey);
-        return result;
+        return await restriction.findByPk(req.body.data.primaryKey);
     } else {
         //do nothing
     }
 }
 
 exports.getAll = async() => {
-	result = await restriction.findAll()
-	return result
+	return await restriction.findAll()
 }
 
 // adds an restriction to the db
-exports.post = async(req,res) => {
+exports.post = async(req,_res) => {
 	const body = JSON.parse(req.body)
     if(body.name && body.price != undefined) {
-        const result = await restriction.create({ 
+        return await restriction.create({ 
             name: body.name, 
             price: body.price
         });
-        return result;
     } else {
         //do nothing
     }

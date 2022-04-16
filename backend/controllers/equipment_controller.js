@@ -1,22 +1,19 @@
 const db = require("../models");
 const equipment = db.equipment;
 
-exports.get = async(req,res) => {
-    const result = await equipment.findAll();
-    return result;
+exports.get = async(_req,_res) => {
+    return await equipment.findAll();
 }
 
 exports.getAll = async() => {
-	result = await equipment.findAll()
-	return result
+	return await equipment.findAll();
 }
 
-exports.post = async(req, res) => {
+exports.post = async(req, _res) => {
 	const body = JSON.parse(req.body)
 	console.log(body)
     if(body.name && body.name != null) {
-        const result = await equipment.create({name: body.name});
-        return result;
+        return await equipment.create({name: body.name});
     } else {
         // bad request
     }

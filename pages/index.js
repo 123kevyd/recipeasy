@@ -1,19 +1,12 @@
-import { useState, useEffect, Component } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
-import FormControl from '@material-ui/core/FormControl'
 import LinearProgress from '@mui/material/LinearProgress'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-//import Head from 'next/head'
-//import Image from 'next/image'
-//import styles from '../styles/Home.module.css'
-//
 
-export default function Login(props) {
-	const router = useRouter()
+export default function Login(_props) {
 	const [username, setUsername] = useState('')
 	const [loading, setLoading] = useState(false)
 
@@ -27,8 +20,7 @@ export default function Login(props) {
 			fetch(`api/user/${username}`)
 				.then((res) => {
 					if(res.ok){
-						const data = res.json().then((data) => {
-							//router.push(`/user/${data.id}`) // should work, but appears to contain a bug
+						res.json().then((data) => {
 							window.location.href = `/user/${data.id}`
 						})
 					}else{
