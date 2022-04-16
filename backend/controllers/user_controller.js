@@ -26,14 +26,14 @@ exports.put = async(req, _res) => {
 			updateUserList(thisUser, "recipes", body.recipes)
         }
 		return true
-    }else {
+    } else {
         //Bad request
     }
     
 }
 
 exports.delete = async(req, _res) => {
-    return await user.destroy({
+    return user.destroy({
         where: {
             id: req.query.uid
         }
@@ -41,7 +41,7 @@ exports.delete = async(req, _res) => {
 }
 
 exports.get = async(uid) => {
-    return await user.findByPk(uid);
+    return user.findByPk(uid);
 }
 
 exports.login = async(username) => {

@@ -4,7 +4,7 @@ const recipe = require("./recipe_controller.js");
 
 exports.get = async(req,_res) => {
     if(req.body.data.primaryKey) {
-        return await rating.findByPk(req.body.data.primaryKey);
+        return rating.findByPk(req.body.data.primaryKey);
     } else {
         //do nothing
     }

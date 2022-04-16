@@ -50,7 +50,7 @@ exports.getAll = async() => {
 
 exports.post = async(req,_res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
-        return await recipe.create({ 
+        return recipe.create({ 
             name: req.body.data.name,
             time: req.body.data.time,
             tags: JSON.stringify(req.body.data.tags), 
@@ -67,7 +67,7 @@ exports.post = async(req,_res) => {
 
 exports.put = async(req,_res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
-        return await recipe.update({
+        return recipe.update({
             name: req.body.data.name,
             time: req.body.data.time,
             tags: req.body.data.tags, 
