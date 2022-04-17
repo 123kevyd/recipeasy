@@ -1,3 +1,5 @@
+import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid"
+
 function parseDomNodeText(text) {
     return parseFloat(text.innerText.split(" ")[0])
 }
@@ -28,6 +30,7 @@ function openFirstRecipe() {
     cy.get("div#recipeTable div.MuiDataGrid-row button").then((viewButtons) => {
         expect(viewButtons.length).to.be.greaterThan(0)
         viewButtons[0].click()
+        cy.wait(100)
         cy.get("div.MuiTypography-root").contains("Recipe Viewer").then((header) => {
             expect(header).not.to.be.null
         }).then(() => {
@@ -43,7 +46,7 @@ function openFirstRecipe() {
 }
 
 function saveCurrOpenRecipe() {
-    cy.get("div.MuiModal-root div.MuiPaper-root div.MuiBox-root button").contains("Save Recipe").then((saveButton) => { console.log(saveButton)
+    cy.get("div.MuiModal-root div.MuiPaper-root div.MuiBox-root button").contains("Save Recipe").then((saveButton) => {
         expect(saveButton[0].disabled).to.be.false
         saveButton.click()
         expect(saveButton[0].disabled).to.be.true
@@ -54,13 +57,71 @@ function closeCurrOpenRecipe() {
     cy.get('div.MuiModal-root button.MuiIconButton-root').click()
 }
 
+function resetUserFilters() {
+    cy.get('div#recipeFilter div#restrictionModalBtn').click().then(() => {
+        const optionsList = Cypress.$("div#restrictionsModal ul")[0]
+        if (optionsList && optionsList.children.length > 0) {
+            cy.get('div#restrictionsModal div.MuiListItemIcon-root').each((delButton) => {
+                delButton.click()
+            })
+        }
+
+        cy.get('input#autocomplete-restrictions').type("Vegan").wait(500)
+        cy.get('input#autocomplete-restrictions').type("{enter}").wait(500)
+        cy.get('input#autocomplete-restrictions').type("Gluten-Free").wait(500)
+        cy.get('input#autocomplete-restrictions').type("{enter}").wait(500)
+        cy.get('div#restrictionsModal button.MuiButton-contained').click()
+    })
+
+    cy.get('div#recipeFilter div#equipmentModalBtn').click().then(() => {
+        const optionsList = Cypress.$("div#equipmentModal ul")[0]
+        if (optionsList && optionsList.children.length > 0) {
+            cy.get('div#equipmentModal div.MuiListItemIcon-root').each((delButton) => {
+                delButton.click()
+            })
+        }
+
+        cy.get('input#autocomplete-equipment').type("Wok").wait(500)
+        cy.get('input#autocomplete-equipment').type("{enter}").wait(500)
+        cy.get('input#autocomplete-equipment').type("Spoon").wait(500)
+        cy.get('input#autocomplete-equipment').type("{enter}").wait(500)
+        cy.get('div#equipmentModal button.MuiButton-contained').click()
+    })
+
+
+    cy.get('div#recipeFilter div#ingredientModalBtn').click().then( () => {
+        const optionsList = Cypress.$("div#ingredientsModal ul")[0]
+        if (optionsList && optionsList.children.length > 0) {
+            cy.get('div#ingredientsModal div.MuiListItemIcon-root').each((delButton) => {
+                delButton.click()
+            })
+        }
+
+        cy.get('input#autocomplete-ingredients').type("Sugar").wait(500)
+        cy.get('input#autocomplete-ingredients').type("{enter}").wait(500)
+        cy.get('div#ingredientsModal button.MuiButton-contained').click()
+    })
+
+
+    cy.get('div#recipeFilter div#recipeModalBtn').click().then(() => {
+        const optionsList = Cypress.$("div#recipesModal ul")[0]
+        if (optionsList && optionsList.children.length > 0) {
+            cy.get('div#recipesModal div.MuiListItemIcon-root').each((delButton) => {
+                delButton.click()
+            })
+        }
+
+        cy.get('div#recipesModal button.MuiButton-contained').click()
+    })
+}
+
 describe("View/filter recipes", () => {
     before(() => {
         cy.visit('http://localhost:3199/user/9', {timeout: 30000})
         cy.get(`button`, { timeout: 1000 }).contains('Recipes').click()
     })
 
-    it.only("Should sort Recipes", () => {
+    it("Should sort Recipes", () => {
         cy.get('div#recipeTable div.MuiDataGrid-row div.MuiDataGrid-cell[data-field="time"] div.MuiDataGrid-cellContent', { timeout: 1000 }).then((initTimes) => {
             cy.get('div#recipeTable div.MuiDataGrid-columnHeader--sortable').contains('Time').click()
             cy.get('div#recipeTable div.MuiDataGrid-row div.MuiDataGrid-cell[data-field="time"] div.MuiDataGrid-cellContent', { timeout: 1000 }).then((sort1Times) => {
@@ -88,24 +149,7 @@ describe("View/filter recipes", () => {
     })
 
     it("Should filter recipes", () => {
-        cy.get('div#recipeFilter div#restrictionModalBtn').click()
-        cy.get('input#autocomplete-restrictions').type("Vegan").wait(500)
-        cy.get('input#autocomplete-restrictions').type("{enter}").wait(500)
-        cy.get('input#autocomplete-restrictions').type("Gluten-Free").wait(500)
-        cy.get('input#autocomplete-restrictions').type("{enter}").wait(500)
-        cy.get('div#restrictionsModal button.MuiButton-contained').click()
-
-        cy.get('div#recipeFilter div#equipmentModalBtn').click()
-        cy.get('input#autocomplete-equipment').type("Wok").wait(500)
-        cy.get('input#autocomplete-equipment').type("{enter}").wait(500)
-        cy.get('input#autocomplete-equipment').type("Spoon").wait(500)
-        cy.get('input#autocomplete-equipment').type("{enter}").wait(500)
-        cy.get('div#equipmentModal button.MuiButton-contained').click()
-
-        cy.get('div#recipeFilter div#ingredientModalBtn').click()
-        cy.get('input#autocomplete-ingredients').type("Sugar").wait(500)
-        cy.get('input#autocomplete-ingredients').type("{enter}").wait(500)
-        cy.get('div#ingredientsModal button.MuiButton-contained').click()
+        resetUserFilters()
 
         openFirstRecipe()
         
@@ -157,7 +201,9 @@ describe("View/filter recipes", () => {
         })
     })
 
-    it.only("Should view and save recipes", () => {
+    it("Should view and save recipes", () => {
+        resetUserFilters()
+
         openFirstRecipe()
     })
 })
