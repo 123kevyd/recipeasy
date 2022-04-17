@@ -22,4 +22,28 @@ describe("Equipment Controller", function() {
             expect(toCheck).to.be.equal("Method Find All was Successfully Called");
         });
     });
+
+    describe("Testing Post Function", async function() {
+        var request = {
+            body: JSON.stringify({
+                name: null
+            })
+        };
+
+        it("Should Call Nothing Due to Bad Request", async function() {
+            toCheck = await EquipmentController.post(request);
+            expect(toCheck).to.be.equal(undefined);
+        });
+    
+        it("Should Call Create Method", async function() {
+            const mockMethod = sinon.stub(equipment, "create");
+            mockMethod.returns("Create Method was Successfully Called");
+            request.body = JSON.stringify({
+                name: "username"
+            })
+
+            toCheck = await EquipmentController.post(request);
+            expect(toCheck).to.be.equal("Create Method was Successfully Called");
+        });
+    });
 });
