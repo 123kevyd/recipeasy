@@ -50,8 +50,8 @@ class RecipeTable extends Component {
     checkRecipeArray(filterList, recipe, fieldName, compareFunc) {
         let toRemoveId = null
 
-        filterList.forEach( (elem) => {
-            if ( !toRemoveId && !recipe[fieldName].find((item) => {return compareFunc(item, elem)})) {
+        filterList.forEach((elem) => {
+            if (!toRemoveId && !recipe[fieldName].find((item) => {return compareFunc(item, elem)})) {
                 toRemoveId = recipe.id
             }
         })
@@ -61,8 +61,8 @@ class RecipeTable extends Component {
 
     checkRecipeTitle(recipe, myRecipes) {
         let toRemoveId = null
-        myRecipes.forEach( (elem) => {
-            if ( !toRemoveId && recipe.title !== elem.title) {
+        myRecipes.forEach((elem) => {
+            if (!toRemoveId && recipe.title !== elem.title) {
                 toRemoveId = recipe.id
             }
         })
@@ -112,7 +112,7 @@ class RecipeTable extends Component {
 
     getAverageVal(reviews, colName) {
         let sum = 0
-        reviews.forEach( review => {
+        reviews.forEach(review => {
             sum += review[colName];
         })
         if (reviews.length)
@@ -122,7 +122,7 @@ class RecipeTable extends Component {
     }
 
     getTags(tags) {
-        return <>{tags.map( tag => <Chip key={tag} label={tag} />)}</>
+        return <>{tags.map(tag => <Chip key={tag} label={tag} />)}</>
     }
 
 	handleToggleRecipe = (key) => {

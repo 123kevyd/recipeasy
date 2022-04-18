@@ -38,8 +38,8 @@ export default function KitchenCategory(props) {
 	const loadingItems = userStore(state => state.loading)
 
 	const getDropdownList = () => {
-		return items.filter( item1 => {
-			const found = myItems.some( item2 =>
+		return items.filter(item1 => {
+			const found = myItems.some(item2 =>
 				item1.title === item2.title
 			)
 			return ! found

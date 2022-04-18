@@ -67,7 +67,7 @@ function KitchenRecipeList(_props) {
 		})
 	)
 
-	if ( items.length > 0 ) {
+	if (items.length > 0) {
 		return (
 			<div>
 				<List dense={true}>

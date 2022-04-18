@@ -40,6 +40,7 @@
     "padded-blocks": [2, "never"],
     "quotes": [2],
     "space-before-blocks": [2],
-    "space-before-function-paren": [2, "never"]
+    "space-before-function-paren": [2, "never"],
+    "space-in-parens": [2]
   }
 }

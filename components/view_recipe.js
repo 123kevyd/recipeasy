@@ -34,7 +34,7 @@ class ViewRecipe extends Component {
     validateRecipeValues() {
         if (!this.props || !this.props.recipe) {
             throw new Error("Required recipe prop not found");
-        } else if (typeof this.props.recipe !== "object" ) {
+        } else if (typeof this.props.recipe !== "object") {
             throw new Error(`Prop recipe must be an object - Is ${this.props.recipe} (${typeof this.props.recipe}) `);
         } else if (!this.props.recipe.title || typeof this.props.recipe.title !== "string") {
             throw new Error(`Prop recipe.title must be a string - Is ${this.props.recipe.title} (${typeof this.props.recipe.title}) `);

@@ -17,7 +17,7 @@ class RecipeRatingDisplay extends Component {
 
         if (!this.props || !this.props.reviews) {
             throw new Error("Required reviews prop not found");
-        } else if (typeof this.props.reviews !== "object" || !Array.isArray(this.props.reviews) ) {
+        } else if (typeof this.props.reviews !== "object" || !Array.isArray(this.props.reviews)) {
             throw new Error(`Prop reviews must be an array - Is ${this.props.reviews} (${typeof this.props.reviews}) `);
         } else if (!this.props.reviews.every((elem) => {return typeof elem.stars === "number"})) {
             throw new Error("Prop reviews[i].rating must be a number ");
@@ -37,7 +37,7 @@ class RecipeRatingDisplay extends Component {
                 >
                     Reviews:
                 </Typography>
-                { this.props.reviews.map( review =>
+                { this.props.reviews.map(review =>
                         <Card key={review.id}>
                             <CardContent>
                                 <Box sx={{display: "grid", gridTemplateColumns: "250px auto"}}>

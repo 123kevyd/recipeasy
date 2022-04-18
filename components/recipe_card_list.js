@@ -32,7 +32,7 @@ class RecipeCardList extends Component {
                     <CardHeader title={this.props.title} />
                     <CardContent>
                         <List>
-                            {this.props.list.map( listItem =>
+                            {this.props.list.map(listItem =>
                                 <ListItem key={listItem}>
                                     <ListItemIcon>
                                         <NoiseControlOffIcon />

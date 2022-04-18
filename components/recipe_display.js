@@ -20,7 +20,7 @@ import {userStore} from "../store/user_store";
 function checkRecipeValues(props) {
 	if (!props || !props.recipe) {
 		throw new Error("Required recipe prop not found");
-	} else if (typeof props.recipe !== "object" ) {
+	} else if (typeof props.recipe !== "object") {
 		throw new Error(`Prop recipe must be an object - Is ${props.recipe} (${typeof props.recipe}) `);
 	} else if (!props.recipe.title || typeof props.recipe.title !== "string") {
 		throw new Error(`Prop recipe.title must be a string - Is ${props.recipe.title} (${typeof props.recipe.title}) `);

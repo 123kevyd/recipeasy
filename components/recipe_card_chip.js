@@ -30,7 +30,7 @@ class RecipeCardChip extends Component {
                 <CardHeader title={this.props.title} />
                 <CardContent>
                     <List>
-                        {this.props.list.map( chip =>
+                        {this.props.list.map(chip =>
                             <Chip key={chip} label={chip} />
                         )}
                     </List>
