@@ -31,7 +31,7 @@ describe("Equipment Controller", function() {
         };
 
         it("Should Call Nothing Due to Bad Request", async function() {
-            toCheck = await EquipmentController.post(request);
+            let toCheck = await EquipmentController.post(request);
             expect(toCheck).to.be.equal(undefined);
         });
     
@@ -42,7 +42,7 @@ describe("Equipment Controller", function() {
                 name: "username"
             })
 
-            toCheck = await EquipmentController.post(request);
+            let toCheck = await EquipmentController.post(request);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
         });
     });

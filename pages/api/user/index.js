@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const result = await user.post(req, res);
         res.status(201).json([{ id: result.dataValues.id, username: result.dataValues.username}]);
-    }else {
+    } else {
         res.status(405).json();
     }
 }
