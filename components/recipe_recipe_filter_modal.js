@@ -1,7 +1,7 @@
-import {Button, Dialog} from '@mui/material';
-import React, {Component} from 'react';
-import MyRecipes from './recipes';
-import RecipeModalHeader from './recipe_modal_header';
+import {Button, Dialog} from "@mui/material";
+import React, {Component} from "react";
+import MyRecipes from "./recipes";
+import RecipeModalHeader from "./recipe_modal_header";
 
 class RecipeRecipeFilterModal extends Component {
     state = {  }

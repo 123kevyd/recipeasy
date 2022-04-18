@@ -12,7 +12,7 @@ export default function DelButton({onClick, item, disabled}) {
 			disabled={disabled ? true : undefined}
 			onClick={handleDel}
 		>
-			<DeleteIcon color={disabled ? 'disabled' : 'default'}/>
+			<DeleteIcon color={disabled ? "disabled" : "default"}/>
 		</IconButton>
 	)
 }

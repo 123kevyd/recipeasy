@@ -1,8 +1,8 @@
-import EditIcon from '@mui/icons-material/Edit';
-import {Card, CardContent, CardHeader, Checkbox, FormControlLabel, Grid, IconButton} from '@mui/material';
-import React, {Component} from 'react';
-import RecipeFilterModal from './recipe_filter_modal';
-import RecipeRecipeFilterModal from './recipe_recipe_filter_modal';
+import EditIcon from "@mui/icons-material/Edit";
+import {Card, CardContent, CardHeader, Checkbox, FormControlLabel, Grid, IconButton} from "@mui/material";
+import React, {Component} from "react";
+import RecipeFilterModal from "./recipe_filter_modal";
+import RecipeRecipeFilterModal from "./recipe_recipe_filter_modal";
 
 class RecipeFilter extends Component {
     state = {

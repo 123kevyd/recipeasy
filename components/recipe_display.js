@@ -1,10 +1,10 @@
-import React from 'react';
-import {Box, Typography, createTheme, Button} from '@mui/material'
-import {ThemeProvider} from '@emotion/react';
-import RecipeCardList from './recipe_card_list';
-import RecipeCardChip from './recipe_card_chip';
-import RecipeCardText from './recipe_card_text';
-import {userStore} from '../store/user_store';
+import React from "react";
+import {Box, Typography, createTheme, Button} from "@mui/material"
+import {ThemeProvider} from "@emotion/react";
+import RecipeCardList from "./recipe_card_list";
+import RecipeCardChip from "./recipe_card_chip";
+import RecipeCardText from "./recipe_card_text";
+import {userStore} from "../store/user_store";
 
 /**
  * Used to display a recipe for viewing
@@ -54,7 +54,7 @@ function checkRecipeLists(props) {
 		overrides: {
 			Card: {
                 root: {
-					margin: '15px'
+					margin: "15px"
                 }
 			}
 		}
@@ -72,10 +72,10 @@ function checkRecipeLists(props) {
 		<ThemeProvider theme={theme}>
 			<Box
 				sx={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-					padding: '15px'
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					padding: "15px"
 				}}
 			>
 				<Typography
@@ -85,23 +85,23 @@ function checkRecipeLists(props) {
 					{props.recipe.title}
 				</Typography>
 				<Button
-					sx={{alignSelf: 'center', paddingTop: '10px'}}
+					sx={{alignSelf: "center", paddingTop: "10px"}}
 					variant="contained" color="primary"
 					onClick={() => save("recipes", props.recipe)}
-					disabled={isSaved ? 'true' : undefined}
+					disabled={isSaved ? "true" : undefined}
 				>
 					Save Recipe
 				</Button>
 			</Box>
 			<Typography align="left"
 				sx={{
-					paddingLeft: '15px',
-					marginTop: '-40px'
+					paddingLeft: "15px",
+					marginTop: "-40px"
 				}}
 			>
 				{props.recipe.time} mins
 			</Typography>
-			<Box sx={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
+			<Box sx={{display: "grid", gridTemplateColumns: "repeat(2, 1fr)"}}>
 				<Box>
 					<RecipeCardText title="Description" text={props.recipe.description} />
 					<RecipeCardChip title="Tags" list={props.recipe.tags} />

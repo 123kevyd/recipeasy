@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import {userStore} from "/store/user_store"
-import RecipeTable from './recipe_table';
+import RecipeTable from "./recipe_table";
 
 export default function RecipeTableHOC(props) {
     const myRestrictions = userStore(state => state.restrictions)

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Dialog} from '@mui/material';
-import RecipeModalHeader from './recipe_modal_header';
-import AddRecipeDisplay from './add_recipe_display';
+import React, {Component} from "react";
+import {Dialog} from "@mui/material";
+import RecipeModalHeader from "./recipe_modal_header";
+import AddRecipeDisplay from "./add_recipe_display";
 
 class ViewAddRecipe extends Component {
     state = {

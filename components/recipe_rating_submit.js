@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {Typography, Card, CardContent, CardHeader, Box, Stack, TextField, Rating, Button} from '@mui/material'
-import {Star, StarBorder} from '@mui/icons-material'
-import {styled} from '@mui/material/styles';
+import React, {Component} from "react";
+import {Typography, Card, CardContent, CardHeader, Box, Stack, TextField, Rating, Button} from "@mui/material"
+import {Star, StarBorder} from "@mui/icons-material"
+import {styled} from "@mui/material/styles";
 
 
 const StyledRating = styled(Rating)({
-    '& .MuiRating-iconFilled': {
-      color: '#000000'
+    "& .MuiRating-iconFilled": {
+      color: "#000000"
     },
-    '& .MuiRating-iconHover': {
-      color: '#000000'
+    "& .MuiRating-iconHover": {
+      color: "#000000"
     }
   });
 
@@ -19,34 +19,34 @@ class RecipeRatingSubmit extends Component {
         this.state = {
             rating: null,
             difficulty: null,
-            review: ''
+            review: ""
         };
     }
 
     handleSubmit = () => {
         if (this.props.recipe.id && this.state.rating && this.state.difficulty) {
             const requestOptions = {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({data: {recipeId: this.props.recipe.id,
                                             stars: this.state.rating,
                                             difficulty: this.state.difficulty,
                                             review: this.state.review}})
             }
 
-            fetch('/api/rating', requestOptions)
+            fetch("/api/rating", requestOptions)
                 .then(response => {
                     if (response.status === 200) {
                         return response.json()
                     }
                 }).then(data => {
                     if (data) {
-                        this.setState({rating: null, difficulty: null, review: ''})
+                        this.setState({rating: null, difficulty: null, review: ""})
                         this.props.addReview(data[0])
                     }
                 })
         } else {
-            alert('Error: Both difficulty and stars are required');
+            alert("Error: Both difficulty and stars are required");
         }
     }
 
@@ -56,7 +56,7 @@ class RecipeRatingSubmit extends Component {
                 <Card>
                     <CardContent>
                         <CardHeader title="Leave Review"/>
-                        <Box sx={{display: 'grid', gridTemplateColumns: '250px auto'}}>
+                        <Box sx={{display: "grid", gridTemplateColumns: "250px auto"}}>
                             <Box>
                                 <Stack direction="row" mb={2}>
                                     <Typography>Rating:&nbsp;&nbsp;&nbsp;</Typography>
@@ -86,7 +86,7 @@ class RecipeRatingSubmit extends Component {
                                         id="reviewText"
                                         multiline
                                         rows={4}
-                                        style={{width: '100%'}}
+                                        style={{width: "100%"}}
                                         value={this.state.review}
                                         inputProps={{maxLength: 500}}
                                         onChange={(event) => this.setState({review: event.target.value})}/>

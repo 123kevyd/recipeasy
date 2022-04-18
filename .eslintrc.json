@@ -37,6 +37,7 @@
     "no-trailing-spaces": [2],
     "object-curly-newline": [2],
     "object-curly-spacing": [2],
-    "padded-blocks": [2, "never"]
+    "padded-blocks": [2, "never"],
+    "quotes": [2]
   }
 }

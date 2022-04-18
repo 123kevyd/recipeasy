@@ -1,11 +1,11 @@
-import {render, screen, fireEvent} from '@testing-library/react'
-import React from 'react';
-import RecipeModalHeader from '../recipe_modal_header'
-import '@testing-library/jest-dom/extend-expect';
+import {render, screen, fireEvent} from "@testing-library/react"
+import React from "react";
+import RecipeModalHeader from "../recipe_modal_header"
+import "@testing-library/jest-dom/extend-expect";
 
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
-    const spy = jest.spyOn(console, 'error');
+    const spy = jest.spyOn(console, "error");
     spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()

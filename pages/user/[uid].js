@@ -1,8 +1,8 @@
-import {useRouter} from 'next/router'
-import {useState} from 'react'
-import {Tabs, Tab, Box} from '@mui/material/'
-import Cookbook from '../../components/cookbook'
-import Kitchen from '../../components/kitchen'
+import {useRouter} from "next/router"
+import {useState} from "react"
+import {Tabs, Tab, Box} from "@mui/material/"
+import Cookbook from "../../components/cookbook"
+import Kitchen from "../../components/kitchen"
 import {userStore} from "/store/user_store"
 
 function filterToUserData(items, idString){
@@ -128,7 +128,7 @@ function App(props) {
 	const isInitialized = userStore(state => state.isInitialized)
 	const init = userStore(state => state.init)
 
-	if (typeof window !== 'undefined'){
+	if (typeof window !== "undefined"){
 		// ie. is this code running in the frontend
 		if (! isInitialized()){
 			init({
@@ -146,12 +146,12 @@ function App(props) {
 	}
 
 	return (
-		<Box sx={{width: '100%'}}>
-			<Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+		<Box sx={{width: "100%"}}>
+			<Box sx={{borderBottom: 1, borderColor: "divider"}}>
 				<Tabs value={tab} onChange={handleChange} centered>
 					<Tab label="Kitchen" />
 					<Tab label="Recipes" />
-					<Tab sx={{display: 'none'}} label="Meal Planner" disabled />
+					<Tab sx={{display: "none"}} label="Meal Planner" disabled />
 				</Tabs>
 			</Box>
 			<TabPanel value={tab} index={0}>

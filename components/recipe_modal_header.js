@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {AppBar, Toolbar, IconButton, Typography} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import React, {Component} from "react";
+import {AppBar, Toolbar, IconButton, Typography} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 /**
  * Used for ratings. Shows 5 stars with the specified number of stars filled

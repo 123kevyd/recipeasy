@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {Dialog} from '@mui/material';
-import RecipeModalHeader from './recipe_modal_header';
-import RecipeDisplay from './recipe_display';
-import RecipeRatingDisplay from './recipe_rating_display';
-import RecipeRatingSubmit from './recipe_rating_submit';
+import React, {Component} from "react";
+import {Dialog} from "@mui/material";
+import RecipeModalHeader from "./recipe_modal_header";
+import RecipeDisplay from "./recipe_display";
+import RecipeRatingDisplay from "./recipe_rating_display";
+import RecipeRatingSubmit from "./recipe_rating_submit";
 
 /**
  * Used to display a recipe for viewing
@@ -65,9 +65,9 @@ class ViewRecipe extends Component {
         } else if (!this.props.recipe.reviews.every((elem) => {return typeof elem.stars === "number"})) {
             throw new Error(`Prop recipe.rating[i].stars (${JSON.stringify(this.props.recipe.reviews[0])}, ${this.props.recipe.reviews[0].stars}, ${this.props.recipe.reviews[1].stars}, ${this.props.recipe.reviews[2].stars}) must be a number `);
         } else if (!this.props.recipe.reviews.every((elem) => {return typeof elem.difficulty === "number"})) {
-            throw new Error(`Prop recipe.reviews[i].difficulty must be a number `);
+            throw new Error("Prop recipe.reviews[i].difficulty must be a number ");
         } else if (!this.props.recipe.reviews.every((elem) => {return typeof elem.review === "string"})) {
-            throw new Error(`Prop recipe.reviews[i].review must be a string `);
+            throw new Error("Prop recipe.reviews[i].review must be a string ");
         } else if (typeof this.props.onToggleRecipeView !== "function") {
             throw new Error(`Prop onToggleRecipeView must be a function - Is ${this.props.onToggleRecipeView} (${typeof this.props.onToggleRecipeView}) `)
         } else if (this.props.recipeOpen === undefined || this.props.recipeOpen === null || typeof this.props.recipeOpen !== "boolean") {

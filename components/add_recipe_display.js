@@ -1,27 +1,27 @@
-import React, {Component} from 'react';
-import {Box, Button, TextField, Card, CardHeader, CardContent, createTheme} from '@mui/material'
-import AddRecipeDescription from './add_recipe_description';
-import AddRecipeRestriction from './add_recipe_restrictions';
-import AddRecipeTime from './add_recipe_time';
-import AddRecipeIngredient from './add_recipe_ingredient';
-import AddRecipeInstructions from './add_recipe_instructions';
-import AddRecipeEquipment from './add_recipe_equipment';
+import React, {Component} from "react";
+import {Box, Button, TextField, Card, CardHeader, CardContent, createTheme} from "@mui/material"
+import AddRecipeDescription from "./add_recipe_description";
+import AddRecipeRestriction from "./add_recipe_restrictions";
+import AddRecipeTime from "./add_recipe_time";
+import AddRecipeIngredient from "./add_recipe_ingredient";
+import AddRecipeInstructions from "./add_recipe_instructions";
+import AddRecipeEquipment from "./add_recipe_equipment";
 
 class AddRecipeDisplay extends Component {
 	theme = createTheme({
 		overrides: {
 			Card: {
                 root: {
-                    margin: '15px'
+                    margin: "15px"
                 }
 			}
 		}
 	})
 
     unit = [
-        'teaspoon',
-        'tablespoon',
-        'cup'
+        "teaspoon",
+        "tablespoon",
+        "cup"
     ];
 
     state = {
@@ -191,7 +191,7 @@ class AddRecipeDisplay extends Component {
 
     handleUpdateRestrictions(tags) {
         let updatedTags = JSON.parse(JSON.stringify(this.state.newRecipe));
-        updatedTags.tags = typeof tags === 'string' ? tags.split(',') : tags;
+        updatedTags.tags = typeof tags === "string" ? tags.split(",") : tags;
         this.setState({newRecipe: updatedTags});
     }
 
@@ -240,11 +240,11 @@ class AddRecipeDisplay extends Component {
             formattedBody.data.instructions.length > 0 &&
             this.checkInstructions() &&
             this.checkIngredients()) {
-            const response = await fetch(`/api/recipes`, {
-                method: 'POST',
+            const response = await fetch("/api/recipes", {
+                method: "POST",
                 headers: {
-                'Content-Type': 'application/json',
-                'User-Agent': '*'
+                "Content-Type": "application/json",
+                "User-Agent": "*"
                 },
                 body: JSON.stringify(formattedBody)
             });
@@ -269,7 +269,7 @@ class AddRecipeDisplay extends Component {
                         />
                     </CardContent>
                 </Card>
-                <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
+                <Box sx={{display: "grid", gridTemplateColumns: "repeat(2, 1fr)"}}>
                     <Box>
                         <AddRecipeDescription
                             handleChange={this.handleUpdateDescription.bind(this)}

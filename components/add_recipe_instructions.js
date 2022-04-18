@@ -1,5 +1,5 @@
-import {Box, Button, Card, CardContent, CardHeader, TextField} from '@mui/material';
-import React, {Component} from 'react';
+import {Box, Button, Card, CardContent, CardHeader, TextField} from "@mui/material";
+import React, {Component} from "react";
 
 class AddRecipeInstructions extends Component {
     render() {

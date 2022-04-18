@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Card, CardHeader, CardContent, List, ListItem, ListItemText, ListItemIcon} from '@mui/material';
-import NoiseControlOffIcon from '@mui/icons-material/NoiseControlOff';
+import React, {Component} from "react";
+import {Card, CardHeader, CardContent, List, ListItem, ListItemText, ListItemIcon} from "@mui/material";
+import NoiseControlOffIcon from "@mui/icons-material/NoiseControlOff";
 
 /**
  * Used for ratings. Shows 5 stars with the specified number of stars filled
