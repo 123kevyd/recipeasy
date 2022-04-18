@@ -1,12 +1,12 @@
-import { queryAllByTestId, render, screen } from '@testing-library/react'
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import RecipeRatingDisplay from '../recipe_rating_display';
+import {queryAllByTestId, render, screen} from "@testing-library/react"
+import React from "react";
+import "@testing-library/jest-dom/extend-expect";
+import RecipeRatingDisplay from "../recipe_rating_display";
 
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
-    const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => { /* Intentionally left blank */ });
+    const spy = jest.spyOn(console, "error");
+    spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()
 
@@ -15,16 +15,16 @@ function expectToThrow(testFunction) {
 
 function getTestReviews() {
     const testReviews = [
-        { id: "1", stars: 5, difficulty: 3, review: "Review 1" },
-        { id: "2", stars: 3, difficulty: 0, review: "Review 2" },
-        { id: "3", stars: 0, difficulty: 5, review: "Review 3" }
+        {id: "1", stars: 5, difficulty: 3, review: "Review 1"},
+        {id: "2", stars: 3, difficulty: 0, review: "Review 2"},
+        {id: "3", stars: 0, difficulty: 5, review: "Review 3"}
     ];
 
     return JSON.parse(JSON.stringify(testReviews));
 }
 
 test("Passing one review", () => {
-    let review = [ getTestReviews()[0] ]
+    let review = [getTestReviews()[0]]
 
     render(<RecipeRatingDisplay reviews={review} />);
 

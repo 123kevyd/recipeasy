@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, TextField } from '@mui/material';
-import React, { Component } from 'react';
+import {Card, CardContent, CardHeader, TextField} from "@mui/material";
+import React, {Component} from "react";
 
 /**
  * Used to display a recipe for viewing
@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 
 
 class AddRecipeDescription extends Component {
-
     constructor(props) {
         super(props)
 
@@ -17,7 +16,7 @@ class AddRecipeDescription extends Component {
         }
     }
 
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title="Description"/>
@@ -36,5 +35,5 @@ class AddRecipeDescription extends Component {
         );
     }
 }
- 
+
 export default AddRecipeDescription;

@@ -1,8 +1,8 @@
-import { Box, Button, Card, CardContent, CardHeader, TextField } from '@mui/material';
-import React, { Component } from 'react';
+import {Box, Button, Card, CardContent, CardHeader, TextField} from "@mui/material";
+import React, {Component} from "react";
 
 class AddRecipeInstructions extends Component {
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title="Directions"/>
@@ -12,19 +12,19 @@ class AddRecipeInstructions extends Component {
                             <Box key={index}>
                                 <TextField
                                     label="Content"
-                                    margin='normal'
+                                    margin="normal"
                                     fullWidth
                                     onChange={(event) => this.props.handleContent(event.target.value, index)}
                                     value={direction}
                                 />
                                 {this.props.directions.length > 1 && (
-                                    <Box sx={{ mx: "auto" }}>
-                                        <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
+                                    <Box sx={{mx: "auto"}}>
+                                        <Button variant="contained" onClick={() => this.props.handleDelete(index)}>Delete</Button>
                                     </Box>
                                 )}
                                 {this.props.directions.length - 1 === index && (
-                                    <Box sx={{ mx: "auto" }}>
-                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Direction</Button>
+                                    <Box sx={{mx: "auto"}}>
+                                        <Button variant="contained" onClick={() => this.props.handleAdd()}>Add Direction</Button>
                                     </Box>
                                 )}
                             </Box>
@@ -35,5 +35,5 @@ class AddRecipeInstructions extends Component {
         );
     }
 }
- 
+
 export default AddRecipeInstructions;

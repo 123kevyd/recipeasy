@@ -1,12 +1,12 @@
-import { Button, Box, Stack, Chip } from '@mui/material';
-import React, { Component } from 'react';
+import {Button, Box, Stack, Chip} from "@mui/material";
+import React, {Component} from "react";
 import ViewRecipe from "./view_recipe"
-import { DataGrid } from '@mui/x-data-grid'
-import RatingStars from './rating_stars';
-import RecipeFilter from './recipe_filter'
+import {DataGrid} from "@mui/x-data-grid"
+import RatingStars from "./rating_stars";
+import RecipeFilter from "./recipe_filter"
 
 class RecipeTable extends Component {
-	state = { 
+	state = {
         recipeOpen: false,
         addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
@@ -18,22 +18,22 @@ class RecipeTable extends Component {
 			useRecipesFilter: false
 		}
     }
-    
+
     cols = [
-        { field: 'id', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
-            return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
+        {field: "id", headerName: "Open Recipe", width: 105, sortable: false, renderCell: (params) => {
+            return <Button variant="contained" onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
         }},
-        { field: 'title', headerName: 'Recipe Name', width: 280},
-        { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
-            return '' + params.value + " mins"
+        {field: "title", headerName: "Recipe Name", width: 280},
+        {field: "time", headerName: "Time", width: 80, valueFormatter: (params) => {
+            return "" + params.value + " mins"
         }},
-        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => {
+        {field: "difficulty", headerName: "Difficulty", width: 140, renderCell: (params) => {
             return <RatingStars stars={parseFloat(params.value)} />
         }},
-        { field: 'rating', headerName: 'Rating', width: 140, renderCell: (params) => {
+        {field: "rating", headerName: "Rating", width: 140, renderCell: (params) => {
             return <RatingStars stars={parseFloat(params.value)} />
         }},
-        { field: 'tags', headerName: 'Tags', minWidth: 300, renderCell: (params) => {
+        {field: "tags", headerName: "Tags", minWidth: 300, renderCell: (params) => {
             return this.getTags(params.value)
         }}
     ]
@@ -41,7 +41,7 @@ class RecipeTable extends Component {
 	handleToggleFilter = (modalName) => {
 		let newFilters = {...this.state.filterActive}
 		newFilters[modalName] = !newFilters[modalName]
-		this.setState({ filterActive: newFilters })
+		this.setState({filterActive: newFilters})
 
         let shownRecipes = this.formatRecipes(this.props.recipes, newFilters.useIngredientFilter, newFilters.useEquipmentFilter, newFilters.useRestrictionFilter, newFilters.useRecipesFilter);
         this.setState({shownRecipes: shownRecipes})
@@ -50,8 +50,8 @@ class RecipeTable extends Component {
     checkRecipeArray(filterList, recipe, fieldName, compareFunc) {
         let toRemoveId = null
 
-        filterList.forEach( (elem) => {
-            if ( !toRemoveId && !recipe[fieldName].find((item) => { return compareFunc(item, elem) })) {
+        filterList.forEach((elem) => {
+            if (!toRemoveId && !recipe[fieldName].find((item) => {return compareFunc(item, elem)})) {
                 toRemoveId = recipe.id
             }
         })
@@ -61,8 +61,8 @@ class RecipeTable extends Component {
 
     checkRecipeTitle(recipe, myRecipes) {
         let toRemoveId = null
-        myRecipes.forEach( (elem) => {
-            if ( !toRemoveId && recipe.title !== elem.title) {
+        myRecipes.forEach((elem) => {
+            if (!toRemoveId && recipe.title !== elem.title) {
                 toRemoveId = recipe.id
             }
         })
@@ -76,17 +76,17 @@ class RecipeTable extends Component {
 
         shownRecipes.forEach((recipe) => {
             let toRemoveId = null
-            recipe.rating = this.getAverageVal(recipe.reviews, 'stars')
-            recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
+            recipe.rating = this.getAverageVal(recipe.reviews, "stars")
+            recipe.difficulty = this.getAverageVal(recipe.reviews, "difficulty")
 
             if (useIngredientFilter) {
-                toRemoveId = this.checkRecipeArray(this.props.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
+                toRemoveId = this.checkRecipeArray(this.props.myIngredients, recipe, "ingredients", (elem2, elem) => {return elem.title === elem2.name})
             }
             if (!toRemoveId && useEquipmentFilter) {
-                toRemoveId = this.checkRecipeArray(this.props.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
+                toRemoveId = this.checkRecipeArray(this.props.myEquipment, recipe, "equipment", (elem2, elem) => {return elem.title === elem2})
             }
             if (!toRemoveId && useRestrictionFilter) {
-                toRemoveId = this.checkRecipeArray(this.props.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
+                toRemoveId = this.checkRecipeArray(this.props.myRestrictions, recipe, "tags", (elem2, elem) => {return elem.title === elem2})
             }
             if (!toRemoveId && useRecipesFilter) {
                 toRemoveId = this.checkRecipeTitle(recipe, this.props.myRecipes)
@@ -96,9 +96,9 @@ class RecipeTable extends Component {
                 toRemove.push(toRemoveId)
             }
         })
-        return shownRecipes.filter((recipe) => { return toRemove.indexOf(recipe.id) < 0})
+        return shownRecipes.filter((recipe) => {return toRemove.indexOf(recipe.id) < 0})
     }
-    
+
     addReview = (value) => {
         let newReviewRecipe = this.state.currRecipe;
         let shownRecipeUpdate = this.props.recipes.map(recipe => {
@@ -112,7 +112,7 @@ class RecipeTable extends Component {
 
     getAverageVal(reviews, colName) {
         let sum = 0
-        reviews.forEach( review => {
+        reviews.forEach(review => {
             sum += review[colName];
         })
         if (reviews.length)
@@ -122,7 +122,7 @@ class RecipeTable extends Component {
     }
 
     getTags(tags) {
-        return <>{tags.map( tag => <Chip key={tag} label={tag} />)}</>
+        return <>{tags.map(tag => <Chip key={tag} label={tag} />)}</>
     }
 
 	handleToggleRecipe = (key) => {
@@ -145,7 +145,7 @@ class RecipeTable extends Component {
     render() {
         return (
             <>
-                <Box style={{ width: '100%' }}>
+                <Box style={{width: "100%"}}>
                     <Stack direction="row">
                         <RecipeFilter
                             ingredients={this.props.ingredients}
@@ -158,11 +158,11 @@ class RecipeTable extends Component {
 							onToggleFilter={this.handleToggleFilter}
                         />
                         <div id="recipeTable">
-                            <DataGrid style={{ width: '100%', margin: "15px" }}
+                            <DataGrid style={{width: "100%", margin: "15px"}}
                                 disableSelectionOnClick
                                 disableColumnMenu
                                 rows={this.state.shownRecipes}
-                                columns={this.cols} 
+                                columns={this.cols}
                                 autoHeight
                             />
                         </div>
@@ -178,5 +178,5 @@ class RecipeTable extends Component {
         );
     }
 }
- 
+
 export default RecipeTable;

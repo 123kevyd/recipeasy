@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { Typography, Stack, List, ListItem, ListItemText, LinearProgress } from '@mui/material/'
+import {useState} from "react"
+import {Typography, Stack, List, ListItem, ListItemText, LinearProgress} from "@mui/material/"
 import EntryDropdown from "./entry_dropdown"
 import DelButton from "./del_button"
-import { userStore } from "/store/user_store"
+import {userStore} from "/store/user_store"
 
 function KitchenListItem(props) {
 	const item = props.item
@@ -10,7 +10,7 @@ function KitchenListItem(props) {
 		<div>
 			<ListItem
 				secondaryAction={
-					<DelButton 
+					<DelButton
 						disabled={props.loading}
 						onClick={props.delHandler}
 						item={item}
@@ -19,18 +19,17 @@ function KitchenListItem(props) {
 			>
 				<ListItemText
 					id={item.title}
-					sx={{color: props.loading ? 'text.disabled' : 'black'}}
+					sx={{color: props.loading ? "text.disabled" : "black"}}
 					primary={ item.title }
 				/>
 			</ListItem>
-			{ props.loading && <LinearProgress sx={{marginBotton: '-4px'}} />}
+			{ props.loading && <LinearProgress sx={{marginBotton: "-4px"}} />}
 		</div>
 	)
 }
 
 
 export default function KitchenCategory(props) {
-
 	const myItems = userStore(state => state[props.field])
 	const [items, _setItems] = useState(props.items)
 	const [clearText, setClearText] = useState(true)
@@ -39,29 +38,29 @@ export default function KitchenCategory(props) {
 	const loadingItems = userStore(state => state.loading)
 
 	const getDropdownList = () => {
-		return items.filter( item1 => {
-			const found = myItems.some( item2 =>
+		return items.filter(item1 => {
+			const found = myItems.some(item2 =>
 				item1.title === item2.title
 			)
 			return ! found
 		})
 	}
-	const [ _dropdownList, setDropdownList ] = useState(getDropdownList())
+	const [_dropdownList, setDropdownList] = useState(getDropdownList())
 	const refreshDropdownList = () => {
 		setDropdownList(getDropdownList())
 	}
 
 
-	const itemSelected = async (_event, value) => {
+	const itemSelected = async(_event, value) => {
 		setClearText(!clearText)
-		if(value == null){
+		if (value == null) {
 			return false
 		}
 		await addItem(props.field, value)
 		refreshDropdownList()
 	}
 
-	const deleteItem = async (item1) => {
+	const deleteItem = async(item1) => {
 		await delItem(props.field, item1)
 		refreshDropdownList()
 	}
@@ -82,7 +81,7 @@ export default function KitchenCategory(props) {
 	)
 
 	return (
-		<Stack spacing={2} sx={{ width: 300, padding: 3, border: '1px blue solid', margin: 3 }}>
+		<Stack spacing={2} sx={{width: 300, padding: 3, border: "1px blue solid", margin: 3}}>
 			<Typography  align="center" variant="h5" component="div">{props.title}</Typography>
 			<EntryDropdown textFieldId={`autocomplete-${props.field}`}
 				items={getDropdownList()}
@@ -94,5 +93,4 @@ export default function KitchenCategory(props) {
 			</List>
 		</Stack>
 	)
-			
 }
