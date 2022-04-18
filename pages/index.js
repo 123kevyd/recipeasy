@@ -14,11 +14,11 @@ export default function Login(_props) {
 	}
 
 	const loginClicked = () => {
-		if (username != ""){
+		if (username != "") {
 			setLoading(true)
 			fetch(`api/user/${username}`)
 				.then((res) => {
-					if (res.ok){
+					if (res.ok) {
 						res.json().then((data) => {
 							window.location.href = `/user/${data.id}`
 						})

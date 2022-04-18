@@ -53,7 +53,7 @@ export default function KitchenCategory(props) {
 
 	const itemSelected = async (_event, value) => {
 		setClearText(!clearText)
-		if (value == null){
+		if (value == null) {
 			return false
 		}
 		await addItem(props.field, value)

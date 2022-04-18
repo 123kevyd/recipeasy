@@ -5,8 +5,8 @@ import Cookbook from "../../components/cookbook"
 import Kitchen from "../../components/kitchen"
 import {userStore} from "/store/user_store"
 
-function filterToUserData(items, idString){
-	if (idString){
+function filterToUserData(items, idString) {
+	if (idString) {
 		const ids = new Set(JSON.parse(idString))
 		return items.filter((item) => ids.has(item.id))
 	} else {
@@ -128,9 +128,9 @@ function App(props) {
 	const isInitialized = userStore(state => state.isInitialized)
 	const init = userStore(state => state.init)
 
-	if (typeof window !== "undefined"){
+	if (typeof window !== "undefined") {
 		// ie. is this code running in the frontend
-		if (! isInitialized()){
+		if (! isInitialized()) {
 			init({
 				uid: router.query.uid,
 				recipes: props.myRecipes,
