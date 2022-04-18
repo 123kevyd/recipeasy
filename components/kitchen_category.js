@@ -30,7 +30,6 @@ function KitchenListItem(props) {
 
 
 export default function KitchenCategory(props) {
-
 	const myItems = userStore(state => state[props.field])
 	const [items, _setItems] = useState(props.items)
 	const [clearText, setClearText] = useState(true)
@@ -94,5 +93,4 @@ export default function KitchenCategory(props) {
 			</List>
 		</Stack>
 	)
-
 }

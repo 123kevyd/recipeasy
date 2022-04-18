@@ -8,7 +8,6 @@ import AddRecipeInstructions from './add_recipe_instructions';
 import AddRecipeEquipment from './add_recipe_equipment';
 
 class AddRecipeDisplay extends Component {
-
 	theme = createTheme({
 		overrides: {
 			Card: {

@@ -12,7 +12,6 @@ function filterToUserData(items, idString){
 	} else {
 		return []
 	}
-
 }
 
 export async function getServerSideProps(context) {

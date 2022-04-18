@@ -8,7 +8,6 @@ import React, {Component} from 'react';
 
 
 class AddRecipeDescription extends Component {
-
     constructor(props) {
         super(props)
 

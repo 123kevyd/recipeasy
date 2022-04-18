@@ -85,6 +85,5 @@ function KitchenRecipeList(_props) {
 			<Typography>No recipes saved.</Typography>
 		)
 	}
-
 }
 

@@ -14,7 +14,6 @@ export default async function handler(req, res) {
             } else {
                 throw 'Error creating a new ingredient'
             }
-
         } catch (error) {
 			res.status(500).send({error: 'failed to post ingredient'})
         }
