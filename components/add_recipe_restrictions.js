@@ -1,16 +1,16 @@
-import { Box, Card, CardContent, CardHeader, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
-import React, { Component } from 'react';
+import {Box, Card, CardContent, CardHeader, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select} from "@mui/material";
+import React, {Component} from "react";
 
 class AddRecipeRestriction extends Component {
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title="Restrictions"/>
-                <CardContent>   
+                <CardContent>
                     <FormControl fullWidth>
                         <InputLabel id="restriction-label">Tags</InputLabel>
                         <Select
-                            labelId='restriction-label'
+                            labelId="restriction-label"
                             MenuProps = {{
                                 PaperProps: {
                                 style: {
@@ -25,7 +25,7 @@ class AddRecipeRestriction extends Component {
                             value={this.props.state.newRecipe.tags}
                             input={<OutlinedInput label="Chip" />}
                             renderValue={(selected) => (
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                <Box sx={{display: "flex", flexWrap: "wrap", gap: 0.5}}>
                                 {selected.map((value) => (
                                     <Chip key={value} label={value} />
                                 ))}
@@ -38,7 +38,7 @@ class AddRecipeRestriction extends Component {
                                 >
                                     {restriction.title}
                                 </MenuItem>
-                            ))}        
+                            ))}
                         </Select>
                     </FormControl>
                 </CardContent>
@@ -46,5 +46,5 @@ class AddRecipeRestriction extends Component {
         );
     }
 }
- 
+
 export default AddRecipeRestriction;

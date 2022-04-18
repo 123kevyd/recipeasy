@@ -1,10 +1,10 @@
-import React from 'react';
-import { Box, Typography, createTheme, Button } from '@mui/material'
-import { ThemeProvider } from '@emotion/react';
-import RecipeCardList from './recipe_card_list_comp';
-import RecipeCardChip from './recipe_card_chip_comp';
-import RecipeCardText from './recipe_card_text_comp';
-import { userStore } from '../store/user_store';
+import React from "react";
+import {Box, Typography, createTheme, Button} from "@mui/material"
+import {ThemeProvider} from "@emotion/react";
+import RecipeCardList from "./recipe_card_list";
+import RecipeCardChip from "./recipe_card_chip";
+import RecipeCardText from "./recipe_card_text";
+import {userStore} from "../store/user_store";
 
 /**
  * Used to display a recipe for viewing
@@ -17,10 +17,10 @@ import { userStore } from '../store/user_store';
  *  - string array: instruction
  */
 
- export default function RecipeDisplay(props) {
+function checkRecipeValues(props) {
 	if (!props || !props.recipe) {
 		throw new Error("Required recipe prop not found");
-	} else if (typeof props.recipe !== "object" ) {
+	} else if (typeof props.recipe !== "object") {
 		throw new Error(`Prop recipe must be an object - Is ${props.recipe} (${typeof props.recipe}) `);
 	} else if (!props.recipe.title || typeof props.recipe.title !== "string") {
 		throw new Error(`Prop recipe.title must be a string - Is ${props.recipe.title} (${typeof props.recipe.title}) `);
@@ -28,7 +28,11 @@ import { userStore } from '../store/user_store';
 		throw new Error(`Prop recipe.description must be a string - Is ${props.recipe.description} (${typeof props.recipe.description}) `);
 	} else if (!props.recipe.time || typeof props.recipe.time !== "number") {
 		throw new Error(`Prop recipe.description must be a string - Is ${props.recipe.time} (${typeof props.recipe.time}) `);
-	} else if (!props.recipe.tags || typeof props.recipe.tags !== "object" && Array.isArray(props.recipe.tags)) {
+	}
+}
+
+function checkRecipeLists(props) {
+	if (!props.recipe.tags || typeof props.recipe.tags !== "object" && Array.isArray(props.recipe.tags)) {
 		throw new Error(`Prop recipe.tags must be an array - Is ${props.recipe.tags} (${typeof props.recipe.tags}) `);
 	} else if (!props.recipe.ingredients || typeof props.recipe.ingredients !== "object" && Array.isArray(props.recipe.ingredients)) {
 		throw new Error(`Prop recipe.ingredients must be an array - Is ${props.recipe.ingredients} (${typeof props.recipe.ingredients}) `);
@@ -37,6 +41,11 @@ import { userStore } from '../store/user_store';
 	} else if (!props.recipe.directions || typeof props.recipe.directions !== "object" && Array.isArray(props.recipe.directions)) {
 		throw new Error(`Prop recipe.equipment must be an array - Is ${props.recipe.directions} (${typeof props.recipe.directions}) `);
 	}
+}
+
+ export default function RecipeDisplay(props) {
+	checkRecipeValues(props)
+	checkRecipeLists(props)
 
 	const save = userStore(state => state.add)
 	const isSaved = userStore(state => state.has("recipes", props.recipe.id))
@@ -45,7 +54,7 @@ import { userStore } from '../store/user_store';
 		overrides: {
 			Card: {
                 root: {
-				    margin: '15px'
+					margin: "15px"
                 }
 			}
 		}
@@ -58,41 +67,41 @@ import { userStore } from '../store/user_store';
         });
         return toReturn;
     }
-	 
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Box
 				sx={{
-					display: 'flex', 
-					flexDirection: 'row', 
-					justifyContent: 'space-between',
-					padding: '15px'
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					padding: "15px"
 				}}
 			>
 				<Typography
-					align='left'
+					align="left"
 					variant="h4"
 				>
 					{props.recipe.title}
 				</Typography>
-				<Button 
-					sx={{alignSelf: 'center', paddingTop: '10px'}}
-					variant="contained" color='primary'
+				<Button
+					sx={{alignSelf: "center", paddingTop: "10px"}}
+					variant="contained" color="primary"
 					onClick={() => save("recipes", props.recipe)}
-					disabled={isSaved ? 'true' : undefined}
+					disabled={isSaved ? "true" : undefined}
 				>
 					Save Recipe
 				</Button>
 			</Box>
-			<Typography align='left'
+			<Typography align="left"
 				sx={{
-					paddingLeft: '15px',
-					marginTop: '-40px'
+					paddingLeft: "15px",
+					marginTop: "-40px"
 				}}
 			>
 				{props.recipe.time} mins
 			</Typography>
-			<Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
+			<Box sx={{display: "grid", gridTemplateColumns: "repeat(2, 1fr)"}}>
 				<Box>
 					<RecipeCardText title="Description" text={props.recipe.description} />
 					<RecipeCardChip title="Tags" list={props.recipe.tags} />

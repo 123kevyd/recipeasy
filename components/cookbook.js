@@ -1,10 +1,10 @@
-import { Typography, Box, Button, Stack, Card, CardHeader, CardContent } from '@mui/material';
-import React, { Component } from 'react';
-import RecipeTableHOC from './recipe_table_comp_HOC';
-import ViewAddRecipe from './view_add_recipes';
+import {Typography, Box, Button} from "@mui/material";
+import React, {Component} from "react";
+import RecipeTableHOC from "./recipe_table_HOC";
+import ViewAddRecipe from "./view_add_recipes";
 
 class Cookbook extends Component {
-	state = { 
+	state = {
         addRecipeOpen: false
     }
 
@@ -14,17 +14,15 @@ class Cookbook extends Component {
         this.setState({addRecipeOpen: addRecipeOpen})
 	}
 
-	render() { 
-		console.log(ViewAddRecipe)
-		console.log(RecipeTableHOC)
+	render() {
 		return (
 			<>
 				<p>{this.state.useIngredientFilter}</p>
 				<p>{this.state.useEquipmentFilter}</p>
 				<p>{this.state.useRestrictionFilter}</p>
 				<p>{this.state.useRecipesFilter}</p>
-				<Typography variant='h4' align='center'>My Cookbook <Button id='addRecipeButton' variant='contained' onClick={() => this.handleToggleAdd()}>Add</Button></Typography>
-				<Box marginLeft='100px' marginRight='100px'>
+				<Typography variant="h4" align="center">My Cookbook <Button id="addRecipeButton" variant="contained" onClick={() => this.handleToggleAdd()}>Add</Button></Typography>
+				<Box marginLeft="100px" marginRight="100px">
 					<Box>
 						<RecipeTableHOC
 							recipes={this.props.recipes}
@@ -46,5 +44,5 @@ class Cookbook extends Component {
 		);
 	}
 }
- 
+
 export default Cookbook;

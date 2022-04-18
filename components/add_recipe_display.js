@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import { Box, Button, TextField, Card, CardHeader, CardContent, createTheme } from '@mui/material'
-import AddRecipeDescription from './add_recipe_description_comp';
-import AddRecipeRestriction from './add_recipe_restrictions_comp';
-import AddRecipeTime from './add_recipe_time_comp';
-import AddRecipeIngredient from './add_recipe_ingredient_comp';
-import AddRecipeInstructions from './add_recipe_instructions_comp';
-import AddRecipeEquipment from './add_recipe_equipment_comp';
+import React, {Component} from "react";
+import {Box, Button, TextField, Card, CardHeader, CardContent, createTheme} from "@mui/material"
+import AddRecipeDescription from "./add_recipe_description";
+import AddRecipeRestriction from "./add_recipe_restrictions";
+import AddRecipeTime from "./add_recipe_time";
+import AddRecipeIngredient from "./add_recipe_ingredient";
+import AddRecipeInstructions from "./add_recipe_instructions";
+import AddRecipeEquipment from "./add_recipe_equipment";
 
 class AddRecipeDisplay extends Component {
-    
 	theme = createTheme({
 		overrides: {
 			Card: {
                 root: {
-				    margin: '15px'
+                    margin: "15px"
                 }
 			}
 		}
 	})
 
     unit = [
-        'teaspoon',
-        'tablespoon',
-        'cup'
+        "teaspoon",
+        "tablespoon",
+        "cup"
     ];
 
     state = {
@@ -47,56 +46,50 @@ class AddRecipeDisplay extends Component {
 
     getTagIds(tags) {
         let toReturn = [];
-        for(let i = 0; i < tags.length; i++)
-        {
-            for(let j = 0; j < this.props.restrictions.length; j++)
-            {
-                if(this.props.restrictions[j].title == tags[i])
-                {
-                    toReturn.push(this.props.restrictions[j].id);
+
+        for (let tag of tags) {
+            for (let restriction of this.props.restrictions) {
+                if (restriction.title == tag) {
+                    toReturn.push(restriction.id)
                     break
                 }
             }
-            
         }
+
         return toReturn;
     }
 
     getEquipmentIds(equipment) {
         let toReturn = [];
-        for(let i = 0; i < equipment.length; i++)
-        {
-            for(let j = 0; j < this.props.equipment.length; j++)
-            {
-                if(this.props.equipment[j].title == equipment[i])
-                {
-                    toReturn.push(this.props.equipment[j].id);
+
+        for (let paramEquipment of equipment) {
+            for (let propEquipment of this.props.equipment) {
+                if (propEquipment.title == paramEquipment) {
+                    toReturn.push(propEquipment.id);
                     break
                 }
             }
-            
         }
+
         return toReturn;
     }
 
     getIngredientIds(ingredients) {
         let toReturn = [];
-        for(let i = 0; i < ingredients.length; i++)
-        {
-            for(let j = 0; j < this.props.ingredients.length; j++)
-            {
-                if(this.props.ingredients[j].title == ingredients[i].name)
-                {
+
+        for (let paramIngredient of ingredients) {
+            for (let propIngredient of this.props.ingredients) {
+                if (propIngredient.title == paramIngredient.name) {
                     toReturn.push({
-                        id: this.props.ingredients[j].id,
-                        quantity: ingredients[i].quantity,
-                        unit: ingredients[i].name
+                        id: propIngredient.id,
+                        quantity: paramIngredient.quantity,
+                        unit: paramIngredient.name
                     });
                     break
                 }
             }
-            
         }
+
         return toReturn;
     }
 
@@ -147,7 +140,6 @@ class AddRecipeDisplay extends Component {
     }
 
     handleDeleteInstruction(index) {
-        //let delInst = JSON.parse(JSON.stringify(this.state.newRecipe));
         let delInst = {...this.state.newRecipe};
         if (index > -1) {
             delInst.directions.splice(index, 1); // 2nd parameter means remove one item only
@@ -199,7 +191,7 @@ class AddRecipeDisplay extends Component {
 
     handleUpdateRestrictions(tags) {
         let updatedTags = JSON.parse(JSON.stringify(this.state.newRecipe));
-        updatedTags.tags = typeof tags === 'string' ? tags.split(',') : tags;
+        updatedTags.tags = typeof tags === "string" ? tags.split(",") : tags;
         this.setState({newRecipe: updatedTags});
     }
 
@@ -215,7 +207,6 @@ class AddRecipeDisplay extends Component {
                 "tags": recipe.tags,
                 "time": recipe.time
             }
-            
         }
     }
 
@@ -223,7 +214,7 @@ class AddRecipeDisplay extends Component {
         let toCheck = this.state.newRecipe.ingredients;
         let toReturn = true;
         toCheck.forEach(ing => {
-            if(ing.quantity < 1) {
+            if (ing.quantity < 1) {
                 toReturn = false
             }
         });
@@ -234,7 +225,7 @@ class AddRecipeDisplay extends Component {
         let toCheck = this.state.newRecipe.ingredients;
         let toReturn = true;
         toCheck.forEach(instruction => {
-            if(instruction == "") {
+            if (instruction == "") {
                 toReturn = false;
             }
         });
@@ -242,32 +233,28 @@ class AddRecipeDisplay extends Component {
     }
 
     async addRecipe() {
-        console.log(this.state.newRecipe);
         let formattedBody = this.formatAddRequest();
-        if(formattedBody.data.name != "" && 
-            formattedBody.data.time > 0 && 
-            formattedBody.data.ingredients.length > 0 && 
+        if (formattedBody.data.name != "" &&
+            formattedBody.data.time > 0 &&
+            formattedBody.data.ingredients.length > 0 &&
             formattedBody.data.instructions.length > 0 &&
             this.checkInstructions() &&
-            this.checkIngredients())
-        {
-            const response = await fetch(`/api/recipes`, {
-                method: 'POST',
+            this.checkIngredients()) {
+            const response = await fetch("/api/recipes", {
+                method: "POST",
                 headers: {
-                'Content-Type': 'application/json',
-                'User-Agent': '*',
+                "Content-Type": "application/json",
+                "User-Agent": "*"
                 },
                 body: JSON.stringify(formattedBody)
             });
             this.props.onToggleModal();
-            console.log(response);
-        }
-        else {
+        } else {
             alert("Missing Fields");
         }
     }
 
-    render() { 
+    render() {
         return (
             <Box
             classes="wide-text"
@@ -276,13 +263,13 @@ class AddRecipeDisplay extends Component {
                     <CardHeader title="Recipe Name"/>
                     <CardContent>
                         <TextField
-                            label="Title" 
+                            label="Title"
                             fullWidth
                             onChange={(event) => this.handleUpdateTitle(event.target.value)}
                         />
                     </CardContent>
                 </Card>
-                <Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
+                <Box sx={{display: "grid", gridTemplateColumns: "repeat(2, 1fr)"}}>
                     <Box>
                         <AddRecipeDescription
                             handleChange={this.handleUpdateDescription.bind(this)}
@@ -323,8 +310,8 @@ class AddRecipeDisplay extends Component {
                         <Card>
                             <CardHeader/>
                             <CardContent>
-                                <Box textAlign='center'>
-                                    <Button variant='contained' onClick={() => this.addRecipe()}>Submit</Button>
+                                <Box textAlign="center">
+                                    <Button variant="contained" onClick={() => this.addRecipe()}>Submit</Button>
                                 </Box>
                             </CardContent>
                         </Card>

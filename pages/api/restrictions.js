@@ -1,9 +1,8 @@
-const restriction = require ("../../backend/controllers/restriction_controller.js");
+const restriction = require("../../backend/controllers/restriction_controller.js");
 
-export default async function handler(req, res)
-{
+export default async function handler(req, res) {
 	// adding a new restriction
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
         try {
             const result = await restriction.post(req);
             res.status(200).json([{
@@ -11,10 +10,9 @@ export default async function handler(req, res)
                 title: result.dataValues.name
             }]);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
-    }
-    else {
-        console.log(req);
+    } else {
+        console.error(req);
     }
 }

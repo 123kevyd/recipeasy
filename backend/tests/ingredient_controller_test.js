@@ -19,40 +19,40 @@ describe("Ingredient Controller", function() {
             const mockFind = sinon.stub(ingredient, "findByPk");
             mockFind.returns("Method Find By Pk was Successfully Called");
 
-            toCheck = await IngredientController.get(request);
+            let toCheck = await IngredientController.get(request);
             expect(toCheck).to.be.equal("Method Find By Pk was Successfully Called");
         });
 
         it("Should Get Nothing Due to Invalid Input", async function() {
             request.body.data.primaryKey = null;
-            toCheck = await IngredientController.get(request);
+            let toCheck = await IngredientController.get(request);
             expect(toCheck).to.be.equal(undefined);
         });
     });
 
     describe("Testing Post Function", async function() {
         var request = {
-            body: {
-                data: {
-                    name: null,
-                    price: null
-                }
-            }
+            body: JSON.stringify({
+                name: null,
+                price: null
+            })
         };
 
         it("Should Call Nothing Due to Bad Request", async function() {
-            toCheck = await IngredientController.post(request);
+            let toCheck = await IngredientController.post(request);
             expect(toCheck).to.be.equal(undefined);
         });
     
         it("Should Call Create Method", async function() {
-            request.body.name = "username";
-            request.body.price = 5;
+            request.body = JSON.stringify({
+                name: "username",
+                price: 5
+            })
 
             const mockCreate = sinon.stub(ingredient, "create");
             mockCreate.returns("Create Method was Successfully Called");
 
-            toCheck = await IngredientController.post(request);
+            let toCheck = await IngredientController.post(request);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
         });
     });

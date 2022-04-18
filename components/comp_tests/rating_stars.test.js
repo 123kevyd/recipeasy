@@ -1,12 +1,12 @@
-import { render, screen } from '@testing-library/react'
-import React from 'react';
-import RatingStars from '../rating_stars_comp'
-import '@testing-library/jest-dom/extend-expect';
+import {render, screen} from "@testing-library/react"
+import React from "react";
+import RatingStars from "../rating_stars"
+import "@testing-library/jest-dom/extend-expect";
 
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
-    const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => {});
+    const spy = jest.spyOn(console, "error");
+    spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()
 

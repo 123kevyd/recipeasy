@@ -31,8 +31,6 @@ fs
 	  }catch(exception){
 	  	console.log("failed to find dependency in models/index.js");
 	 	console.log(exception);
-
-		// TODO: Find out why this error was being thrown in the first place
 	  }
   });
 

@@ -1,9 +1,9 @@
-import { Button, Card, CardContent, CardHeader, MenuItem, Select, Stack, TextField } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { Component } from 'react';
+import {Button, Card, CardContent, CardHeader, MenuItem, Select, Stack, TextField} from "@mui/material";
+import {Box} from "@mui/system";
+import React, {Component} from "react";
 
 class AddRecipeIngredient extends Component {
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title="Ingredients"/>
@@ -15,17 +15,17 @@ class AddRecipeIngredient extends Component {
                                     <Select
                                         label="Ingredient"
                                         fullWidth
-                                        onChange={(event) => this.props.handleName(event.target.value,index)}
+                                        onChange={(event) => this.props.handleName(event.target.value, index)}
                                         value={ingredient.name}
                                         >
-                                        {this.props.ingredients.map(({ title } = ingredient) => (
+                                        {this.props.ingredients.map(({title} = ingredient) => (
                                             <MenuItem
                                             key={title}
                                             value={title}
                                             >
                                                 {title}
                                             </MenuItem>
-                                        ))}         
+                                        ))}
                                     </Select>
                                     <Select
                                         label="Unit"
@@ -40,7 +40,7 @@ class AddRecipeIngredient extends Component {
                                             >
                                                 {unit}
                                             </MenuItem>
-                                        ))}         
+                                        ))}
                                     </Select>
                                     <TextField
                                         value={ingredient.quantity}
@@ -49,12 +49,12 @@ class AddRecipeIngredient extends Component {
                                         onChange={(event) => this.props.handleQuantity(event.target.value, index)}
                                     />
                                     {this.props.currIngredient.length > 1 && (
-                                        <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
+                                        <Button variant="contained" onClick={() => this.props.handleDelete(index)}>Delete</Button>
                                     )}
                                 </Stack>
                                 {this.props.currIngredient.length - 1 === index && (
                                     <Box mt={2}>
-                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Ingredient</Button>
+                                        <Button variant="contained" onClick={() => this.props.handleAdd()}>Add Ingredient</Button>
                                     </Box>
                                 )}
                             </Box>
@@ -65,5 +65,5 @@ class AddRecipeIngredient extends Component {
         );
     }
 }
- 
+
 export default AddRecipeIngredient;

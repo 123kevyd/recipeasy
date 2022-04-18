@@ -1,15 +1,15 @@
-import KitchenCategory from './kitchen_category_comp'
-import MyRecipes from './my_recipes_comp'
-import Box from '@mui/material/Box'
+import KitchenCategory from "./kitchen_category"
+import MyRecipes from "./recipes"
+import Box from "@mui/material/Box"
 
 export default function Kitchen(props) {
-	const kitchen = (
-		<Box sx={{ 
-			display: 'inline-flex',
-			flexDirection: 'row',
-			justifyContent: 'center',
-			flexWrap: 'wrap',
-			border: '1px solid grey',
+	return (
+		<Box sx={{
+			display: "inline-flex",
+			flexDirection: "row",
+			justifyContent: "center",
+			flexWrap: "wrap",
+			border: "1px solid grey"
 			}}>
 			<KitchenCategory
 				items={props.ingredients}
@@ -32,5 +32,4 @@ export default function Kitchen(props) {
 			<MyRecipes />
 		</Box>
 	)
-	return kitchen
 }

@@ -4,7 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete"
 
 export default function EntryDropdown(props) {
 	return (
-		<Stack spacing={2} sx={{ width: 1 }}>
+		<Stack spacing={2} sx={{width: 1}}>
 			<Autocomplete
 				disabled={props.disabled}
 				fullWidth
@@ -22,7 +22,7 @@ export default function EntryDropdown(props) {
 						autoFocus
 						InputProps={{
 							...params.InputProps
-						}} 
+						}}
 					/>
 				)}
 			/>

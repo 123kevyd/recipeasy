@@ -1,9 +1,9 @@
-import { Button, Card, CardContent, CardHeader, MenuItem, Select, Stack, TextField } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { Component } from 'react';
+import {Button, Card, CardContent, CardHeader, MenuItem, Select, Stack} from "@mui/material";
+import {Box} from "@mui/system";
+import React, {Component} from "react";
 
 class AddRecipeEquipment extends Component {
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title="Equipment"/>
@@ -16,25 +16,25 @@ class AddRecipeEquipment extends Component {
                                         defaultValue = ""
                                         label="Equipment"
                                         fullWidth
-                                        onChange={(event) => this.props.handleContent(event.target.value,index)}
+                                        onChange={(event) => this.props.handleContent(event.target.value, index)}
                                         value={equip}
                                         >
-                                        {this.props.equipment.map(({ title } = equipment) => (
+                                        {this.props.equipment.map(({title} = equip) => (
                                             <MenuItem
                                             key={title}
                                             value={title}
                                             >
                                                 {title}
                                             </MenuItem>
-                                        ))}         
+                                        ))}
                                     </Select>
                                     {this.props.currEquipment.length > 1 && (
-                                        <Button variant='contained' onClick={() => this.props.handleDelete(index)}>Delete</Button>
+                                        <Button variant="contained" onClick={() => this.props.handleDelete(index)}>Delete</Button>
                                     )}
                                 </Stack>
                                 {this.props.currEquipment.length - 1 === index && (
                                     <Box mt={2}>
-                                        <Button variant='contained' onClick={() => this.props.handleAdd()}>Add Equipment</Button>
+                                        <Button variant="contained" onClick={() => this.props.handleAdd()}>Add Equipment</Button>
                                     </Box>
                                 )}
                             </Box>
@@ -45,5 +45,5 @@ class AddRecipeEquipment extends Component {
         );
     }
 }
- 
+
 export default AddRecipeEquipment;

@@ -2,14 +2,14 @@ const db = require("../models");
 const recipe = db.recipe;
 const rating = db.rating;
 
-exports.get = async(req,res) => {
+exports.get = async(req,_res) => {
     if(req.body.data.primaryKey) {
         var result = await recipe.findByPk(req.body.data.primaryKey);
         //Grab ratings - will be replaced by association fetch in future
         if (result.dataValues.ratings) {
             let ratingsList = JSON.parse(result.dataValues.ratings);
             let ratingObjects = [];
-            for (ratingIndex in ratingsList) {
+            for (let ratingIndex in ratingsList) {
                 let returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
                 if (returnedRating) {
                     ratingObjects.push(returnedRating.dataValues);
@@ -28,7 +28,7 @@ exports.get = async(req,res) => {
 
 exports.getAll = async() => {
 	var result = await recipe.findAll()
-    for (recipeIndex in result) {
+    for (let recipeIndex in result) {
         //Grab ratings - will be replaced by association fetch in future
         if (result[recipeIndex].dataValues.ratings) {
             let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
@@ -48,9 +48,9 @@ exports.getAll = async() => {
 }
 	
 
-exports.post = async(req,res) => {
+exports.post = async(req,_res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
-        const entry = await recipe.create({ 
+        return recipe.create({ 
             name: req.body.data.name,
             time: req.body.data.time,
             tags: JSON.stringify(req.body.data.tags), 
@@ -60,15 +60,14 @@ exports.post = async(req,res) => {
             details: req.body.data.details,
             author: req.body.data.author
         });
-        return entry;
     } else {
         //do nothing
     }
 }
 
-exports.put = async(req,res) => {
+exports.put = async(req,_res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
-        const entry = await recipe.update({
+        return recipe.update({
             name: req.body.data.name,
             time: req.body.data.time,
             tags: req.body.data.tags, 
@@ -83,7 +82,6 @@ exports.put = async(req,res) => {
                     id: req.body.data.primaryKey
                 }
             });
-        return entry;
     } else {
         //do nothing
     }

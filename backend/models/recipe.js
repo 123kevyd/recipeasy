@@ -3,18 +3,8 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class recipe extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-      //this.belongsToMany(models.user, { through: 'User_Ingredient' })
-    }
-  }
-  recipe.init({
+  class Recipe extends Model {}
+  Recipe.init({
     name: DataTypes.STRING,
     time: DataTypes.INTEGER,
     tags: DataTypes.STRING(1024),
@@ -29,5 +19,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'recipe',
     freezeTableName: true
   });
-  return recipe;
+  return Recipe;
 };

@@ -56,7 +56,7 @@ describe("Recipe Controller", function() {
             mockFind.withArgs(5).returns(recipe1);
             mockFind.withArgs(1).returns(recipe2);
 
-            toCheck = await RecipeController.get(request);
+            let toCheck = await RecipeController.get(request);
             expect(toCheck.dataValues.name).to.be.equal("Chili");
 
             request.body.data.primaryKey = 1;
@@ -67,7 +67,7 @@ describe("Recipe Controller", function() {
         it("Should Call Nothing Due to Bad Request", async function() {
             request.body.data.primaryKey = null;
 
-            toCheck = await RecipeController.get(request);
+            let toCheck = await RecipeController.get(request);
             expect(toCheck).to.be.equal(undefined);
         });
     });
@@ -77,7 +77,7 @@ describe("Recipe Controller", function() {
             var mockCreate = sinon.stub(recipe, "create");
             mockCreate.returns("Create Method was Successfully Called");
 
-            toCheck = await RecipeController.post(request);
+            let toCheck = await RecipeController.post(request);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
         });
 
@@ -86,7 +86,7 @@ describe("Recipe Controller", function() {
             request.body.data.instructions = null;
             request.body.data.ingredients = null;
 
-            toCheck = await RecipeController.post(request);
+            let toCheck = await RecipeController.post(request);
             expect(toCheck).to.be.equal(undefined);
         });
     });
@@ -97,7 +97,7 @@ describe("Recipe Controller", function() {
             request.body.data.instructions = null;
             request.body.data.ingredients = null;
 
-            toCheck = await RecipeController.put(request);
+            let toCheck = await RecipeController.put(request);
             expect(toCheck).to.be.equal(undefined);
         });
 
@@ -109,7 +109,7 @@ describe("Recipe Controller", function() {
             var mockUpdate = sinon.stub(recipe, "update");
             mockUpdate.returns("Update Method was Successfully Called");
 
-            toCheck = await RecipeController.put(request);
+            let toCheck = await RecipeController.put(request);
             expect(toCheck).to.be.equal("Update Method was Successfully Called");
         });
     });
