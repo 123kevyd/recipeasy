@@ -1,22 +1,26 @@
 import { Button, Dialog } from '@mui/material';
 import React, { Component } from 'react';
-import MyRecipes from './my_recipes_comp';
+import KitchenCategory from './kitchen_category';
 import RecipeModalHeader from './recipe_modal_header';
 
-class RecipeRecipeFilterModal extends Component {
+class RecipeFilterModal extends Component {
     state = {  } 
     render() {
-        return (
+        return ( 
             <Dialog
                 open={this.props.isOpen}
                 onClose={this.props.onToggleModal}
             >
-                <div id="recipesModal">
+                <div id={this.props.field + "Modal"}>
                     <RecipeModalHeader
                         title={this.props.title}
                         onToggleModal={this.props.onToggleModal}
                     />
-                    <MyRecipes />
+                    <KitchenCategory
+                        items={this.props.options}
+                        title={this.props.title}
+                        field={this.props.field}
+                    />
                     <Button
                         sx={{margin:2}}
                         variant='contained'
@@ -29,4 +33,4 @@ class RecipeRecipeFilterModal extends Component {
     }
 }
  
-export default RecipeRecipeFilterModal;
+export default RecipeFilterModal;

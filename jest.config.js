@@ -1,11 +1,4 @@
-// const config = {
-//     verbose: true,
-//     testEnvironment: "jsdom"
-//   };
-  
-//   module.exports = config;
 
-// jest.config.js
 const nextJest = require('next/jest')
 
 const createJestConfig = nextJest({

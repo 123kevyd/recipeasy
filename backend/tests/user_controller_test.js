@@ -26,7 +26,7 @@ describe("User Controller", function() {
             mockFind.withArgs(5).returns(firstUser);
             mockFind.withArgs(1).returns(secondUser);
 
-            toCheck = await UserController.get(request);
+            let toCheck = await UserController.get(request);
             expect(toCheck.username).to.be.equal("First Guy");
             expect(toCheck.restrictions).to.be.equal("none");
 
@@ -59,7 +59,7 @@ describe("User Controller", function() {
         };
 
         it("Should Call Nothing Due to Bad Request", async function() {
-            toCheck = await UserController.put(badRequest);
+            let toCheck = await UserController.put(badRequest);
             expect(toCheck).to.be.equal(undefined);
         });
       
@@ -68,7 +68,7 @@ describe("User Controller", function() {
             mockFindOrCreate.returns(["Create Method was Successfully Called", true]);
             let username = "notFoundUser";
 
-            toCheck = await UserController.login(username);
+            let toCheck = await UserController.login(username);
             expect(toCheck).to.be.equal("Create Method was Successfully Called");
             sinon.restore();
         });
@@ -82,7 +82,7 @@ describe("User Controller", function() {
             }).returns(["User Exists", false]);
             let username = "foundUser";
 
-            toCheck = await UserController.login(username);
+            let toCheck = await UserController.login(username);
             expect(toCheck).to.be.equal("User Exists");
             sinon.restore();
         });
@@ -98,7 +98,7 @@ describe("User Controller", function() {
             var mockUpdate = sinon.stub(user.prototype, "save");
             
 
-            toCheck = await UserController.put(request);
+            let toCheck = await UserController.put(request);
             sinon.assert.callCount(mockUpdate, 4);
             expect(toCheck).to.be.equal(true);
         });

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Typography, Stack, List, ListItem, ListItemText, LinearProgress } from '@mui/material/'
-import EntryDropdown from "./entry_dropdown_comp"
-import DelButton from "./delete_button"
+import EntryDropdown from "./entry_dropdown"
+import DelButton from "./del_button"
 import { userStore } from "/store/user_store"
 
 function KitchenListItem(props) {
@@ -32,7 +32,7 @@ function KitchenListItem(props) {
 export default function KitchenCategory(props) {
 
 	const myItems = userStore(state => state[props.field])
-	const [items, setItems] = useState(props.items)
+	const [items, _setItems] = useState(props.items)
 	const [clearText, setClearText] = useState(true)
 	const addItem = userStore(state => state.add)
 	const delItem = userStore(state => state.del)
@@ -46,13 +46,13 @@ export default function KitchenCategory(props) {
 			return ! found
 		})
 	}
-	const [ dropdownList, setDropdownList ] = useState(getDropdownList())
+	const [ _dropdownList, setDropdownList ] = useState(getDropdownList())
 	const refreshDropdownList = () => {
 		setDropdownList(getDropdownList())
 	}
 
 
-	const itemSelected = async (event, value) => {
+	const itemSelected = async (_event, value) => {
 		setClearText(!clearText)
 		if(value == null){
 			return false

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import AddRecipeEquipment from '../add_recipe_equipment_comp';
+import AddRecipeEquipment from '../add_recipe_equipment';
 
 test("Checking Method Is called On Change", () => {
     const curr = [""]

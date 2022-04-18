@@ -20,7 +20,7 @@ function toggleLoading(item, setter, getter) {
 	}else{
 		loadingSet.add(item)
 	}
-	setter((state) => ({ loading: loadingSet }))
+	setter((_state) => ({ loading: loadingSet }))
 }
 
 export const userStore = create((set, get) => ({
@@ -31,7 +31,7 @@ export const userStore = create((set, get) => ({
 	restrictions: [],
 	loading: new Set(),
 
-	init: ({ uid, recipes, ingredients, equipment, restrictions }) => set((state) => ({
+	init: ({ uid, recipes, ingredients, equipment, restrictions }) => set((_state) => ({
 			uid: uid,
 			recipes: recipes,
 			ingredients: ingredients,
@@ -52,7 +52,7 @@ export const userStore = create((set, get) => ({
 			set((state) => ({ [field]: state[field].concat([newItem]) }))
 			const res = await postNewItem(field, data)
 			if(!res.ok){
-				set((state) => ({ 
+				set((_state) => ({ 
 					[field]: currItems
 				}))
 				toggleLoading(newItem, set, get)
@@ -64,11 +64,11 @@ export const userStore = create((set, get) => ({
 		toggleLoading(data, set, get)
 		var ids = currItems.map(datum => datum.id)
 		ids.push(data.id)
-		set((state) => ({ [field]: currItems.concat([data]) }))
+		set((_state) => ({ [field]: currItems.concat([data]) }))
 		var res = await update(state.uid, field, ids)
 		toggleLoading(data, set, get)
 		if(!res.ok){
-			set((state) => ({ 
+			set((_state) => ({ 
 				[field]: currItems.filter((data2) => data != data2),
 			}))
 		}

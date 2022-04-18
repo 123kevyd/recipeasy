@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import AddRecipeTime from '../add_recipe_time_comp';
+import AddRecipeTime from '../add_recipe_time';
 
 
 test("Checking Element Exists", () => {

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Typography, Card, CardContent, CardHeader, Box, Stack,TextField, Rating, Button } from '@mui/material'
 import { Star, StarBorder } from '@mui/icons-material'
 import { styled } from '@mui/material/styles';
@@ -65,7 +65,7 @@ class RecipeRatingSubmit extends Component {
                                         icon={<Star fontSize="inherit"></Star>}
                                         emptyIcon={<StarBorder fontSize="inherit"></StarBorder>}
                                         value={this.state.rating}
-                                        onChange={(event, newValue) => this.setState({rating: newValue})}>
+                                        onChange={(_event, newValue) => this.setState({rating: newValue})}>
                                     </StyledRating>
                                 </Stack>
                                 <Stack direction='row'>
@@ -75,7 +75,7 @@ class RecipeRatingSubmit extends Component {
                                         icon={<Star fontSize="inherit"></Star>}
                                         emptyIcon={<StarBorder fontSize="inherit"></StarBorder>}
                                         value={this.state.difficulty}
-                                        onChange={(event, newValue) => this.setState({difficulty: newValue})}>
+                                        onChange={(_event, newValue) => this.setState({difficulty: newValue})}>
                                     </StyledRating>
                                 </Stack>
                             </Box>
