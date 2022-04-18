@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import ViewRecipe from '../view_recipe';
@@ -21,9 +21,9 @@ function getTestRecipe() {
         time: 30,
         tags: ["tag 1", "tag 2", "tag 3"],
         ingredients: [
-            { id: "1", name: "ing 1", quantity: 1, unit: "unit 1"},
-            { id: "2", name: "ing 2", quantity: 2, unit: "unit 2"},
-            { id: "3", name: "ing 3", quantity: 3, unit: "unit 3"}
+            {id: "1", name: "ing 1", quantity: 1, unit: "unit 1"},
+            {id: "2", name: "ing 2", quantity: 2, unit: "unit 2"},
+            {id: "3", name: "ing 3", quantity: 3, unit: "unit 3"}
         ],
         directions: [
             "Step 1",
@@ -32,9 +32,9 @@ function getTestRecipe() {
         ],
         equipment: ["equipment 1", "equipment 2"],
         reviews: [
-            { id: "1", stars: 5, difficulty: 3, review: "Review 1" },
-            { id: "2", stars: 3, difficulty: 0, review: "Review 2" },
-            { id: "3", stars: 0, difficulty: 5, review: "Review 3" }
+            {id: "1", stars: 5, difficulty: 3, review: "Review 1"},
+            {id: "2", stars: 3, difficulty: 0, review: "Review 2"},
+            {id: "3", stars: 0, difficulty: 5, review: "Review 3"}
         ]
     };
 
@@ -98,7 +98,7 @@ test("Passing valid recipe", () => {
 
 test("changing recipeOpen", () => {
     let recipe = getTestRecipe();
-    const { rerender } = render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);
+    const {rerender} = render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);
 
     expect(screen.queryByText(recipe.title)).toBeNull()
 

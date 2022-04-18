@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Typography, Card, CardContent, CardHeader, Box, Stack, TextField, Rating, Button } from '@mui/material'
-import { Star, StarBorder } from '@mui/icons-material'
-import { styled } from '@mui/material/styles';
+import React, {Component} from 'react';
+import {Typography, Card, CardContent, CardHeader, Box, Stack, TextField, Rating, Button} from '@mui/material'
+import {Star, StarBorder} from '@mui/icons-material'
+import {styled} from '@mui/material/styles';
 
 
 const StyledRating = styled(Rating)({
@@ -27,7 +27,7 @@ class RecipeRatingSubmit extends Component {
         if (this.props.recipe.id && this.state.rating && this.state.difficulty) {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({data: {recipeId: this.props.recipe.id,
                                             stars: this.state.rating,
                                             difficulty: this.state.difficulty,

@@ -1,4 +1,4 @@
-import { queryAllByTestId, render, screen } from '@testing-library/react'
+import {queryAllByTestId, render, screen} from '@testing-library/react'
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import RecipeRatingDisplay from '../recipe_rating_display';
@@ -15,9 +15,9 @@ function expectToThrow(testFunction) {
 
 function getTestReviews() {
     const testReviews = [
-        { id: "1", stars: 5, difficulty: 3, review: "Review 1" },
-        { id: "2", stars: 3, difficulty: 0, review: "Review 2" },
-        { id: "3", stars: 0, difficulty: 5, review: "Review 3" }
+        {id: "1", stars: 5, difficulty: 3, review: "Review 1"},
+        {id: "2", stars: 3, difficulty: 0, review: "Review 2"},
+        {id: "3", stars: 0, difficulty: 5, review: "Review 3"}
     ];
 
     return JSON.parse(JSON.stringify(testReviews));

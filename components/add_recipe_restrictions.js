@@ -1,5 +1,5 @@
-import { Box, Card, CardContent, CardHeader, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
-import React, { Component } from 'react';
+import {Box, Card, CardContent, CardHeader, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select} from '@mui/material';
+import React, {Component} from 'react';
 
 class AddRecipeRestriction extends Component {
     render() {
@@ -25,7 +25,7 @@ class AddRecipeRestriction extends Component {
                             value={this.props.state.newRecipe.tags}
                             input={<OutlinedInput label="Chip" />}
                             renderValue={(selected) => (
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
                                 {selected.map((value) => (
                                     <Chip key={value} label={value} />
                                 ))}

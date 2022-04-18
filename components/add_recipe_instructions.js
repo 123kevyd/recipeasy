@@ -1,5 +1,5 @@
-import { Box, Button, Card, CardContent, CardHeader, TextField } from '@mui/material';
-import React, { Component } from 'react';
+import {Box, Button, Card, CardContent, CardHeader, TextField} from '@mui/material';
+import React, {Component} from 'react';
 
 class AddRecipeInstructions extends Component {
     render() {
@@ -18,12 +18,12 @@ class AddRecipeInstructions extends Component {
                                     value={direction}
                                 />
                                 {this.props.directions.length > 1 && (
-                                    <Box sx={{ mx: "auto" }}>
+                                    <Box sx={{mx: "auto"}}>
                                         <Button variant="contained" onClick={() => this.props.handleDelete(index)}>Delete</Button>
                                     </Box>
                                 )}
                                 {this.props.directions.length - 1 === index && (
-                                    <Box sx={{ mx: "auto" }}>
+                                    <Box sx={{mx: "auto"}}>
                                         <Button variant="contained" onClick={() => this.props.handleAdd()}>Add Direction</Button>
                                     </Box>
                                 )}

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import React from 'react';
 import RecipeCardList from '../recipe_card_list'
 import '@testing-library/jest-dom/extend-expect';

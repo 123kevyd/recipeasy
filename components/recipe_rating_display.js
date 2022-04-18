@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Typography, Card, CardContent, Box, Stack } from '@mui/material'
+import React, {Component} from 'react';
+import {Typography, Card, CardContent, Box, Stack} from '@mui/material'
 import RatingStars from './rating_stars';
 
 /**

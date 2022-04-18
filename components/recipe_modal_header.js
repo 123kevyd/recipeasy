@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
+import React, {Component} from 'react';
+import {AppBar, Toolbar, IconButton, Typography} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 /**

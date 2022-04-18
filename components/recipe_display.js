@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box, Typography, createTheme, Button } from '@mui/material'
-import { ThemeProvider } from '@emotion/react';
+import {Box, Typography, createTheme, Button} from '@mui/material'
+import {ThemeProvider} from '@emotion/react';
 import RecipeCardList from './recipe_card_list';
 import RecipeCardChip from './recipe_card_chip';
 import RecipeCardText from './recipe_card_text';
-import { userStore } from '../store/user_store';
+import {userStore} from '../store/user_store';
 
 /**
  * Used to display a recipe for viewing

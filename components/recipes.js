@@ -1,12 +1,12 @@
-import { useState } from "react"
-import { Typography, Stack, List, ListItem, ListItemButton, LinearProgress } from '@mui/material/'
-import { userStore } from "../store/user_store"
+import {useState} from "react"
+import {Typography, Stack, List, ListItem, ListItemButton, LinearProgress} from '@mui/material/'
+import {userStore} from "../store/user_store"
 import DelButton from "./del_button"
 import ViewRecipe from "./view_recipe"
 
 export default function Recipes(_props) {
 	return (
-		<Stack spacing={2} sx={{ width: 300, padding: 3, border: '1px blue solid', margin: 3 }}>
+		<Stack spacing={2} sx={{width: 300, padding: 3, border: '1px blue solid', margin: 3}}>
 			<Typography align="center" variant="h5" component="div">Saved Recipes</Typography>
 			<KitchenRecipeList/>
 		</Stack>

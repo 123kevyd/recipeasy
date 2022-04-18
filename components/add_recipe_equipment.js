@@ -1,6 +1,6 @@
-import { Button, Card, CardContent, CardHeader, MenuItem, Select, Stack } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { Component } from 'react';
+import {Button, Card, CardContent, CardHeader, MenuItem, Select, Stack} from '@mui/material';
+import {Box} from '@mui/system';
+import React, {Component} from 'react';
 
 class AddRecipeEquipment extends Component {
     render() {
@@ -19,7 +19,7 @@ class AddRecipeEquipment extends Component {
                                         onChange={(event) => this.props.handleContent(event.target.value, index)}
                                         value={equip}
                                         >
-                                        {this.props.equipment.map(({ title } = equip) => (
+                                        {this.props.equipment.map(({title} = equip) => (
                                             <MenuItem
                                             key={title}
                                             value={title}

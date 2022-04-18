@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, TextField } from '@mui/material';
-import React, { Component } from 'react';
+import {Card, CardContent, CardHeader, TextField} from '@mui/material';
+import React, {Component} from 'react';
 
 class AddRecipeTime extends Component {
     render() {

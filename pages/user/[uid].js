@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { Tabs, Tab, Box } from '@mui/material/'
+import {useRouter} from 'next/router'
+import {useState} from 'react'
+import {Tabs, Tab, Box} from '@mui/material/'
 import Cookbook from '../../components/cookbook'
 import Kitchen from '../../components/kitchen'
-import { userStore } from "/store/user_store"
+import {userStore} from "/store/user_store"
 
 function filterToUserData(items, idString){
 	if (idString){
@@ -106,12 +106,12 @@ export async function getServerSideProps(context) {
 
 function TabPanel(props) {
 	// https://codesandbox.io/s/x5uvxj?file=/demo.js
-	const {value, index, children } = props
+	const {value, index, children} = props
 
 	return (
 		<div hidden={value !== index}>
 			{value === index && (
-				<Box sx={{ p: 3 }}>
+				<Box sx={{p: 3}}>
 					{children}
 				</Box>
 			)}
@@ -147,8 +147,8 @@ function App(props) {
 	}
 
 	return (
-		<Box sx={{ width: '100%' }}>
-			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+		<Box sx={{width: '100%'}}>
+			<Box sx={{borderBottom: 1, borderColor: 'divider'}}>
 				<Tabs value={tab} onChange={handleChange} centered>
 					<Tab label="Kitchen" />
 					<Tab label="Recipes" />

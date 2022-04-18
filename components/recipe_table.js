@@ -1,7 +1,7 @@
-import { Button, Box, Stack, Chip } from '@mui/material';
-import React, { Component } from 'react';
+import {Button, Box, Stack, Chip} from '@mui/material';
+import React, {Component} from 'react';
 import ViewRecipe from "./view_recipe"
-import { DataGrid } from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 import RatingStars from './rating_stars';
 import RecipeFilter from './recipe_filter'
 
@@ -20,20 +20,20 @@ class RecipeTable extends Component {
     }
 
     cols = [
-        { field: 'id', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
+        {field: 'id', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
             return <Button variant="contained" onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
         }},
-        { field: 'title', headerName: 'Recipe Name', width: 280},
-        { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
+        {field: 'title', headerName: 'Recipe Name', width: 280},
+        {field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
             return '' + params.value + " mins"
         }},
-        { field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => {
+        {field: 'difficulty', headerName: 'Difficulty', width: 140, renderCell: (params) => {
             return <RatingStars stars={parseFloat(params.value)} />
         }},
-        { field: 'rating', headerName: 'Rating', width: 140, renderCell: (params) => {
+        {field: 'rating', headerName: 'Rating', width: 140, renderCell: (params) => {
             return <RatingStars stars={parseFloat(params.value)} />
         }},
-        { field: 'tags', headerName: 'Tags', minWidth: 300, renderCell: (params) => {
+        {field: 'tags', headerName: 'Tags', minWidth: 300, renderCell: (params) => {
             return this.getTags(params.value)
         }}
     ]
@@ -41,7 +41,7 @@ class RecipeTable extends Component {
 	handleToggleFilter = (modalName) => {
 		let newFilters = {...this.state.filterActive}
 		newFilters[modalName] = !newFilters[modalName]
-		this.setState({ filterActive: newFilters })
+		this.setState({filterActive: newFilters})
 
         let shownRecipes = this.formatRecipes(this.props.recipes, newFilters.useIngredientFilter, newFilters.useEquipmentFilter, newFilters.useRestrictionFilter, newFilters.useRecipesFilter);
         this.setState({shownRecipes: shownRecipes})
@@ -145,7 +145,7 @@ class RecipeTable extends Component {
     render() {
         return (
             <>
-                <Box style={{ width: '100%' }}>
+                <Box style={{width: '100%'}}>
                     <Stack direction="row">
                         <RecipeFilter
                             ingredients={this.props.ingredients}
@@ -158,7 +158,7 @@ class RecipeTable extends Component {
 							onToggleFilter={this.handleToggleFilter}
                         />
                         <div id="recipeTable">
-                            <DataGrid style={{ width: '100%', margin: "15px" }}
+                            <DataGrid style={{width: '100%', margin: "15px"}}
                                 disableSelectionOnClick
                                 disableColumnMenu
                                 rows={this.state.shownRecipes}

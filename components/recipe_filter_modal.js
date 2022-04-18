@@ -1,5 +1,5 @@
-import { Button, Dialog } from '@mui/material';
-import React, { Component } from 'react';
+import {Button, Dialog} from '@mui/material';
+import React, {Component} from 'react';
 import KitchenCategory from './kitchen_category';
 import RecipeModalHeader from './recipe_modal_header';
 

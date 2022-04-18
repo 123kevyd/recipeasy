@@ -1,5 +1,5 @@
 import React from 'react';
-import { userStore } from "/store/user_store"
+import {userStore} from "/store/user_store"
 import RecipeTable from './recipe_table';
 
 export default function RecipeTableHOC(props) {

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import {render, screen, fireEvent} from '@testing-library/react'
 import React from 'react';
 import RecipeModalHeader from '../recipe_modal_header'
 import '@testing-library/jest-dom/extend-expect';

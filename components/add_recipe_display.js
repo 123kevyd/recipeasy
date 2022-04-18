@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Box, Button, TextField, Card, CardHeader, CardContent, createTheme } from '@mui/material'
+import React, {Component} from 'react';
+import {Box, Button, TextField, Card, CardHeader, CardContent, createTheme} from '@mui/material'
 import AddRecipeDescription from './add_recipe_description';
 import AddRecipeRestriction from './add_recipe_restrictions';
 import AddRecipeTime from './add_recipe_time';

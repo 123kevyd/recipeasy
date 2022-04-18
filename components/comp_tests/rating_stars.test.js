@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import React from 'react';
 import RatingStars from '../rating_stars'
 import '@testing-library/jest-dom/extend-expect';
