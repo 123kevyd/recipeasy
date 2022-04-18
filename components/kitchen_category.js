@@ -51,7 +51,7 @@ export default function KitchenCategory(props) {
 	}
 
 
-	const itemSelected = async (_event, value) => {
+	const itemSelected = async(_event, value) => {
 		setClearText(!clearText)
 		if (value == null) {
 			return false
@@ -60,7 +60,7 @@ export default function KitchenCategory(props) {
 		refreshDropdownList()
 	}
 
-	const deleteItem = async (item1) => {
+	const deleteItem = async(item1) => {
 		await delItem(props.field, item1)
 		refreshDropdownList()
 	}
