@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import StarIcon from '@mui/icons-material/Star'
-import StarBorderIcon from '@mui/icons-material/StarBorder' 
+import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 /**
  * Used for ratings. Shows 5 stars with the specified number of stars filled
@@ -10,7 +10,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 class RatingStars extends Component {
     constructor(props) {
         super(props);
-        
+
         if (!this.props || (!this.props.stars && this.props.stars !== 0)) {
             throw new Error("required stars prop not being passed\n" + this.props + "\n" + this.props.stars + "\n");
 
@@ -33,5 +33,5 @@ class RatingStars extends Component {
         );
     }
 }
- 
+
 export default RatingStars;

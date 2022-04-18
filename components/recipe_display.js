@@ -54,7 +54,7 @@ function checkRecipeLists(props) {
 		overrides: {
 			Card: {
                 root: {
-				    margin: '15px'
+					margin: '15px'
                 }
 			}
 		}
@@ -67,33 +67,33 @@ function checkRecipeLists(props) {
         });
         return toReturn;
     }
-	 
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Box
 				sx={{
-					display: 'flex', 
-					flexDirection: 'row', 
+					display: 'flex',
+					flexDirection: 'row',
 					justifyContent: 'space-between',
 					padding: '15px'
 				}}
 			>
 				<Typography
-					align='left'
+					align="left"
 					variant="h4"
 				>
 					{props.recipe.title}
 				</Typography>
-				<Button 
+				<Button
 					sx={{alignSelf: 'center', paddingTop: '10px'}}
-					variant="contained" color='primary'
+					variant="contained" color="primary"
 					onClick={() => save("recipes", props.recipe)}
 					disabled={isSaved ? 'true' : undefined}
 				>
 					Save Recipe
 				</Button>
 			</Box>
-			<Typography align='left'
+			<Typography align="left"
 				sx={{
 					paddingLeft: '15px',
 					marginTop: '-40px'
@@ -101,7 +101,7 @@ function checkRecipeLists(props) {
 			>
 				{props.recipe.time} mins
 			</Typography>
-			<Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
+			<Box sx={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
 				<Box>
 					<RecipeCardText title="Description" text={props.recipe.description} />
 					<RecipeCardChip title="Tags" list={props.recipe.tags} />

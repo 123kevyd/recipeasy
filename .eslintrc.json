@@ -1,3 +1,41 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.spec.js",
+        "**/*.spec.jsx",
+        "**/*.test.js"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "no-unused-vars": "off",
+    "no-console": [2, {"allow": ["error"]}],
+    "camelcase": [2, {"properties": "always"}],
+    "brace-style": [2, "1tbs", {"allowSingleLine": true}],
+    "array-bracket-spacing": [2, "never"],
+    "block-spacing": [2, "never"],
+    "comma-dangle": [2],
+    "comma-spacing": [2],
+    "comma-style": [2],
+    "eol-last": [2],
+    "func-call-spacing": [2],
+    "jsx-quotes": [2],
+    "key-spacing": [2],
+    "keyword-spacing": [2],
+    "no-multiple-empty-lines": [2],
+    "no-trailing-spaces": [2],
+    "object-curly-newline": [2],
+    "object-curly-spacing": [2]
+  }
 }

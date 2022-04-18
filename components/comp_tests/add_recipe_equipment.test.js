@@ -10,12 +10,12 @@ test("Checking Method Is called On Change", () => {
         title: "whisk"
     }]
     const handle = jest.fn()
-    
+
     render(<AddRecipeEquipment handleContent={handle} equipment={equipment} currEquipment={curr}/>)
     const toClick = screen.getAllByRole('button')
     fireEvent.mouseDown(toClick[0])
     const option = screen.getByRole('option')
     fireEvent.click(option)
-    
+
     expect(handle).toBeCalledTimes(1)
 })

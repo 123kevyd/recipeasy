@@ -22,7 +22,7 @@ export default function EntryDropdown(props) {
 						autoFocus
 						InputProps={{
 							...params.InputProps
-						}} 
+						}}
 					/>
 				)}
 			/>

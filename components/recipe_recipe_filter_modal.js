@@ -4,7 +4,7 @@ import MyRecipes from './recipes';
 import RecipeModalHeader from './recipe_modal_header';
 
 class RecipeRecipeFilterModal extends Component {
-    state = {  } 
+    state = {  }
     render() {
         return (
             <Dialog
@@ -18,8 +18,8 @@ class RecipeRecipeFilterModal extends Component {
                     />
                     <MyRecipes />
                     <Button
-                        sx={{margin:2}}
-                        variant='contained'
+                        sx={{margin: 2}}
+                        variant="contained"
                         fullWidth={false}
                         onClick={() => {this.props.onToggleModal()}}
                     >Ok</Button>
@@ -28,5 +28,5 @@ class RecipeRecipeFilterModal extends Component {
         );
     }
 }
- 
+
 export default RecipeRecipeFilterModal;

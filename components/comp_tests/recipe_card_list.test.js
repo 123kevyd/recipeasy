@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
     const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => { /* Intentionally left blank */ });
+    spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()
 
@@ -17,10 +17,10 @@ test("Passing empty title", () => {
     render(<RecipeCardList title="" list={["Item"]} />);
     const cardBody = screen.queryByText("Item")
     const cardTitle = cardBody.parentElement.parentElement.parentElement.parentElement.parentElement.firstChild.firstChild.firstChild
-    
+
     expect(cardTitle).not.toBeNull()
     expect(cardBody).not.toBeNull()
-    
+
     expect(cardTitle.textContent).toBe("");
     expect(cardBody.textContent).toBe("Item");
 })
@@ -29,10 +29,10 @@ test("Passing empty list", () => {
     render(<RecipeCardList title="Header" list={[]} />);
     const cardTitle = screen.queryByText("Header")
     const cardBody = cardTitle.parentElement.parentElement.parentElement.lastChild.firstChild
-    
+
     expect(cardTitle).not.toBeNull()
     expect(cardBody).not.toBeNull()
-    
+
     expect(cardTitle.textContent).toBe("Header");
     expect(cardBody.hasChildNodes()).toBe(false);
 })
@@ -42,10 +42,10 @@ test("Passing size 1 list", () => {
     const cardTitle = screen.queryByText("Header")
     const listElem = screen.queryByText("Item1")
     const cardBody = listElem.parentElement.parentElement.parentElement
-    
+
     expect(cardTitle).not.toBeNull()
     expect(cardBody).not.toBeNull()
-    
+
     expect(cardTitle.textContent).toBe("Header");
     expect(cardBody.hasChildNodes()).toBe(true);
     expect(cardBody.childElementCount).toBe(1);
@@ -58,14 +58,14 @@ test("Passing size 5 list", () => {
     const midListElem = screen.queryByText("Item3")
     const lastListElem = screen.queryByText("Item5")
     const cardBody = firstListElem.parentElement.parentElement.parentElement
-    
+
     expect(cardTitle).not.toBeNull()
     expect(cardBody).not.toBeNull()
 
     expect(firstListElem).not.toBeNull()
     expect(midListElem).not.toBeNull()
     expect(lastListElem).not.toBeNull()
-    
+
     expect(cardTitle.textContent).toBe("Header");
     expect(cardBody.hasChildNodes()).toBe(true);
     expect(cardBody.childElementCount).toBe(5);

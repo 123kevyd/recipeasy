@@ -8,12 +8,12 @@ import AddRecipeInstructions from './add_recipe_instructions';
 import AddRecipeEquipment from './add_recipe_equipment';
 
 class AddRecipeDisplay extends Component {
-    
+
 	theme = createTheme({
 		overrides: {
 			Card: {
                 root: {
-				    margin: '15px'
+                    margin: '15px'
                 }
 			}
 		}
@@ -48,14 +48,13 @@ class AddRecipeDisplay extends Component {
     getTagIds(tags) {
         let toReturn = [];
 
-        for(let tag of tags) {
+        for (let tag of tags) {
             for (let restriction of this.props.restrictions) {
                 if (restriction.title == tag) {
                     toReturn.push(restriction.id)
                     break
                 }
             }
-            
         }
 
         return toReturn;
@@ -71,7 +70,6 @@ class AddRecipeDisplay extends Component {
                     break
                 }
             }
-            
         }
 
         return toReturn;
@@ -82,7 +80,7 @@ class AddRecipeDisplay extends Component {
 
         for (let paramIngredient of ingredients) {
             for (let propIngredient of this.props.ingredients) {
-                if(propIngredient.title == paramIngredient.name) {
+                if (propIngredient.title == paramIngredient.name) {
                     toReturn.push({
                         id: propIngredient.id,
                         quantity: paramIngredient.quantity,
@@ -91,7 +89,6 @@ class AddRecipeDisplay extends Component {
                     break
                 }
             }
-            
         }
 
         return toReturn;
@@ -211,7 +208,6 @@ class AddRecipeDisplay extends Component {
                 "tags": recipe.tags,
                 "time": recipe.time
             }
-            
         }
     }
 
@@ -219,7 +215,7 @@ class AddRecipeDisplay extends Component {
         let toCheck = this.state.newRecipe.ingredients;
         let toReturn = true;
         toCheck.forEach(ing => {
-            if(ing.quantity < 1) {
+            if (ing.quantity < 1) {
                 toReturn = false
             }
         });
@@ -230,7 +226,7 @@ class AddRecipeDisplay extends Component {
         let toCheck = this.state.newRecipe.ingredients;
         let toReturn = true;
         toCheck.forEach(instruction => {
-            if(instruction == "") {
+            if (instruction == "") {
                 toReturn = false;
             }
         });
@@ -238,32 +234,28 @@ class AddRecipeDisplay extends Component {
     }
 
     async addRecipe() {
-        console.log(this.state.newRecipe);
         let formattedBody = this.formatAddRequest();
-        if(formattedBody.data.name != "" && 
-            formattedBody.data.time > 0 && 
-            formattedBody.data.ingredients.length > 0 && 
+        if (formattedBody.data.name != "" &&
+            formattedBody.data.time > 0 &&
+            formattedBody.data.ingredients.length > 0 &&
             formattedBody.data.instructions.length > 0 &&
             this.checkInstructions() &&
-            this.checkIngredients())
-        {
+            this.checkIngredients()) {
             const response = await fetch(`/api/recipes`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
-                'User-Agent': '*',
+                'User-Agent': '*'
                 },
                 body: JSON.stringify(formattedBody)
             });
             this.props.onToggleModal();
-            console.log(response);
-        }
-        else {
+        } else {
             alert("Missing Fields");
         }
     }
 
-    render() { 
+    render() {
         return (
             <Box
             classes="wide-text"
@@ -272,13 +264,13 @@ class AddRecipeDisplay extends Component {
                     <CardHeader title="Recipe Name"/>
                     <CardContent>
                         <TextField
-                            label="Title" 
+                            label="Title"
                             fullWidth
                             onChange={(event) => this.handleUpdateTitle(event.target.value)}
                         />
                     </CardContent>
                 </Card>
-                <Box sx={{display:'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
+                <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)'}}>
                     <Box>
                         <AddRecipeDescription
                             handleChange={this.handleUpdateDescription.bind(this)}
@@ -319,8 +311,8 @@ class AddRecipeDisplay extends Component {
                         <Card>
                             <CardHeader/>
                             <CardContent>
-                                <Box textAlign='center'>
-                                    <Button variant='contained' onClick={() => this.addRecipe()}>Submit</Button>
+                                <Box textAlign="center">
+                                    <Button variant="contained" onClick={() => this.addRecipe()}>Submit</Button>
                                 </Box>
                             </CardContent>
                         </Card>

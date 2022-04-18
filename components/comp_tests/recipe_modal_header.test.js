@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
     const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => { /* Intentionally left blank */ });
+    spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()
 
@@ -20,10 +20,10 @@ test("Passing empty title", () => {
 
     const closeButton = screen.queryByTestId("CloseIcon").parentElement;
     const title = closeButton.parentElement.firstChild;
-    
+
     expect(closeButton).not.toBeNull()
     expect(title).not.toBeNull()
-    
+
     expect(title.textContent).toBe("");
 
     fireEvent.click(closeButton)
@@ -32,15 +32,15 @@ test("Passing empty title", () => {
 
 test("Passing title and onToggleModal", () => {
     const handleClick = jest.fn()
-    
+
     render(<RecipeModalHeader title="Header" onToggleModal={handleClick} />);
 
     const closeButton = screen.queryByTestId("CloseIcon").parentElement;
     const title = screen.queryByText("Header")
-    
+
     expect(closeButton).not.toBeNull()
     expect(title).not.toBeNull()
-    
+
     expect(title.textContent).toBe("Header");
 
     fireEvent.click(closeButton)
@@ -56,7 +56,7 @@ test("Passing only valid title", () => {
 })
 
 test("Passing only valid onToggleModal", () => {
-    expectToThrow(() => {render(<RecipeModalHeader onToggleModal={() => { return true }} />);});
+    expectToThrow(() => {render(<RecipeModalHeader onToggleModal={() => {return true}} />);});
 })
 
 test("Passing title and null onToggleModal", () => {
@@ -68,9 +68,9 @@ test("Passing title and non-function onToggleModal", () => {
 })
 
 test("Passing null title and onToggleModal", () => {
-    expectToThrow(() => {render(<RecipeModalHeader title={null} onToggleModal={() => { return true }} />);});
+    expectToThrow(() => {render(<RecipeModalHeader title={null} onToggleModal={() => {return true}} />);});
 })
 
 test("Passing non-string title and onToggleModal", () => {
-    expectToThrow(() => {render(<RecipeModalHeader title={0} onToggleModal={() => { return true }} />);});
+    expectToThrow(() => {render(<RecipeModalHeader title={0} onToggleModal={() => {return true}} />);});
 })

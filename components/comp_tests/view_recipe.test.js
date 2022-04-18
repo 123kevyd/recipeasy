@@ -6,7 +6,7 @@ import ViewRecipe from '../view_recipe';
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
     const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => { /* Intentionally left blank */ });
+    spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()
 
@@ -22,7 +22,7 @@ function getTestRecipe() {
         tags: ["tag 1", "tag 2", "tag 3"],
         ingredients: [
             { id: "1", name: "ing 1", quantity: 1, unit: "unit 1"},
-            { id: "2", name: "ing 2", quantity: 2 , unit: "unit 2"},
+            { id: "2", name: "ing 2", quantity: 2, unit: "unit 2"},
             { id: "3", name: "ing 3", quantity: 3, unit: "unit 3"}
         ],
         directions: [
@@ -43,7 +43,7 @@ function getTestRecipe() {
 
 test("Passing valid recipe", () => {
     let recipe = getTestRecipe();
-    render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={true} recipe={recipe} />);
+    render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={true} recipe={recipe} />);
 
     const title = screen.queryByText(recipe.title);
     const description = screen.queryByText(recipe.description);
@@ -98,15 +98,15 @@ test("Passing valid recipe", () => {
 
 test("changing recipeOpen", () => {
     let recipe = getTestRecipe();
-    const { rerender } = render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);
+    const { rerender } = render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);
 
     expect(screen.queryByText(recipe.title)).toBeNull()
 
-    rerender(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={true} recipe={recipe} />)
+    rerender(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={true} recipe={recipe} />)
     expect(screen.queryByText(recipe.title)).toBeVisible()
 
 
-    rerender(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />)
+    rerender(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />)
     expect(screen.queryByText(recipe.title)).not.toBeVisible()
 })
 
@@ -138,95 +138,95 @@ test("Passing empty recipe", () => {
 test("Passing recipe without title", () => {
     let recipe = getTestRecipe();
     delete recipe["title"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-string title", () => {
     let recipe = getTestRecipe();
     recipe["title"] = 100;
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe without description", () => {
     let recipe = getTestRecipe();
     delete recipe["description"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-string description", () => {
     let recipe = getTestRecipe();
     recipe["description"] = 100;
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe without time", () => {
     let recipe = getTestRecipe();
     delete recipe["time"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-number time", () => {
     let recipe = getTestRecipe();
     recipe["time"] = "100";
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe without tags", () => {
     let recipe = getTestRecipe();
     delete recipe["tags"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-array tags", () => {
     let recipe = getTestRecipe();
     recipe["tags"] = {};
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe without ingredients", () => {
     let recipe = getTestRecipe();
     delete recipe["ingredients"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-array ingredients", () => {
     let recipe = getTestRecipe();
     recipe["ingredients"] = {};
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe without equipment", () => {
     let recipe = getTestRecipe();
     delete recipe["equipment"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-array equipment", () => {
     let recipe = getTestRecipe();
     recipe["equipment"] = {};
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe without directions", () => {
     let recipe = getTestRecipe();
     delete recipe["directions"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-array directions", () => {
     let recipe = getTestRecipe();
     recipe["directions"] = {};
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe without reviews", () => {
     let recipe = getTestRecipe();
     delete recipe["reviews"];
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })
 
 test("Passing recipe with non-array reviews", () => {
     let recipe = getTestRecipe();
     recipe["reviews"] = {};
-    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => { /* Intentionally left blank */ }} recipeOpen={false} recipe={recipe} />);});
+    expectToThrow(() => {render(<ViewRecipe onToggleRecipeView={() => {/* Intentionally left blank */}} recipeOpen={false} recipe={recipe} />);});
 })

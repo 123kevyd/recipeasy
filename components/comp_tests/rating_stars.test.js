@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
     const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => { /* Intentionally left blank */ });
+    spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()
 

@@ -6,7 +6,7 @@ import RecipeDisplay from '../recipe_display';
 // required to prevent jest from flooding the terminal with the intended error messages
 function expectToThrow(testFunction) {
     const spy = jest.spyOn(console, 'error');
-    spy.mockImplementation(() => { /* Intentionally left blank */ });
+    spy.mockImplementation(() => {/* Intentionally left blank */});
 
     expect(testFunction).toThrow()
 
@@ -22,7 +22,7 @@ function getTestRecipe() {
         tags: ["tag 1", "tag 2", "tag 3"],
         ingredients: [
             { id: "1", name: "ing 1", quantity: 1, unit: "unit 1"},
-            { id: "2", name: "ing 2", quantity: 2 , unit: "unit 2"},
+            { id: "2", name: "ing 2", quantity: 2, unit: "unit 2"},
             { id: "3", name: "ing 3", quantity: 3, unit: "unit 3"}
         ],
         directions: [
@@ -39,7 +39,7 @@ function getTestRecipe() {
     return JSON.parse(JSON.stringify(testRecipe));
 }
 
-test("Passing full recipe", () => {    
+test("Passing full recipe", () => {
     let recipe = getTestRecipe();
 
     render(<RecipeDisplay recipe={recipe} />);
@@ -59,8 +59,8 @@ test("Passing full recipe", () => {
     const direction2 = screen.queryByText(recipe.directions[1]);
     const direction3 = screen.queryByText(recipe.directions[2]);
     const reviewText = screen.queryByText(recipe.reviews[0].description);
-    
-    
+
+
     expect(title).not.toBeNull()
     expect(description).not.toBeNull()
     expect(time).not.toBeNull()

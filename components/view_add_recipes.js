@@ -4,13 +4,13 @@ import RecipeModalHeader from './recipe_modal_header';
 import AddRecipeDisplay from './add_recipe_display';
 
 class ViewAddRecipe extends Component {
-    state = { 
+    state = {
      };
 
-    render() { 
+    render() {
         return (
             <Dialog
-                maxWidth='lg'
+                maxWidth="lg"
                 fullWidth
                 open={this.props.addRecipeOpen}
                 onClose={this.props.onToggleAddRecipeView}
@@ -32,5 +32,5 @@ class ViewAddRecipe extends Component {
         );
     }
 }
- 
+
 export default ViewAddRecipe;

@@ -2,15 +2,15 @@ import { Box, Card, CardContent, CardHeader, Chip, FormControl, InputLabel, Menu
 import React, { Component } from 'react';
 
 class AddRecipeRestriction extends Component {
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title="Restrictions"/>
-                <CardContent>   
+                <CardContent>
                     <FormControl fullWidth>
                         <InputLabel id="restriction-label">Tags</InputLabel>
                         <Select
-                            labelId='restriction-label'
+                            labelId="restriction-label"
                             MenuProps = {{
                                 PaperProps: {
                                 style: {
@@ -38,7 +38,7 @@ class AddRecipeRestriction extends Component {
                                 >
                                     {restriction.title}
                                 </MenuItem>
-                            ))}        
+                            ))}
                         </Select>
                     </FormControl>
                 </CardContent>
@@ -46,5 +46,5 @@ class AddRecipeRestriction extends Component {
         );
     }
 }
- 
+
 export default AddRecipeRestriction;

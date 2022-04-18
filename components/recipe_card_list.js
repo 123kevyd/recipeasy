@@ -20,12 +20,12 @@ class RecipeCardList extends Component {
             throw new Error(`Prop title must be a string - Is ${this.props.title} (${typeof this.props.title}) `);
         } else if (!Array.isArray(this.props.list)) {
             throw new Error(`Prop list must be an array - Is ${this.props.list} (${typeof this.props.list}) `);
-        } else if (!this.props.list.every((elem) => { return typeof elem === "string" })) {
+        } else if (!this.props.list.every((elem) => {return typeof elem === "string"})) {
             throw new Error(`Prop list must be an array of strings - Is ${this.props.list}`);
         }
     }
 
-    render() { 
+    render() {
         return (
             <>
                 <Card>
@@ -47,5 +47,5 @@ class RecipeCardList extends Component {
         );
     }
 }
- 
+
 export default RecipeCardList;

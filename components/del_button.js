@@ -2,9 +2,9 @@ import IconButton from "@mui/material/ListItemIcon"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 export default function DelButton({onClick, item, disabled}) {
-	
+
 	const handleDel = () => {
-		if(onClick){
+		if (onClick){
 			onClick(item)
 		}
 	}

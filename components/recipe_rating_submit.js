@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Typography, Card, CardContent, CardHeader, Box, Stack,TextField, Rating, Button } from '@mui/material'
+import { Typography, Card, CardContent, CardHeader, Box, Stack, TextField, Rating, Button } from '@mui/material'
 import { Star, StarBorder } from '@mui/icons-material'
 import { styled } from '@mui/material/styles';
 
 
 const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
-      color: '#000000',
+      color: '#000000'
     },
     '& .MuiRating-iconHover': {
-      color: '#000000',
-    },
+      color: '#000000'
+    }
   });
 
 class RecipeRatingSubmit extends Component {
@@ -28,15 +28,15 @@ class RecipeRatingSubmit extends Component {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
-                body: JSON.stringify({data: {recipeId: this.props.recipe.id, 
-                                            stars: this.state.rating, 
+                body: JSON.stringify({data: {recipeId: this.props.recipe.id,
+                                            stars: this.state.rating,
                                             difficulty: this.state.difficulty,
                                             review: this.state.review}})
             }
-            
+
             fetch('/api/rating', requestOptions)
                 .then(response => {
-                    if(response.status === 200) {
+                    if (response.status === 200) {
                         return response.json()
                     }
                 }).then(data => {
@@ -56,9 +56,9 @@ class RecipeRatingSubmit extends Component {
                 <Card>
                     <CardContent>
                         <CardHeader title="Leave Review"/>
-                        <Box sx={{display:'grid', gridTemplateColumns: '250px auto'}}> 
+                        <Box sx={{display: 'grid', gridTemplateColumns: '250px auto'}}>
                             <Box>
-                                <Stack direction='row' mb={2}>
+                                <Stack direction="row" mb={2}>
                                     <Typography>Rating:&nbsp;&nbsp;&nbsp;</Typography>
                                     <StyledRating
                                         id="ratingStars"
@@ -68,7 +68,7 @@ class RecipeRatingSubmit extends Component {
                                         onChange={(_event, newValue) => this.setState({rating: newValue})}>
                                     </StyledRating>
                                 </Stack>
-                                <Stack direction='row'>
+                                <Stack direction="row">
                                     <Typography>Difficulty:&nbsp;</Typography>
                                     <StyledRating
                                         id="difficultyStars"
@@ -81,7 +81,7 @@ class RecipeRatingSubmit extends Component {
                             </Box>
                             <Box>
                                 <Box>
-                                    <Stack direction='row' mb={2}>
+                                    <Stack direction="row" mb={2}>
                                         <TextField
                                         id="reviewText"
                                         multiline
@@ -91,7 +91,7 @@ class RecipeRatingSubmit extends Component {
                                         inputProps={{maxLength: 500}}
                                         onChange={(event) => this.setState({review: event.target.value})}/>
                                     </Stack>
-                                    <Stack direction='row'>
+                                    <Stack direction="row">
                                         <Button variant="contained" onClick={this.handleSubmit} id="submitRating">Submit</Button>
                                     </Stack>
                                 </Box>

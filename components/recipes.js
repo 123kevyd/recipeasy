@@ -11,7 +11,6 @@ export default function Recipes(_props) {
 			<KitchenRecipeList/>
 		</Stack>
 	)
-			
 }
 
 function RecipeListItem(props) {
@@ -21,7 +20,7 @@ function RecipeListItem(props) {
 	return (
 		<ListItem
 			secondaryAction={
-				<DelButton 
+				<DelButton
 					disabled={isLoading}
 					onClick={() => del("recipes", recipe)}
 					item={recipe}
@@ -68,7 +67,7 @@ function KitchenRecipeList(_props) {
 		})
 	)
 
-	if( items.length > 0 ) {
+	if ( items.length > 0 ) {
 		return (
 			<div>
 				<List dense={true}>

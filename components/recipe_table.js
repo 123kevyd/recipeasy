@@ -6,7 +6,7 @@ import RatingStars from './rating_stars';
 import RecipeFilter from './recipe_filter'
 
 class RecipeTable extends Component {
-	state = { 
+	state = {
         recipeOpen: false,
         addRecipeOpen: false,
         currRecipe: this.props.recipes[0],
@@ -18,10 +18,10 @@ class RecipeTable extends Component {
 			useRecipesFilter: false
 		}
     }
-    
+
     cols = [
         { field: 'id', headerName: 'Open Recipe', width: 105, sortable: false, renderCell: (params) => {
-            return <Button variant='contained' onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
+            return <Button variant="contained" onClick={() => this.handleToggleRecipe(params.value)}>View</Button>
         }},
         { field: 'title', headerName: 'Recipe Name', width: 280},
         { field: 'time', headerName: 'Time', width: 80, valueFormatter: (params) => {
@@ -51,7 +51,7 @@ class RecipeTable extends Component {
         let toRemoveId = null
 
         filterList.forEach( (elem) => {
-            if ( !toRemoveId && !recipe[fieldName].find((item) => { return compareFunc(item, elem) })) {
+            if ( !toRemoveId && !recipe[fieldName].find((item) => {return compareFunc(item, elem)})) {
                 toRemoveId = recipe.id
             }
         })
@@ -80,13 +80,13 @@ class RecipeTable extends Component {
             recipe.difficulty = this.getAverageVal(recipe.reviews, 'difficulty')
 
             if (useIngredientFilter) {
-                toRemoveId = this.checkRecipeArray(this.props.myIngredients, recipe, "ingredients", (elem2, elem) => { return elem.title === elem2.name })
+                toRemoveId = this.checkRecipeArray(this.props.myIngredients, recipe, "ingredients", (elem2, elem) => {return elem.title === elem2.name})
             }
             if (!toRemoveId && useEquipmentFilter) {
-                toRemoveId = this.checkRecipeArray(this.props.myEquipment, recipe, "equipment", (elem2, elem) => { return elem.title === elem2 })
+                toRemoveId = this.checkRecipeArray(this.props.myEquipment, recipe, "equipment", (elem2, elem) => {return elem.title === elem2})
             }
             if (!toRemoveId && useRestrictionFilter) {
-                toRemoveId = this.checkRecipeArray(this.props.myRestrictions, recipe, "tags", (elem2, elem) => { return elem.title === elem2 })
+                toRemoveId = this.checkRecipeArray(this.props.myRestrictions, recipe, "tags", (elem2, elem) => {return elem.title === elem2})
             }
             if (!toRemoveId && useRecipesFilter) {
                 toRemoveId = this.checkRecipeTitle(recipe, this.props.myRecipes)
@@ -96,9 +96,9 @@ class RecipeTable extends Component {
                 toRemove.push(toRemoveId)
             }
         })
-        return shownRecipes.filter((recipe) => { return toRemove.indexOf(recipe.id) < 0})
+        return shownRecipes.filter((recipe) => {return toRemove.indexOf(recipe.id) < 0})
     }
-    
+
     addReview = (value) => {
         let newReviewRecipe = this.state.currRecipe;
         let shownRecipeUpdate = this.props.recipes.map(recipe => {
@@ -162,7 +162,7 @@ class RecipeTable extends Component {
                                 disableSelectionOnClick
                                 disableColumnMenu
                                 rows={this.state.shownRecipes}
-                                columns={this.cols} 
+                                columns={this.cols}
                                 autoHeight
                             />
                         </div>
@@ -178,5 +178,5 @@ class RecipeTable extends Component {
         );
     }
 }
- 
+
 export default RecipeTable;

@@ -22,7 +22,7 @@ class RecipeCardText extends Component {
         }
     }
 
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title={this.props.title} />
@@ -33,5 +33,5 @@ class RecipeCardText extends Component {
         );
     }
 }
- 
+
 export default RecipeCardText;

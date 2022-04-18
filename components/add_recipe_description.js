@@ -17,7 +17,7 @@ class AddRecipeDescription extends Component {
         }
     }
 
-    render() { 
+    render() {
         return (
             <Card>
                 <CardHeader title="Description"/>
@@ -36,5 +36,5 @@ class AddRecipeDescription extends Component {
         );
     }
 }
- 
+
 export default AddRecipeDescription;

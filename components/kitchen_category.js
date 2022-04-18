@@ -10,7 +10,7 @@ function KitchenListItem(props) {
 		<div>
 			<ListItem
 				secondaryAction={
-					<DelButton 
+					<DelButton
 						disabled={props.loading}
 						onClick={props.delHandler}
 						item={item}
@@ -46,7 +46,7 @@ export default function KitchenCategory(props) {
 			return ! found
 		})
 	}
-	const [ _dropdownList, setDropdownList ] = useState(getDropdownList())
+	const [_dropdownList, setDropdownList] = useState(getDropdownList())
 	const refreshDropdownList = () => {
 		setDropdownList(getDropdownList())
 	}
@@ -54,7 +54,7 @@ export default function KitchenCategory(props) {
 
 	const itemSelected = async (_event, value) => {
 		setClearText(!clearText)
-		if(value == null){
+		if (value == null){
 			return false
 		}
 		await addItem(props.field, value)
@@ -94,5 +94,5 @@ export default function KitchenCategory(props) {
 			</List>
 		</Stack>
 	)
-			
+
 }

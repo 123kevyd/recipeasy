@@ -4,12 +4,12 @@ import Box from '@mui/material/Box'
 
 export default function Kitchen(props) {
 	return (
-		<Box sx={{ 
+		<Box sx={{
 			display: 'inline-flex',
 			flexDirection: 'row',
 			justifyContent: 'center',
 			flexWrap: 'wrap',
-			border: '1px solid grey',
+			border: '1px solid grey'
 			}}>
 			<KitchenCategory
 				items={props.ingredients}

@@ -14,15 +14,15 @@ export default function Login(_props) {
 	}
 
 	const loginClicked = () => {
-		if(username != ""){
+		if (username != ""){
 			setLoading(true)
 			fetch(`api/user/${username}`)
 				.then((res) => {
-					if(res.ok){
+					if (res.ok){
 						res.json().then((data) => {
 							window.location.href = `/user/${data.id}`
 						})
-					}else{
+					} else {
 						setLoading(false)
 					}
 				})
@@ -46,7 +46,7 @@ export default function Login(_props) {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					alignItems: 'center',
+					alignItems: 'center'
 				}}
 			>
 				<Box
@@ -73,7 +73,7 @@ export default function Login(_props) {
 							log in
 						</Button>
 					</form>
-					{loading && 
+					{loading &&
 						<LinearProgress sx={{marginBottom: '-4px'}} color="success" />
 					}
 				</Box>
