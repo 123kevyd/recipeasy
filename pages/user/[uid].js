@@ -1,22 +1,20 @@
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { Tabs, Tab, Box } from '@mui/material/'
-import Cookbook from '../../components/cookbook'
-import Kitchen from '../../components/kitchen_comp'
-import { userStore } from "/store/user_store"
+import {useRouter} from "next/router"
+import {useState} from "react"
+import {Tabs, Tab, Box} from "@mui/material/"
+import Cookbook from "../../components/cookbook"
+import Kitchen from "../../components/kitchen"
+import {userStore} from "/store/user_store"
 
-function filterToUserData(items, idString){
-	if(idString){
+function filterToUserData(items, idString) {
+	if (idString) {
 		const ids = new Set(JSON.parse(idString))
 		return items.filter((item) => ids.has(item.id))
-	}else{
+	} else {
 		return []
 	}
-
 }
 
-export async function getServerSideProps(context) 
-{
+export async function getServerSideProps(context) {
 	const userCont = require("../../backend/controllers/user_controller")
 	const equipmentCont = require("../../backend/controllers/equipment_controller")
 	const ingredientCont = require("../../backend/controllers/ingredient_controller")
@@ -27,7 +25,7 @@ export async function getServerSideProps(context)
 	const ingredientsProm = ingredientCont.getAll()
 	const restrictionsProm = restrictionCont.getAll()
 	const equipmentProm = equipmentCont.getAll()
- 	const recipesProm = recipeCont.getAll()
+	const recipesProm = recipeCont.getAll()
 
 	var [user, ingredients, equipment, restrictions, recipes] = await Promise.all([userProm, ingredientsProm, equipmentProm, restrictionsProm, recipesProm])
 
@@ -35,32 +33,31 @@ export async function getServerSideProps(context)
 		return {id: ingredient.dataValues.id, title: ingredient.dataValues.name}
 	})
 
-	equipment = equipment.map(function(equipment) {
-		return {id: equipment.dataValues.id, title: equipment.dataValues.name}
+	equipment = equipment.map(function(equipmentInner) {
+		return {id: equipmentInner.dataValues.id, title: equipmentInner.dataValues.name}
 	})
-	restrictions = restrictions.map(function(restrictions) {
-		return {id: restrictions.dataValues.id, title: restrictions.dataValues.name}
+	restrictions = restrictions.map(function(restriction) {
+		return {id: restriction.dataValues.id, title: restriction.dataValues.name}
 	})
 
-	recipes = recipes.map(function(recipes) {
+	recipes = recipes.map(function(recipe) {
 		//Chop off createdAt and updatedAt (Both recipe and ratings) - Date objects cant be serialized as json
-		return {id: recipes.dataValues.id,
-				title: recipes.dataValues.name,
-				description: recipes.dataValues.details,
-				time: recipes.dataValues.time,
-				tags: JSON.parse(recipes.dataValues.tags),
-				ingredients: JSON.parse(recipes.dataValues.ingredients),
-				directions: JSON.parse(recipes.dataValues.instructions),
-				equipment: JSON.parse(recipes.dataValues.equipment),
-				reviews: recipes.dataValues.ratings.map(function(rating) {
+		return {id: recipe.dataValues.id,
+				title: recipe.dataValues.name,
+				description: recipe.dataValues.details,
+				time: recipe.dataValues.time,
+				tags: JSON.parse(recipe.dataValues.tags),
+				ingredients: JSON.parse(recipe.dataValues.ingredients),
+				directions: JSON.parse(recipe.dataValues.instructions),
+				equipment: JSON.parse(recipe.dataValues.equipment),
+				reviews: recipe.dataValues.ratings.map(function(rating) {
 					return {
 						id: rating.id,
 						review: rating.review,
 						stars: rating.stars,
 						difficulty: rating.difficulty
 					}
-				})
-			}
+				})}
 	})
 
 	const ingredientSet = new Map()
@@ -73,6 +70,7 @@ export async function getServerSideProps(context)
 
 		for (let equipmentId of equipmentList) {
 			let equipEntry = equipment.find(equip => equip.id === equipmentId);
+
 			if (equipEntry) {
 				recipe.equipment.push(equipEntry.title);
 			}
@@ -92,7 +90,7 @@ export async function getServerSideProps(context)
 	const myRecipes = filterToUserData(recipes, user.dataValues.recipes)
 	const myRestrictions = filterToUserData(restrictions, user.restrictions)
 
-	const result = {
+	return {
 		props: {
 			ingredients: ingredients,
 			myIngredients: myIngredients,
@@ -104,21 +102,17 @@ export async function getServerSideProps(context)
 			myRestrictions: myRestrictions
 		}
 	}
-
-	return result
 }
 
 
-
-function TabPanel(props)
-{
+function TabPanel(props) {
 	// https://codesandbox.io/s/x5uvxj?file=/demo.js
-	const {value, index, children } = props
+	const {value, index, children} = props
 
 	return (
 		<div hidden={value !== index}>
 			{value === index && (
-				<Box sx={{ p: 3 }}>
+				<Box sx={{p: 3}}>
 					{children}
 				</Box>
 			)}
@@ -129,16 +123,16 @@ function TabPanel(props)
 function App(props) {
 	const [tab, setTab] = useState(0)
 	const router = useRouter()
-	const [ingredients, setIngredients] = useState(props.ingredients)
-	const [recipes, setRecipes] = useState(props.recipes)
-	const [restrictions, setRestrictions] = useState(props.restrictions)
-	const [equipment, setEquipment] = useState(props.equipment)
+	const [_ingredients, setIngredients] = useState(props.ingredients)
+	const [_recipes, setRecipes] = useState(props.recipes)
+	const [_restrictions, setRestrictions] = useState(props.restrictions)
+	const [_equipment, setEquipment] = useState(props.equipment)
 	const isInitialized = userStore(state => state.isInitialized)
 	const init = userStore(state => state.init)
 
-	if(typeof window !== 'undefined'){
+	if (typeof window !== "undefined") {
 		// ie. is this code running in the frontend
-		if(! isInitialized()){
+		if (! isInitialized()) {
 			init({
 				uid: router.query.uid,
 				recipes: props.myRecipes,
@@ -149,21 +143,21 @@ function App(props) {
 		}
 	}
 
-	const handleChange = (event, newValue) => {
+	const handleChange = (_event, newValue) => {
 		setTab(newValue)
 	}
 
 	return (
-		<Box sx={{ width: '100%' }}>
-			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+		<Box sx={{width: "100%"}}>
+			<Box sx={{borderBottom: 1, borderColor: "divider"}}>
 				<Tabs value={tab} onChange={handleChange} centered>
 					<Tab label="Kitchen" />
 					<Tab label="Recipes" />
-					<Tab sx={{display: 'none'}} label="Meal Planner" disabled />
+					<Tab sx={{display: "none"}} label="Meal Planner" disabled />
 				</Tabs>
 			</Box>
 			<TabPanel value={tab} index={0}>
-				<Kitchen 
+				<Kitchen
 					ingredients={props.ingredients}
 					equipment={props.equipment}
 					recipes={props.recipes}

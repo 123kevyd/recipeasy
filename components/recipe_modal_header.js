@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import React, {Component} from "react";
+import {AppBar, Toolbar, IconButton, Typography} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 /**
  * Used for ratings. Shows 5 stars with the specified number of stars filled
@@ -22,10 +22,10 @@ class RecipeModalHeader extends Component {
             throw new Error(`Prop onToggleModal must be a function - Is ${this.props.onToggleModal} (${typeof this.props.onToggleModal}) `);
         }
     }
-    render() { 
+    render() {
         return (
-            <AppBar 
-                position='sticky'
+            <AppBar
+                position="sticky"
             >
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>{this.props.title}</Typography>
@@ -37,5 +37,5 @@ class RecipeModalHeader extends Component {
         );
     }
 }
- 
+
 export default RecipeModalHeader;

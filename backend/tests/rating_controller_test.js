@@ -31,7 +31,7 @@ describe("Rating Controller", function() {
             mockFind.withArgs(5).returns(fiveStarReview);
             mockFind.withArgs(1).returns(oneStarReview);
 
-            toCheck = await RatingController.get(request);
+            let toCheck = await RatingController.get(request);
             expect(toCheck.stars).to.be.equal(5);
             expect(toCheck.review).to.be.equal("Best Movie");
 
@@ -43,7 +43,7 @@ describe("Rating Controller", function() {
 
         it("Should return nothing due to bad request", async function() {
             request.body.data.primaryKey = null
-            toCheck = await RatingController.get(request);
+            let toCheck = await RatingController.get(request);
             expect(toCheck).to.be.equal(undefined);
         });
     });
@@ -118,7 +118,7 @@ describe("Rating Controller", function() {
                 }
             }).throwsException("failed to concat");
 
-            toCheck = await RatingController.post(request);
+            let toCheck = await RatingController.post(request);
             expect(toCheck.dataValues.review).to.be.equal("Yo");
 
             sinon.restore();
@@ -135,7 +135,7 @@ describe("Rating Controller", function() {
                 }
             };
 
-            toCheck = await RatingController.post(request);
+            let toCheck = await RatingController.post(request);
             expect(toCheck).to.be.equal(undefined);
 
             request.body.data.recipeId = null;

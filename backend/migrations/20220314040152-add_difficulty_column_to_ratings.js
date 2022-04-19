@@ -4,7 +4,7 @@ module.exports = {
     await queryInterface.addColumn('rating', 'difficulty', {type: Sequelize.INTEGER});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface, _Sequelize) {
     await queryInterface.removeColumn('rating', 'diffculty');
   }
 };

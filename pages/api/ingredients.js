@@ -1,39 +1,32 @@
-const ingredients = require ("../../backend/controllers/ingredient_controller.js");
+const ingredients = require("../../backend/controllers/ingredient_controller.js");
 
-export default async function handler(req, res)
-{
+export default async function handler(req, res) {
 	// adding a new ingredient
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
         try {
             const result = await ingredients.post(req, res);
             // if result == undefined, post was not succesful
             if (result != undefined) {
                 res.status(200).json([{
                     id: result.dataValues.id,
-                    title : result.dataValues.name
+                    title: result.dataValues.name
                 }]);
             } else {
-                throw error
-            }   
-
+                throw "Error creating a new ingredient"
+            }
         } catch (error) {
-            console.log(error);
-			res.status(500).send({error: 'failed to post ingredient'})
+			res.status(500).send({error: "failed to post ingredient"})
         }
-    }
-    // retrieving an ingredient
-	// why is this here? ingredients are fetched as part of recipes and users, not on their own
-    else if (req.method === 'GET') {
+    } else if (req.method === "GET") {
         try {
             const result = await ingredients.get(req);
-	        res.status(200).json([{ 
+            res.status(200).json([{
                 result
             }])
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
-    }
-    else {
-        console.log(req);
+    } else {
+        console.error(req);
     }
 }
