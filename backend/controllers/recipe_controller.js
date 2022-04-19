@@ -27,26 +27,33 @@ exports.get = async(req,_res) => {
 
 
 exports.getAll = async() => {
-	var result = await recipe.findAll()
-    for (let recipeIndex in result) {
-        //Grab ratings - will be replaced by association fetch in future
-        if (result[recipeIndex].dataValues.ratings) {
-            let ratingsList = JSON.parse(result[recipeIndex].dataValues.ratings);
-            let ratingObjects = [];
-            for (ratingIndex in ratingsList) {
-                const returnedRating = await rating.findByPk(ratingsList[ratingIndex]);
-                if (returnedRating) {
-                    ratingObjects.push(returnedRating.dataValues);
-                }
-            }
-            result[recipeIndex].dataValues.ratings = ratingObjects;
-        } else {
-            result[recipeIndex].dataValues.ratings = [];
-        }
-    }
-	return result
+	// I know its less readable, but organizing the function like this saved 14 seconds of startup time
+	  var result = await recipe.findAll()
+	  var ratingIds = []
+	  var ratingIdToRecipeMap = new Map()
+    for (let recipe of result) {
+		    const ratings = JSON.parse(recipe.dataValues.ratings)
+		    if(ratings){
+			      ratingIds.push(ratings)
+			      for(id of ratings){
+				        ratingIdToRecipeMap.set(id, recipe)
+			      }
+			      recipe.dataValues.ratings = []
+		    }else{
+			      recipe.dataValues.ratings = []
+		    }
+	  }
+	  ratingIds = [].concat(...ratingIds)
+	  var ratings = await rating.findAll({
+		    where: {
+			      id: ratingIds
+		    }
+	  })
+	  for(let rating of ratings){
+  		  ratingIdToRecipeMap.get(rating.dataValues.id).dataValues.ratings.push(rating.dataValues)
+  	}
+  	return result
 }
-	
 
 exports.post = async(req,_res) => {
     if(req.body.data.name && req.body.data.instructions && req.body.data.ingredients) {
