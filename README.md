@@ -9,7 +9,7 @@ Sebastian Araneda - sebaraneda <br/>
 
 Core Features
 - Recipe Selector
-- Meal Planner
+- Input and store user data
 - Recipe Ratings
 - User Recipes
 - Can respond to 100 users with 1000 requests per minute concurrently
