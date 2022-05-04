@@ -8,11 +8,10 @@ Vinh Tran - vinhtrann <br/>
 Sebastian Araneda - sebaraneda <br/>
 
 Core Features
-- Record User Preferences and Owned Recipes
-- Create New Recipes
-- Filter Recipes based on Preferences
-- Recipe Ratings and Reviews
-- Save Recipes to a User Profile
+- Recipe Selector
+- Input and store user data
+- Recipe Ratings
+- User Recipes
 - Can respond to 100 users with 1000 requests per minute concurrently
 
 Tech
