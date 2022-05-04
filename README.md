@@ -12,7 +12,7 @@ Core Features
 - Input and store user data
 - Recipe Ratings
 - User Recipes
-- Can respond to 100 users with 1000 requests per minute concurrently
+- Can respond to 1000 requests per minute concurrently
 
 Tech
 - planning to use react for front end
